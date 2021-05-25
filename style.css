@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bleu : #1752a8;
+    --jaune : #f6e542;
+}
+
+.nav-link {
+    font-size: 25px;
+}
+.active {
+    background : var(--bleu);
+    color: var(--jaune) !important;
+}
+
+main {
+    background-image: url('./images/ecole.JPG');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    height: 80vh;
+}
+
+.content-titre {
+    padding-left: 350px;
+    padding-top: 100px;
+}
+
+
+.titre {
+    font-size: 70px;
+}
+
+.titre span {
+    opacity: 0;
+    transform: translateY(100px);
+}
+
+.titre > span:nth-child(1) {
+    animation: apparition 0.8s 0.2s ease-out forwards;
+}
+.titre > span:nth-child(2) {
+    animation: apparition 0.8s 0.8s ease-out forwards;
+}
+.titre > span:nth-child(3) {
+    animation: apparition 0.8s 1.2s ease-out forwards;
+}
+
+main a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: var(--jaune);
+    background: var(--bleu);
+    height: 50px;
+    width: 300px;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    opacity: 0;
+    transform: translateY(100px);
+    animation: apparition 1s 0.5s ease-out forwards;
+    
+}
+
+main .bi-arrow-down-circle {
+    color: var(--jaune);
+    font-weight: bold;
+    padding-top: 100px;
+    padding-left: 50px;
+
+    opacity: 0;
+    transform: translateY(100px);
+    animation: apparition 1s 2s ease-out forwards;
+}
+
+.carroussel {
+    padding-right: 100px;
+    opacity: 0;
+    transform: translateX(100px);
+    animation: apparition 1s 2s ease-out forwards;
+}
+.carroussel img {
+   
+ }
+
+ @keyframes apparition {
+     100% {
+         opacity: 1;
+         transform: none;
+     }
+ }
