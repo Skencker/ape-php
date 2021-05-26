@@ -290,7 +290,7 @@ hr {
 .baniere-contact h1 {
   font-size: 50px;
   color: white;
-  padding-left: 300px;
+
   text-transform: uppercase;
   font-weight: 900;
 }
@@ -298,8 +298,10 @@ hr {
 .event h2 {
   color: var(--bleu);
   font-weight: 900;
-
+  text-transform: uppercase;
 }
+
+
 
 .event hr {
   background-color: #f6e542;
