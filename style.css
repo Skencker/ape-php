@@ -11,11 +11,10 @@
 }
 
 .nav-link {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .nav-link:hover {
-  font-size: 20px;
   background: var(--bleu);
   color: var(--jaune) !important;
 }
