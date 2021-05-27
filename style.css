@@ -52,7 +52,8 @@ nav .active {
 
 .baniere a,
 .cards a,
-.contact a {
+.contact a,
+.content a {
   text-decoration: none;
   text-transform: uppercase;
   color: var(--white);
@@ -65,7 +66,8 @@ nav .active {
 
 .baniere a:hover,
 .cards a:hover,
-.contact a:hover {
+.contact a:hover,
+.content a:hover {
   background-color: var(--jaune);
   color: var(--bleu);
   transition: 0.5s;
@@ -317,6 +319,21 @@ hr {
 
   text-transform: uppercase;
   font-weight: 900;
+
+  animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+/*animation titre banière*/
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .event h2 {
@@ -340,10 +357,6 @@ hr {
   background-image: url("./images/books.jpg");
 
 }
-.baniere-contact {
-  background-image: url("./images/ecole.JPG");
-
-}
 
 /* page parents délégués  */
 
@@ -362,7 +375,64 @@ hr {
   margin-bottom: 20px;
 }
 
+/* page contact */
 
+
+.baniere-contact {
+  background-image: url("./images/ecole.JPG");
+}
+
+.content p {
+  line-height: 35px;
+  font-weight: 600;
+
+}
+
+.maps {
+  background: #fbf7ec;
+}
+
+.maps h2,
+.maps h3 {
+  color: var(--bleu);
+  font-weight: 900;
+}
+
+.maps p {
+  line-height: 25px;
+}
+
+.text-contact {
+  animation: scale-in-center 1s ;
+}
+
+.img-contact {
+  animation: slide-in-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+/*animation contact*/
+
+@keyframes scale-in-center {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 
 
