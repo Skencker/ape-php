@@ -56,7 +56,7 @@ nav .active {
 .content a {
   text-decoration: none;
   text-transform: uppercase;
-  color: var(--white);
+  color: white ;
   background: var(--bleu);
   font-size: 20px;
   padding : 5px;
@@ -69,7 +69,7 @@ nav .active {
 .contact a:hover,
 .content a:hover {
   background-color: var(--jaune);
-  color: var(--bleu);
+  color:#1752a8;
   transition: 0.5s;
 
 }
