@@ -222,13 +222,7 @@ img {
     padding-bottom: 5px;
     opacity: 1;
   }
-  /* .card {
-    width: 50rem;
-  } */
 };
-
-
-
 
 hr {
   background-color: white;
@@ -264,11 +258,6 @@ hr {
 .cards a {
   font-size: 15px;
   color: white;
-}
-
-.card {
-  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
-  border:none;
 }
 
 .card:hover {
@@ -336,13 +325,17 @@ hr {
   }
 }
 
+/*animation ligne d'événements*/
+
+.event {
+  animation: slide-in-bottom  2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
 .event h2 {
   color: var(--bleu);
   font-weight: 900;
   text-transform: uppercase;
 }
-
-
 
 .event hr {
   background-color: #f6e542;
@@ -363,10 +356,29 @@ hr {
 .parents  {
   height: 450px;
 }
+
+.classe {
+  animation: slide-in-right 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+/*animation*/
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 /* page doc  */
 
 .doc  {
   height: 450px;
+  animation: slide-in-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 .doc .accordeon {
