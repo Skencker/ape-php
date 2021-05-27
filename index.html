@@ -78,10 +78,10 @@
             </header>
             <main class="container-fluid p-0 m-0 " ps-0>
                 <section class="baniere">
-                      <div class="row margin h-100">
+                      <div class="row margin h-100 justify-content-center">
                         <div class="col-lg-6 col-md-12 d-flex flex-column justify-content-center">
-                            <h1 class="text-light text-lg-end pt-5 ps-sm-5">
-                              <div class="titre">
+                            <h1 class="text-light text-lg-end pt-5 ps-5">
+                              <div class="titre ">
                                 Association <br>
                                 Parents d'élèves <br> 
                                 Saint Pierre de Lages  
@@ -95,7 +95,7 @@
                         </h1>
                         </div>
                         <!-- carroussel -->
-                        <div class="col-lg-5 col-md-12 carroussel d-flex align-items-center justify-content-center ">
+                        <div class="col-lg-5 col-md-8 carroussel d-flex align-items-center justify-content-center ">
                           <div id="carouselExampleSlidesOnly" class="carousel-fade slide  d-flex align-items-center justify-content-center " data-bs-ride="carousel">
                             <div class="carousel-inner">
                               <div class="carousel-item active justify-content-center ">
@@ -115,11 +115,11 @@
                         </div>
                       </div>
                 </section>
-                <section class="association ">
-                  <div class="row m-0 h-100">
-                    <h2 class="text-center pt-5">L'association</h2>
+                <section class="association d-flex justify-content-center align-items-center ">
+                  <div class="row m-0 justify-content-center">
+                    <h2 class="text-center pb-5">L'association</h2>
 
-                    <div class="col-lg-6 col-sm-12 d-flex flex-column align-items-end ">
+                    <div class="col-lg-6 col-sm-10 d-flex flex-column align-items-center justify-content-center">
                       <div class="accordion accordion-flush align-self-center align-items-md-end w-100 p-5" id="accordionFlushExample">
                         <div class="accordion-item ">
                           <h2 class="accordion-header " id="flush-headingOne">
@@ -153,52 +153,66 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-6 col-md-12 image-reunion d-flex justify-content-center">
+                    <div class="col-lg-6 col-sm-10 image-reunion d-flex justify-content-center">
                       <img class="w-75 img-fluid img" src="./images/reunion.jpg" alt="">
                     </div> 
                   </div>
                 </section>
                 <section class="lien-info d-flex justify-content-center align-items-center text-white">
-                    <a href="actualites.html" class="d-flex flex-column m-5 lien">
-                      <div class="d-flex justify-content-center ">
-                        <i class="bi bi-star-fill text-center p-3"></i>
+                  <div class="row">
+                      <div class="col-md-3 col-sm-12 ">
+                        <a href="actualites.html" class="d-flex flex-column m-5 lien  align-items-center">
+                          <div class="d-flex justify-content-center ">
+                            <i class="bi bi-star-fill text-center p-3"></i>
+                          </div>
+                          <hr>
+                          <h3 class="text-center">Actu</h3>
+                        </a>
                       </div>
-                      <hr>
-                      <h3>Evènements</h3>
-                    </a>
-                    <a href="actualites.html" class="d-flex flex-column m-5 lien">
+                      <div class="col-md-3 col-sm-12 ">
+                    <a href="actualites.html" class="d-flex flex-column m-5 lien align-items-center">
                       <div class="d-flex justify-content-center ">
                         <i class="bi bi-file-plus text-center p-3"></i>
                       </div>
                       <hr class="hr">
-                      <h3>Liens</h3>
+                      <h3 class="text-center">Liens</h3>
                     </a>
-                    <a href="http://www.stpierredelages.fr/SITE/index.php?option=com_content&view=category&id=53&Itemid=88" target="_blank" class="d-flex flex-column m-5 lien">
-                      <div class="d-flex justify-content-center ">
-                        <i class="bi bi-calendar3 text-center p-3"></i>
                       </div>
-                      <hr >
-                      <h3>Cantine</h3>
-                    </a>
-                    <a href="http://www.stpierredelages.fr/SITE/" target="_blank" class="d-flex flex-column m-5 lien">
+                      <div class="col-md-3 col-sm-12 ">
+                      <a href="http://www.stpierredelages.fr/SITE/index.php?option=com_content&view=category&id=53&Itemid=88" target="_blank" class="d-flex flex-column m-5 lien align-items-center">
+                        <div class="d-flex justify-content-center ">
+                          <i class="bi bi-calendar3 text-center p-3"></i>
+                        </div>
+                        <hr >
+                        <h3 class="text-center">Cantine</h3>
+                      </a>
+                      </div>
+                    <div class="col-md-3 col-sm-12">
+                        <a href="http://www.stpierredelages.fr/SITE/" target="_blank" class="d-flex flex-column m-5 lien align-items-center">
                       <div class="d-flex justify-content-center ">
                         <i class="bi bi-house text-center p-3"></i>
                       </div>
                       <hr>
-                      <h3>Mairie</h3>
+                      <h3 class="text-center">Mairie</h3>
                     </a>
+                  </div>
+                  </div>
                   
                 </section>
                 <section class="cards d-flex justify-content-center">
-                  <div class="card m-5" style="width: 18rem;">
-                    <img src="./images/parents.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Parents délégués</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="parents.html" class="btn">En savoir plus</a>
+                  <div class="row d-flex justify-content-center">
+                    <div class="col-lg-4 col-md-10 d-flex justify-content-center">
+                      <div class="card m-5 w-auto" style="width: 18rem;" >
+                        <img src="./images/parents.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Parents délégués</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="parents.html" class="btn">En savoir plus</a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="card m-5" style="width: 18rem;">
+                    <div class="col-lg-4 col-md-10 d-flex justify-content-center">
+                  <div class="card m-5 w-auto" style="width: 18rem;">
                     <img src="./images/livres.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">Documents</h5>
@@ -206,7 +220,9 @@
                       <a href="doc.html" class="btn">En savoir plus</a>
                     </div>
                   </div>
-                  <div class="card m-5" style="width: 18rem;">
+                  </div>
+                  <div class="col-lg-4 col-md-10 d-flex justify-content-center">
+                  <div class="card m-5 w-auto" style="width: 18rem;">
                     <img src="./images/enfants.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">Divers</h5>
@@ -214,11 +230,19 @@
                       <a href="#" class="btn">En savoir plus</a>
                     </div>
                   </div>
+                  </div>
+                          
+                </div>
                 </section>
-                <section class="contact d-flex justify-content-sm-evenly align-items-center text-white">
-                
-                    <h3>Contactez nous</h3>
-                    <a href="mailto:sandrinekencker@hotmail.com" >Contact</a>
+                <section class="contact d-flex justify-content-center align-items-center text-white ">
+                    <div class="row d-flex justify-content-between align-items-center text-white w-100">
+                      <div class="col-lg-6 justify-content-center">
+                        <h3 class="text-center">Contactez nous</h3>
+                      </div>
+                      <div class="col-lg-6 d-flex justify-content-center">
+                        <a href="mailto:sandrinekencker@hotmail.com" >Contact</a>
+                      </div>
+                    </div>
                 </section>
                   
                 
