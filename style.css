@@ -85,6 +85,9 @@ nav .active {
 }
 
 .carroussel img {
+  /* clip-path: circle(50% at 50% 50%); */
+  
+
   clip-path: polygon(
     20% 0%,
     0% 20%,
@@ -198,8 +201,15 @@ img {
 
 .image-reunion {
 
+
   animation: slide-in-right 4s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+
+.image-reunion img {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
 .association .accordeon {
   font-weight: 900;
   font-size: 20px;
@@ -254,6 +264,7 @@ hr {
     opacity: 1;
   }
 };
+
 .cards a {
   font-size: 15px;
   color: white;
@@ -310,7 +321,6 @@ hr {
 
   animation: slide-in-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
-
 /*animation titre banière*/
 
 @keyframes slide-in-left {
@@ -323,6 +333,11 @@ hr {
     opacity: 1;
   }
 }
+
+.event img {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 
 /*animation ligne d'événements*/
 
@@ -421,6 +436,9 @@ hr {
   animation: slide-in-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
+.img-contact img {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 /*animation contact*/
 
 @keyframes scale-in-center {
