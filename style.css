@@ -208,21 +208,6 @@ img {
   animation: slide-in-left 4s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-@media screen and (max-width: 700px) {
-  .lien-info {
-    height: 1500px
-  }
-
-  .lien-info i {
-    font-size: 100px;
-  }
-
-  hr {
-    width: 50px;
-    padding-bottom: 5px;
-    opacity: 1;
-  }
-};
 
 hr {
   background-color: white;
@@ -255,6 +240,20 @@ hr {
   color: var(--jaune);
 }
 
+@media screen and (max-width: 700px) {
+  .lien-info {
+    height: 1500px
+  }
+
+  .lien-info i {
+    font-size: 100px;
+  }
+
+  hr {
+    width: 50px;
+    opacity: 1;
+  }
+};
 .cards a {
   font-size: 15px;
   color: white;
