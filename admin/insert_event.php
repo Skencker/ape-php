@@ -7,10 +7,12 @@
 
 
       //initilisation des variables
-  $image = $imageError = $nameError = $name = "";
+  $image = $imageError = $nameError = $name = $description = $descriptionError = $date = $dateError = "";
 
   if (!empty ($_POST)) {
     $name        = veryfInput($_POST['name']);
+    $date        = veryfInput($_POST['date']);
+    $description  = veryfInput($_POST['description']);
     $image        = veryfInput($_FILES['image']['name']);
     $imagePath    = '../images/' . basename($image);
     $imageExtension =  pathinfo($imagePath, PATHINFO_EXTENSION);
@@ -20,6 +22,16 @@
     if(empty($name)) 
     {
         $nameError = 'Ce champ ne peut pas être vide';
+        $isSuccess = false;
+    }
+    if(empty($date)) 
+    {
+        $dateError = 'Ce champ ne peut pas être vide';
+        $isSuccess = false;
+    }
+    if(empty($description)) 
+    {
+        $descriptionError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     }
     if(empty($image)) 
@@ -59,8 +71,8 @@
     if($isSuccess && $isUploadSuccess) 
     {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO image_accueil (nom, image) values(?,)");
-        $statement->execute(array($name,$image));
+        $statement = $db->prepare("INSERT INTO evenement (nom, date, description, image) values(?, ?, ?, ?)");
+        $statement->execute(array($name,$date,$description,$image));
         Database::disconnect();
         header("Location: index.php");
     }
@@ -156,13 +168,23 @@
                 </nav>
         </header>
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
-            <h1>Ajouter des images au diapo de la page d'accueil</h1>
+            <h1>Ajouter un évèvement</h1>
 
-            <form action="insert_image_accueil.php" method="post" class="form" role="form" enctype="multipart/form-data">
+            <form action="insert_event.php" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">
                   <label for="name">Nom :</label>
                   <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
                   <span class='help-inline'><?php echo $nameError; ?></span>
+                </div>
+                <div class="form-group m-5">
+                  <label for="date">Date :</label>
+                  <input type="text" class="form-control" id="date" name="date" placeholder="date" value="<?php echo $date; ?>">
+                  <span class='help-inline'><?php echo $dateError; ?></span>
+                </div>
+                <div class="form-group m-5">
+                  <label for="description">Description:</label>
+                  <input type="text" class="form-control" id="description" name="description" placeholder="Description" value="<?php echo $description; ?>">
+                  <span class='help-inline'><?php echo $descriptionError; ?></span>
                 </div>
 
                 <div class="form-group m-5">

@@ -126,7 +126,7 @@
             <h1 class='text-center'>Gestion des événements de la page actualité</h1>
             <div class="row">
                 <h2 class="bold">
-                    <a href="insert.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
+                    <a href="insert_event.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
                 </h2>
                 <table class="table table-striped table-hover table-primary">
                     <thead>
@@ -134,6 +134,7 @@
                             <th>Nom</th>
                             <th>Date</th>
                             <th>Fichier</th>
+                            <th>Image</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -148,6 +149,7 @@
                                     <td>'.$evenement['nom'].'</td>
                                     <td>'.$evenement['date'].'</td>
                                     <td>'.$evenement['fichier'].'</td>
+                                    <td>'.$evenement['image'].'</td>
                                     <th class ="action text-center">
                                         <a href="view_event.php?id=' . $evenement['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
                                         <a href="update_event.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
