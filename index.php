@@ -1,3 +1,9 @@
+<?php 
+    require './admin/database.php';
+    //connection a la fonction statique (::) de la bdd 
+    $db = Database::connect();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -54,20 +60,20 @@
                               <div >
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0  ">
                                     <li class="nav-item me-5">
-                                      <a class="nav-link active" aria-current="page" href="index.html"> Accueil</a>
+                                      <a class="nav-link active" aria-current="page" href="index.php"> Accueil</a>
                                     </li>
                                     <li class="nav-item me-5">
-                                      <a class="nav-link" href="actualites.html">Actualités</a>
+                                      <a class="nav-link" href="actualites.php">Actualités</a>
                                     </li>
                                     <li class="nav-item me-5">
-                                      <a class="nav-link" href="parents.html">Parents Délégués</a>
+                                      <a class="nav-link" href="parents.php">Parents Délégués</a>
                                     </li>
                                     <li class="nav-item me-5">
-                                    <a class="nav-link" href="doc.html">Documents</a>
+                                    <a class="nav-link" href="doc.php">Documents</a>
                                     </li>
                                 
                                     <li class="nav-item me-5">
-                                      <a class="nav-link" href="contact.html">Contact</a>
+                                      <a class="nav-link" href="contact.php">Contact</a>
                                     </li>
                                  
                                 </ul>
@@ -92,28 +98,29 @@
                                   Actualité / évènements </a>
                               </div>
                               <!-- <i class="bi bi-arrow-down-circle"></i> -->
-                        </h1>
+                            </h1>
                         </div>
                         <!-- carroussel -->
                         <div class="col-lg-5 col-md-8 carroussel d-flex align-items-center justify-content-center ">
-                          <div id="carouselExampleSlidesOnly" class="carousel-fade slide  d-flex align-items-center justify-content-center " data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                              <div class="carousel-item active justify-content-center ">
-                                <img src="./images/filtre1.jpg" class="d-block w-75 " alt="...">
+
+                            <div id="carousel" class="carousel slide carousel-fade carroussel d-flex align-items-center justify-content-center" data-bs-ride="carousel">
+                              <div class="carousel-inner">
+                                  <?php
+                                  $statement = $db->query('SELECT * FROM image_accueil');
+                                  $i = 1;
+                                  foreach ($statement as $row) : ?>
+                                      <div <?php if ($i <= 1) echo 'class="carousel-item active data-interval="1000"';
+                                      else echo 'class="carousel-item data-interval="1000"' ?>>
+                                      <img alt="" src="./images/<?= $row['image'] ?>" class="d-block w-75 img img-fluid">
+                                    </a>
                               </div>
-                              <div class="carousel-item">
-                                <img src="./images/filtre12.jpg" class="d-block w-75 " alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="./images/filtre14.jpg" class="d-block w-75" alt="...">
-                              </div>
-                              <div class="carousel-item">
-                                <img src="./images/filtre16.jpg" class="d-block w-75" alt="...">
-                              </div>
+                              <?php
+                                $i++;
+                              endforeach;
+                              ?>
                             </div>
-                          </div>
                         </div>
-                      </div>
+                      </div>    
                 </section>
                 <section class="association d-flex justify-content-center align-items-center ">
                   <div class="row m-0 justify-content-center">

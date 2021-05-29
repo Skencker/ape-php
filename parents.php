@@ -1,3 +1,9 @@
+<?php 
+    require './admin/database.php';
+    //connection a la fonction statique (::) de la bdd 
+    $db = Database::connect();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -58,20 +64,20 @@
                       <div >
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0  ">
                             <li class="nav-item me-5">
-                              <a class="nav-link" aria-current="page" href="index.html"> Accueil</a>
+                              <a class="nav-link " aria-current="page" href="index.php"> Accueil</a>
                             </li>
                             <li class="nav-item me-5">
-                              <a class="nav-link active" href="actualites.html">Actualités</a>
+                              <a class="nav-link" href="actualites.php">Actualités</a>
                             </li>
                             <li class="nav-item me-5">
-                              <a class="nav-link" href="parents.html">Parents Délégués</a>
+                              <a class="nav-link active" href="parents.php">Parents Délégués</a>
                             </li>
                             <li class="nav-item me-5">
-                            <a class="nav-link" href="doc.html">Documents</a>
+                            <a class="nav-link" href="doc.php">Documents</a>
                             </li>
                         
                             <li class="nav-item me-5">
-                              <a class="nav-link" href="contact.html">Contact</a>
+                              <a class="nav-link" href="contact.php">Contact</a>
                             </li>
                          
                         </ul>
@@ -81,35 +87,64 @@
           </nav>
     </header>
     <main>
-        <section class="baniere-actualites d-flex justify-content-center">
-            <h1 class="align-self-center ">Actualités</h1>
+        <section class="baniere-parents d-flex justify-content-center">
+            <h1 class="align-self-center">Parents délégués</h1>
         </section>
-        <section class="events">
-            <div class="container">
-                <div class="row event">
-                    <div class="col-lg-6 col-md-12 p-5">
-                        <img class="img img-fluid" src="./images/chocolats.jpg" alt="">
-                    </div>
-                    <div class="col p-5">
-                        <h2>Bonnes Pâques</h2>
-                        <hr>
-                        <h4>Mars 2021</h4>
-                        <p>Chers Parents, Pâques arrive et notre super chocolatier Criollo participe une nouvelle fois aux évènements de l’Ape nous permettant ainsi de vendre les chocolats aux même prix que dans sa boutique. Cette année sont en ventes les sucettes au chocolat blanc, au lait ou noir au prix de vente de 1.70 €. Merci pour votre participation à cette action et bonne dégustation !</p>
-                    </div>
-                </div>
-                <div class="row event">
-                    <div class="col-lg-6 col-md-12 p-5">
-                        <img class="img img-fluid" src="./images/sapin.jpeg" alt="">
-                    </div>
-                    <div class="col p-5">
-                        <h2>Joyeux Noël</h2>
-                        <hr>
-                        <h4>Décembre 2020</h4>
-                        <p >Chers Parents, Le 20 décembre prochain aura lieu la Fête de Noël organisée par les enseignants de l’école et l’équipe de l’Alaé. Après le spectacle, l’Association des Parents d’Elèves propose de passer ensemble un temps de convivialité. Des activités de dessin, des jeux seront disponibles et un concours de construction sera organisé. GRAND MERCI.</p>
-                    </div>
-                </div>
+        <section class="parents container-fluid d-flex align-items-center">
+            <div class="row">
+                <div class="col-1">   </div>
+                      <H2 class="text-center">PS / MS</H2> -->
+                    
+                      <?php
+                        $statement = $db->query('SELECT parents_delegues.id, parents_delegues.nom, parents_delegues.prenom, parents_delegues.fonction AS fonction, parents_delegues.classe AS classe, parents_delegues.image   
+                                                FROM parents_delegues
+                                                LEFT JOIN `fonctions_parents_delegues`
+                                                ON parents_delegues.fonction = fonctions_parents_delegues.nom
+                                                LEFT JOIN `classes`
+                                                ON parents_delegues.classe = classes.nom');
+
+                        while($parent = $statement->fetch()) {
+                            // var_dump($parent);
+                            echo' 
+                            <div class="row">
+                            <div class="col-1">   </div>
+                            <div class=" classe col-2 ">
+                        
+                            <div class="row">';
+                           
+                                    if($parent['fonction']=='1') {
+                                        echo '    
+                                        <img class="img img-fluid" src="./images/'. $parent['image'].'" alt="">
+                                        <p class="text-center">Titulaire: </br>';
+                                        echo $parent['nom'];
+                                        echo '</br>';
+                                        echo $parent['prenom'];
+                                    };
+                            echo'</div>
+                            <div class="row">';
+                                    if($parent['fonction']=='2') {
+                                        echo '    
+                                        <img class="img img-fluid " src="./images/'. $parent['image'].'" alt="">
+                                        <p class="text-center">Suppléant: </br>';
+                                        echo $parent['nom'];
+                                        echo '</br>';
+                                        echo $parent['prenom'];
+                                    };
+                                echo'</div>
+                            </div>';
+                        
+             
+
+                        }
+
+                   
+                     
+                  ?>
+                
+                <div class=" col-1">   </div>
             </div>
         </section>
+
         <section class="contact d-flex justify-content-sm-evenly align-items-center text-white">
                 
             <h3>Contactez nous</h3>

@@ -86,12 +86,13 @@
             <h1 class='text-center'>Gestion des images du diapo de la page d'accueil</h1>
             <div class="row">
                 <h2 class="bold">
-                    <a href="insert.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
+                    <a href="insert_image_accueil.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
                 </h2>
                 <table class="table table-striped table-hover table-primary">
                     <thead>
                         <tr>
                             <th>Nom</th>
+                            <th>Fichier de l'image</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -104,18 +105,19 @@
                             //boucle sur toute les lignes de la BDD
                             while($image = $statement->fetch()) {
                                 echo ' <tr>
-                                    <td>'.$image['name'].'</td>
+                                    <td>'.$image['nom'].'</td>
+                                    <td>'.$image['image'].'</td>
                                     <th class ="action text-center">
-                                        <a href="view.php?id=' . $image['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                        <a href="update.php?id=' . $image['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                        <a href="delete.php?id=' . $image['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                        <a href="view_image_accueil.php?id=' . $image['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                        <a href="update_image_accueil.php?id=' . $image['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                        <a href="delete_image_accueil.php?id=' . $image['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                     </th>
                                 </tr>';
                             };
-                        
-                    
+
                             Database::disconnect();
                         ?>
+                        
                     </tbody>
                 </table>
             </div>
@@ -147,9 +149,9 @@
                                     <td>'.$evenement['date'].'</td>
                                     <td>'.$evenement['fichier'].'</td>
                                     <th class ="action text-center">
-                                        <a href="view.php?id=' . $evenement['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                        <a href="update.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                        <a href="delete.php?id=' . $evenement['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                        <a href="view_event.php?id=' . $evenement['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                        <a href="update_event.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                        <a href="delete_event.php?id=' . $evenement['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                     </th>
                                 </tr>';
                             };

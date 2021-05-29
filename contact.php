@@ -58,20 +58,20 @@
                       <div >
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0  ">
                             <li class="nav-item me-5">
-                              <a class="nav-link " aria-current="page" href="index.html"> Accueil</a>
+                              <a class="nav-link " aria-current="page" href="index.php"> Accueil</a>
                             </li>
                             <li class="nav-item me-5">
                               <a class="nav-link" href="actualites.html">Actualités</a>
                             </li>
                             <li class="nav-item me-5">
-                              <a class="nav-link " href="parents.html">Parents Délégués</a>
+                              <a class="nav-link " href="parents.php">Parents Délégués</a>
                             </li>
                             <li class="nav-item me-5">
-                            <a class="nav-link" href="doc.html">Documents</a>
+                            <a class="nav-link" href="doc.php">Documents</a>
                             </li>
                         
                             <li class="nav-item me-5">
-                              <a class="nav-link active" href="contact.html">Contact</a>
+                              <a class="nav-link active" href="contact.php">Contact</a>
                             </li>
                          
                         </ul>

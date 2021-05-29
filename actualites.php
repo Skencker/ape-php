@@ -1,3 +1,9 @@
+<?php 
+    require './admin/database.php';
+    //connection a la fonction statique (::) de la bdd 
+    $db = Database::connect();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -58,20 +64,20 @@
                       <div >
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0  ">
                             <li class="nav-item me-5">
-                              <a class="nav-link " aria-current="page" href="index.html"> Accueil</a>
+                              <a class="nav-link" aria-current="page" href="index.php"> Accueil</a>
                             </li>
                             <li class="nav-item me-5">
-                              <a class="nav-link" href="actualites.html">Actualités</a>
+                              <a class="nav-link active" href="actualites.php">Actualités</a>
                             </li>
                             <li class="nav-item me-5">
-                              <a class="nav-link" href="parents.html">Parents Délégués</a>
+                              <a class="nav-link" href="parents.php">Parents Délégués</a>
                             </li>
                             <li class="nav-item me-5">
-                            <a class="nav-link active" href="doc.html">Documents</a>
+                            <a class="nav-link" href="doc.php">Documents</a>
                             </li>
                         
                             <li class="nav-item me-5">
-                              <a class="nav-link" href="contact.html">Contact</a>
+                              <a class="nav-link" href="contact.php">Contact</a>
                             </li>
                          
                         </ul>
@@ -81,51 +87,32 @@
           </nav>
     </header>
     <main>
-        <section class="baniere-doc d-flex justify-content-center">
-            <h1 class="align-self-center">Documents</h1>
+        <section class="baniere-actualites d-flex justify-content-center">
+            <h1 class="align-self-center ">Actualités</h1>
         </section>
-        <section class="doc d-flex justify-content-center align-items-center">
-            <div class="accordion accordion-flush w-50" id="accordionFlushExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingOne">
-                    <button class=" accordeon accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                      Menus cantine
-                    </button>
-                  </h2>
-                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body"><a href="http://www.stpierredelages.fr/SITE/index.php?option=com_content&view=category&id=53&Itemid=88">Menu Mairie</a></div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingTwo">
-                    <button class="accordeon accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                      Bons de commande
-                    </button>
-                  </h2>
-                  <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                      <p>Noel</p>
-                      <p>Pâques</p>
-                      <p>Sacs</p>
+        <section class="events">
+            <div class="container">
+                <div class="row event">
+                  <?php
+                            $statement = $db->query('SELECT * FROM evenement');
+                            while ($even = $statement->fetch()) {
+                              echo '
+                              <div class="col-lg-6 col-md-12 p-5">
+                                    <img class="img img-fluid" src="./images/'. $even['image'] .  '"alt="">
+                                </div>
+                                <div class="col p-5">
+                                    <h2 >'. $even['nom'].'</h2>
+                                    <hr>
+                                    <h4>'. $even['date'] . '</h4>
+                                    <p>'. $even['description'] . '</p>
+                                  
+                                    <a href="./doc/'. $even['fichier'] . '">'. $even['fichier'] . '</a>
+                                </div>';
+                            }
+                        ?>
                     </div>
-                  </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingThree">
-                    <button class="accordeon accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                      Conseils d'école
-                    </button>
-                  </h2>
-                  <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                      <p>Prochain Conseil 00/00/00</p>
-                      <p>Conseil 00/00/00</p>
-                      <p>Conseil 00/00/00</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-    
+            </div>
         </section>
         <section class="contact d-flex justify-content-sm-evenly align-items-center text-white">
                 
