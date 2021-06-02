@@ -97,7 +97,7 @@
 
         <div class="container  bg-light p-5 mt-5" style="height: 800px" >
             <a href="index.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
-        <div class="row event d-flex justify-content-center align-items-center">
+        <div class="row d-flex justify-content-center align-items-center">
      
                 <?php
          
@@ -111,7 +111,7 @@
                             <h4>'. $event['date'] . '</h4>
                             <p>'. $event['description'] . '</p>
                         
-                            <a href="./doc/'. $event['fichier'] . '">'. $event['fichier'] . '</a>
+                            <a href="../doc/'. $event['fichier'] . '">'. $event['fichier'] . '</a>
                         </div>';
                     
                 ?>

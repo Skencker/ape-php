@@ -181,6 +181,11 @@
                   <input type="file" id="image" name="image">
                   <span class='help-inline'><?php echo $imageError; ?></span>
                 </div>
+                <div class="form-group m-5">
+                  <label for="image">Selectionner une fichier :</label>
+                  <input type="file" id="image" name="image">
+                  <span class='help-inline'><?php echo $imageError; ?></span>
+                </div>
 
 
           

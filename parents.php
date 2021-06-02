@@ -93,7 +93,7 @@
         <section class="parents container-fluid d-flex align-items-center">
             <div class="row">
                 <div class="col-1">   </div>
-                      <H2 class="text-center">PS / MS</H2> -->
+                      <H2 class="text-center">PS / MS</H2>
                     
                       <?php
                         $statement = $db->query('SELECT parents_delegues.id, parents_delegues.nom, parents_delegues.prenom, parents_delegues.fonction AS fonction, parents_delegues.classe AS classe, parents_delegues.image   
@@ -119,6 +119,9 @@
                                         echo $parent['nom'];
                                         echo '</br>';
                                         echo $parent['prenom'];
+                                        echo '</br>';
+                                        echo $parent['fonction'];
+                                      
                                     };
                             echo'</div>
                             <div class="row">';

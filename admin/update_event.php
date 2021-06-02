@@ -196,7 +196,7 @@
                 </nav>
         </header>
 
-        <div class="container bg-light d-flex flex-column mt-5  align-items-center" style="height: 1000px">
+        <div class="container bg-light d-flex flex-column mt-5 pt-5  align-items-center" style="height: 1000px">
             <h1>Modification de l'evenement "<span class="color:red"> <?php echo $name; ?> </span>"</h1>
 
             <div class="row">
@@ -215,7 +215,7 @@
                             </div>
                             <div class="form-group m-5 d-flex flex-column">
                                 <label for="description">Description :</label>
-                                <textarea name="description" id="decrition" cols="30" rows="4" value="<?php echo $description; ?>" placeholder = "<?php echo $description; ?>"></textarea>
+                                <textarea name="description" id="decrition" cols="30" rows="4" value="<?php echo $description; ?>" placeholder = ""><?php echo $description; ?></textarea>
                                 <!-- <input type="text" class="form-control" id="description" name="description" placeholder="Description" > -->
                                 <span class='help-inline'><?php echo $descriptionError; ?></span>
                             </div>                   
@@ -243,7 +243,7 @@
                     </form>
                 </div>
                 <div class="col-12 d-flex justify-content-center align-items-center">
-                    <img src="../images/<?php echo $image;?>" alt="... " class="w-50">
+                    <img src="../images/<?php echo $image;?>" alt="... " class="w-25">
                 </div>
             </div>
            

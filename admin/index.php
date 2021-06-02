@@ -158,7 +158,7 @@
             <h1 class='text-center'>Gestion des parents délégués</h1>
             <div class="row">
                 <h2 class="bold">
-                    <a href="insert.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
+                    <a href="insert_parent.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
                 </h2>
                 <table class="table table-striped table-hover table-primary">
                     <thead>
@@ -188,9 +188,9 @@
                                     <td>'.$parents_delegues['fonction'].'</td>
                                     <td>'.$parents_delegues['classe'].'</td>
                                     <th class ="action text-center">
-                                        <a href="view.php?id=' . $parents_delegues['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                        <a href="update.php?id=' . $parents_delegues['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                        <a href="delete.php?id=' . $parents_delegues['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                        <a href="view_parent.php?id=' . $parents_delegues['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                        <a href="update_parent.php?id=' . $parents_delegues['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                        <a href="delete_parent.php?id=' . $parents_delegues['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                     </th>
                                 </tr>';
                             };
@@ -206,7 +206,7 @@
             <h1 class='text-center'>Gestion des membres de l'APE</h1>
             <div class="row">
                 <h2 class="bold">
-                    <a href="insert.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
+                    <a href="insert_membre_ape.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
                 </h2>
                 <table class="table table-striped table-hover table-primary">
                     <thead>
@@ -221,22 +221,20 @@
                     <tbody>
                         <?php 
                             // ON RECUPERE LES DONNEES
-                            $statement = $db->query('SELECT parents_delegues.id, parents_delegues.nom, parents_delegues.prenom, fonctions_parents_delegues.nom AS fonction                  
-                                                    FROM parents_delegues 
-                                                    LEFT JOIN fonctions_parents_delegues 
-                                                    ON parents_delegues.fonction = fonctions_parents_delegues.id
+                            $statement = $db->query('SELECT membres_ape.id, membres_ape.nom, membres_ape.prenom, membres_ape.fonction, membres_ape.image               
+                                                    FROM membres_ape
                                                     ');
                                 
                             //boucle sur toute les lignes de la BDD
-                            while($parents_delegues = $statement->fetch()) {
+                            while($membre_ape = $statement->fetch()) {
                                 echo ' <tr>
-                                    <td>'.$parents_delegues['nom'].'</td>
-                                    <td>'.$parents_delegues['prenom'].'</td>
-                                    <td>'.$parents_delegues['fonction'].'</td>
+                                    <td>'.$membre_ape['nom'].'</td>
+                                    <td>'.$membre_ape['prenom'].'</td>
+                                    <td>'.$membre_ape['fonction'].'</td>
                                     <th class ="action text-center">
-                                        <a href="view.php?id=' . $parents_delegues['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                        <a href="update.php?id=' . $parents_delegues['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                        <a href="delete.php?id=' . $parents_delegues['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                        <a href="view_membre_ape.php?id=' . $membre_ape['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                        <a href="update_membre_ape.php?id=' . $membre_ape['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                        <a href="delete_membre_ape.php?id=' . $membre_ape['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                     </th>
                                 </tr>';
                             };
@@ -250,7 +248,7 @@
             <h1 class='text-center'>Gestion des documents</h1>
             <div class="row">
                 <h2 class="bold">
-                    <a href="insert.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
+                    <a href="insert_document.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
                 </h2>
                 <table class="table table-striped table-hover table-primary">
                     <thead>
@@ -274,9 +272,9 @@
                                     <td>'.$document['date'].'</td>
                                     <td>'.$document['fichier'].'</td>
                                     <th class ="action text-center">
-                                        <a href="view.php?id=' . $document['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                        <a href="update.php?id=' . $document['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                        <a href="delete.php?id=' . $document['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                        <a href="view_document.php?id=' . $document['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                        <a href="update_document.php?id=' . $document['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                        <a href="delete_document.php?id=' . $document['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                     </th>
                                 </tr>';
                             };
