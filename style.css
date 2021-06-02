@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+  
 }
 
 :root {
@@ -85,8 +86,7 @@ nav .active {
 
 .carroussel img {
   /* clip-path: circle(50% at 50% 50%); */
-  
-
+  height: 400px;
   clip-path: polygon(
     20% 0%,
     0% 20%,
@@ -261,6 +261,10 @@ hr {
   hr {
     width: 50px;
     opacity: 1;
+  }
+
+  .carroussel img {
+    height: 300px
   }
 };
 

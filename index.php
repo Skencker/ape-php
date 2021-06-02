@@ -63,6 +63,9 @@
                                       <a class="nav-link active" aria-current="page" href="index.php"> Accueil</a>
                                     </li>
                                     <li class="nav-item me-5">
+                                      <a class="nav-link " aria-current="page" href="./admin/index.php"> Admin</a>
+                                    </li>
+                                    <li class="nav-item me-5">
                                       <a class="nav-link" href="actualites.php">Actualités</a>
                                     </li>
                                     <li class="nav-item me-5">
@@ -111,7 +114,7 @@
                                   foreach ($statement as $row) : ?>
                                       <div <?php if ($i <= 1) echo 'class="carousel-item active data-interval="1000"';
                                       else echo 'class="carousel-item data-interval="1000"' ?>>
-                                      <img alt="" src="./images/<?= $row['image'] ?>" class="d-block w-75 img img-fluid">
+                                      <img alt="image-ape" src="./images/<?= $row['image'] ?>" class="d-block w-75 img " style="height: 400px width: 500px">
                                     </a>
                               </div>
                               <?php

@@ -34,7 +34,7 @@
         <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
        
         <link rel="stylesheet" href="../style.css" />
-        <title>APE SPDL</title>
+        <title>APE SPDL ADMIN</title>
     </head>
     <body>
 
@@ -56,28 +56,17 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
     
-                    <div class="collapse navbar-collapse lg-d-flex bg-light justify-content-end " id="navbarSupportedContent">
-                            <div >
+                    <div class="collapse navbar-collapse lg-d-flex justify-content-end " id="navbarSupportedContent">
+                        <div >
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0  ">
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.html"> Accueil</a>
-                                </li>
+                                    <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
+                                </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link" href="actualites.html">Actualités</a>
-                                </li>
-                                <li class="nav-item me-5">
-                                    <a class="nav-link" href="parents.html">Parents Délégués</a>
-                                </li>
-                                <li class="nav-item me-5">
-                                <a class="nav-link" href="doc.html">Documents</a>
-                                </li>
-                            
-                                <li class="nav-item me-5">
-                                    <a class="nav-link" href="contact.html">Contact</a>
-                                </li>
-                                
+                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                </li>                               
                             </ul>
-                            </div>
+                        </div>
                     </div>
                 </div>
                 </nav>

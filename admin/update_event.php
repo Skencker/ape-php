@@ -159,10 +159,9 @@
         <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
        
         <link rel="stylesheet" href="../style.css" />
-        <title>APE SPDL</title>
+        <title>APE SPDL ADMIN</title>
     </head>
     <body>
-<!-- 
         <header class="">
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
@@ -182,31 +181,20 @@
                     </button>
     
                     <div class="collapse navbar-collapse lg-d-flex bg-light justify-content-end " id="navbarSupportedContent">
-                            <div >
+                        <div >
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0  ">
+                            <li class="nav-item me-5">
+                                    <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
+                                </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.html"> Accueil</a>
-                                </li>
-                                <li class="nav-item me-5">
-                                    <a class="nav-link" href="actualites.html">Actualités</a>
-                                </li>
-                                <li class="nav-item me-5">
-                                    <a class="nav-link" href="parents.html">Parents Délégués</a>
-                                </li>
-                                <li class="nav-item me-5">
-                                <a class="nav-link" href="doc.html">Documents</a>
-                                </li>
-                            
-                                <li class="nav-item me-5">
-                                    <a class="nav-link" href="contact.html">Contact</a>
-                                </li>
-                                
+                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                </li> 
                             </ul>
-                            </div>
+                        </div>
                     </div>
                 </div>
                 </nav>
-        </header> -->
+        </header>
 
         <div class="container bg-light d-flex flex-column mt-5  align-items-center" style="height: 1000px">
             <h1>Modification de l'evenement "<span class="color:red"> <?php echo $name; ?> </span>"</h1>
