@@ -47,11 +47,11 @@
 
     if(empty($image)) 
     {
-       $isImageUpdate = false;
+       $isImageUpdated = false;
     }
     else
     {
-        $isImageUpdate = true;
+        $isImageUpdated = true;
         $isUploadSuccess = true;
         if($imageExtension != "jpg" && $imageExtension != "png" && $imageExtension != "jpeg" && $imageExtension != "gif" ) 
         {
@@ -213,7 +213,7 @@
 
             <div class="row">
                 <div class="col-12">
-                <form action="index.php" method="post" class="form d-flex " role="form" enctype="multipart/form-data">
+                <form action="<?php echo 'update_event.php?id='.$id;?>" method="post" class="form d-flex " role="form" enctype="multipart/form-data">
                         <div>
                             <div class="form-group m-5 w-">
                                 <label for="name">Nom :</label>

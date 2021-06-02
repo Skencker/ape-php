@@ -3,6 +3,33 @@
     require 'database.php';
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
+
+    if(!empty($_GET['id'])) {
+        $id = veryfInput($_GET['id']);
+        $statement = $db->prepare("SELECT * FROM image_accueil where id = ?");
+        $statement->execute(array($id));
+        $data = $statement->fetch();
+        $image = $data['nom'];
+        Database::disconnect();
+    }
+  
+    if(!empty($_POST)) {
+        $id = veryfInput($_POST['id']);
+        $db = Database::connect();
+        $statement = $db->prepare("DELETE FROM image_accueil WHERE id = ?");
+        $statement->execute(array($id));
+        Database::disconnect();
+        header("Location: index.php"); 
+    }
+
+  //fonction pour verifier l'input 
+  function veryfInput ($var) {
+    $var = trim($var); //enlever espace etc....
+    $var = stripslashes($var); //enlever les \
+    $var = htmlspecialchars($var); //enlever le code html etc
+    return $var;
+  };
+
 ?>
 
 <!DOCTYPE html>
@@ -83,11 +110,26 @@
                 </div>
                 </nav>
         </header>
-        <div class="container bg-light p-5 mt-5 " style="height: 800px">
+        <div class="container bg-light d-flex flex-column justify-content-center" style="height: 800px">
+        <h1>Supprimer une image</h1>
+              <br>
+              <form action="delete_image_accueil.php" method="post" class="form" role="form">
+              <!-- input invisible qui recupere l'id  -->
+                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+                <p class='alert alert-warning'>Etes vous sur de vouloir supprimer l'image :"  <?php echo $image; ?> "?</p>
+                
+          
+              <div class='form-action'>
+                <button type="submit" class="btn btn-warning m-2" >Oui</button>
+                <a href="index.php" class="btn btn-default m-2" >Non</a>
+              </div>
+              </form>
         </div>
-        <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light">
-        <p>Copyright © APE Saint-Pierre-de-Lages</p>
-    </footer>
+ 
+
+        <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
+            <p>Copyright © APE Saint-Pierre-de-Lages</p>
+        </footer>
     
 </body>
  <!--Bootstrap-->

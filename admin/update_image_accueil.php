@@ -26,11 +26,11 @@
     }
     if(empty($image)) 
     {
-       $isImageUpdate = false;
+       $isImageUpdated = false;
     }
     else
     {
-        $isImageUpdate = true;
+        $isImageUpdated = true;
         $isUploadSuccess = true;
         if($imageExtension != "jpg" && $imageExtension != "png" && $imageExtension != "jpeg" && $imageExtension != "gif" ) 
         {
@@ -61,12 +61,12 @@
       $db = Database::connect();
       if($isImageUpdated)
       {
-          $statement = $db->prepare("UPDATE image_accueil  set name = ?, image = ? WHERE id = ?");
+          $statement = $db->prepare("UPDATE image_accueil  set nom = ?, image = ? WHERE id = ?");
           $statement->execute(array($name,$image,$id));
       }
       else
       {
-          $statement = $db->prepare("UPDATE image_accueil  set name = ? WHERE id = ?");
+          $statement = $db->prepare("UPDATE image_accueil  set nom = ? WHERE id = ?");
           $statement->execute(array($name,$id));
       }
       Database::disconnect();
@@ -189,7 +189,7 @@
 
             <div class="row">
                 <div class="col-6">
-                <form action="index.php" method="post" class="form" role="form" enctype="multipart/form-data">
+                <form action="<?php echo 'update_image_accueil.php?id='.$id;?>" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">
                   <label for="name">Nom :</label>
                   <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
