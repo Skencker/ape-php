@@ -180,29 +180,20 @@
                 <div class="form-group m-5">
                   <label for="fonction">Fonction : </label>
                   <select class="form-control" id = "fonction" name="fonction">
-                    <?php 
-                      $db = Database::connect();
-                      $fonction = $db->query('SELECT * FROM fonctions_parents_delegues') ;
-                      foreach($fonction as $row) {
-                        echo '<option value='. $row['id'] . '>' . $row['nom'] . '</option>';
-                      }
-                      Database::disconnect();
-                    ?> 
-                    </select>
+                      <option value='Titulaire'>Titulaire</option>
+                      <option value='Suppléant'>Suppléant</option>
+                  </select>
                   <span class='help-inline'><?php echo $fonctionError; ?></span>
                 </div>
                 <div class="form-group m-5">
                   <label for="classe">Classe :</label>
                   <select class="form-control" id = "classe" name="classe">
-                    <?php 
-                      $db = Database::connect();
-                      $classe = $db->query('SELECT * FROM classes');
-                      foreach($classe as $row) {
-                        echo '<option value=' . $row['id'] . '>' . $row['nom'] . '</option>';
-                      }
-                      Database::disconnect();
-                      ?> 
-                      </select>
+                      <option value='PS / MS'>PS / MS</option>
+                      <option value='GS / MS'>GS / CP</option>
+                      <option value='CP / CE1'>CP / CE1</option>
+                      <option value='CE2 / CM1'>CE2 / CM1 </option>
+                      <option value='CM1 / CM2'>CM1 / CM2</option>
+                  </select>
                   <span class='help-inline'><?php echo $classeError; ?></span>
                 </div>
          
@@ -221,21 +212,6 @@
               </div>
               </form>
         </div>
- 
-                <!-- <div class="form-group m-5">
-                <label for="prenom">Fonction : </label>
-                <select class="form-control" id = "fonction" name="fonction">
-                    <?php 
-                      $db = Database::connect();
-                      foreach($db->query('SELECT * FROM fonctions_parents_delegues') as $row) {
-                        echo '<option value=' . $row['id'] . '>' . $row['nom'] . '</option>';
-                      }
-           
-                    ?> 
-                <?php var_dump($fonction); ?>
-                  <span class='help-inline'><?php echo $fonctionError; ?></span>
-                </div> -->
-
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
             <p>Copyright © APE Saint-Pierre-de-Lages</p>
         </footer>

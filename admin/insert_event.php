@@ -7,76 +7,115 @@
 
 
       //initilisation des variables
-  $image = $imageError = $nameError = $name = $description = $descriptionError = $date = $dateError = "";
+  $image = $imageError = $nameError = $name = $description = $descriptionError = $date = $dateError = $fichier = $fichierError = "";
 
-  if (!empty ($_POST)) {
-    $name        = veryfInput($_POST['name']);
-    $date        = veryfInput($_POST['date']);
-    $description  = veryfInput($_POST['description']);
-    $image        = veryfInput($_FILES['image']['name']);
-    $imagePath    = '../images/' . basename($image);
-    $imageExtension =  pathinfo($imagePath, PATHINFO_EXTENSION);
-    $isSuccess = true;
-    $isUploadSuccess = false;
-
+    // Vérifier si le formulaire a été soumis
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $name = veryfInput($_POST['name']);
+    $date = veryfInput($_POST['date']);
+    $description = veryfInput($_POST['description']);
+    // $image = veryfInput($_FILES['image']['name']);
     if(empty($name)) 
-    {
-        $nameError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
+        {
+            $nameError = 'Ce champ ne peut pas être vide';
+            $isSuccess = false;
+        }
     if(empty($date)) 
-    {
-        $dateError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
+        {
+            $dateError = 'Ce champ ne peut pas être vide';
+            $isSuccess = false;
+        }
     if(empty($description)) 
-    {
-        $descriptionError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
-    if(empty($image)) 
-    {
-        $imageError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
-    else
-    {
-        $isUploadSuccess = true;
-        if($imageExtension != "jpg" && $imageExtension != "png" && $imageExtension != "jpeg" && $imageExtension != "gif" ) 
         {
-            $imageError = "Les fichiers autorises sont: .jpg, .jpeg, .png, .gif";
-            $isUploadSuccess = false;
+            $descriptionError = 'Ce champ ne peut pas être vide';
+            $isSuccess = false;
         }
-        if(file_exists($imagePath)) 
-        {
-            $imageError = "Le fichier existe deja";
-            $isUploadSuccess = false;
+    // if(empty($image)) 
+    //     {
+    //         $imageError = 'Ce champ ne peut pas être vide';
+    //         $isSuccess = false;
+    //     }
+    // Vérifie si le fichier a été uploadé sans erreur.
+    if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0){
+        $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+        $filename = $_FILES["image"]["name"];
+        $filetype = $_FILES["image"]["type"];
+        $filesize = $_FILES["image"]["size"];
+
+        // Vérifie l'extension du fichier
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if(!array_key_exists($ext, $allowed)) 
+            $imageError = 'Veuillez sélectionner un format de fichier valide.';
+
+        // Vérifie la taille du fichier - 5Mo maximum
+        $maxsize = 5 * 1024 * 1024;
+        if($filesize > $maxsize) 
+            $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
+
+        // Vérifie le type MIME du fichier
+        if(in_array($filetype, $allowed)){
+            // Vérifie si le fichier existe avant de le télécharger.
+                $shaFile = hash('sha256', $_FILES["image"]["name"]);
+
+                $shaFileExtImage = $shaFile . "." . $ext;
+           
+                move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $shaFile . "." . array_search($filetype, $allowed));
+                echo "Votre fichier a été téléchargé avec succès.";
+                $isSuccess = true;
+                $isUploadSuccess = true;
+            
+        } else{
+            echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
         }
-        if($_FILES["image"]["size"] > 500000) 
-        {
-            $imageError = "Le fichier ne doit pas depasser les 500KB";
-            $isUploadSuccess = false;
-        }
-        if($isUploadSuccess) 
-        {
-            if(!move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) 
-            {
-                $imageError = "Il y a eu une erreur lors de l'upload";
-                $isUploadSuccess = false;
-            } 
-        } 
+    } else{
+        echo $nameError;
     }
+    if(isset($_FILES["fichier"]) && $_FILES["fichier"]["error"] == 0){
+        $allowed = array("pdf" => "application/pdf", "doc" => "application/doc", "docs" => "application/docs", "text" => "application/text");
+        $filename = $_FILES["fichier"]["name"];
+        $filetype = $_FILES["fichier"]["type"];
+        $filesize = $_FILES["fichier"]["size"];
+
+        // Vérifie l'extension du fichier
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if(!array_key_exists($ext, $allowed)) 
+            $imageError = 'Veuillez sélectionner un format de fichier valide.';
+
+        // Vérifie la taille du fichier - 5Mo maximum
+        $maxsize = 5 * 1024 * 1024;
+        if($filesize > $maxsize) 
+            $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
+
+        // Vérifie le type MIME du fichier
+        if(in_array($filetype, $allowed)){
+            // Vérifie si le fichier existe avant de le télécharger.
+                $shaFile = hash('sha256', $_FILES["fichier"]["name"]);
+
+                $shaFileExtFichier = $shaFile . "." . $ext;
+           
+                move_uploaded_file($_FILES["fichier"]["tmp_name"], "../doc/" . $shaFile . "." . array_search($filetype, $allowed));
+                echo "Votre fichier a été téléchargé avec succès.";
+                $isSuccess = true;
+                $isUploadSuccess = true;
+            
+        } else{
+            echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
+        }
+    } else{
+        echo $nameError;
+    }
+}
 
     //si tout va bien tu insert dans la BDD
     if($isSuccess && $isUploadSuccess) 
     {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO evenement (nom, date, description, image) values(?, ?, ?, ?)");
-        $statement->execute(array($name,$date,$description,$image));
+        $statement = $db->prepare("INSERT INTO evenement (nom, date, description, image, fichier) values(?, ?, ?, ?, ?)");
+        $statement->execute(array($name,$date,$description,$shaFileExtImage,$shaFileExtFichier));
         Database::disconnect();
         header("Location: index.php");
     }
-  }
+  
 
 
   //fonction pour verifier l'input 
@@ -161,6 +200,7 @@
 
             <form action="insert_event.php" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">
+      
                   <label for="name">Nom :</label>
                   <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
                   <span class='help-inline'><?php echo $nameError; ?></span>
@@ -182,9 +222,9 @@
                   <span class='help-inline'><?php echo $imageError; ?></span>
                 </div>
                 <div class="form-group m-5">
-                  <label for="image">Selectionner une fichier :</label>
-                  <input type="file" id="image" name="image">
-                  <span class='help-inline'><?php echo $imageError; ?></span>
+                  <label for="fichier">Selectionner une fichier :</label>
+                  <input type="file" id="fichier" name="fichier">
+                  <span class='help-inline'><?php echo $fichierError; ?></span>
                 </div>
 
 

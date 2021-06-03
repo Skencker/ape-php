@@ -2,7 +2,12 @@
     require './admin/database.php';
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
+
+
 ?>
+<!-- FROM parents_delegues
+LEFT JOIN `fonctions_parents_delegues`
+ON parents_delegues.fonction = fonctions_parents_delegues.nom -->
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -90,61 +95,128 @@
         <section class="baniere-parents d-flex justify-content-center">
             <h1 class="align-self-center">Parents délégués</h1>
         </section>
-        <section class="parents container-fluid d-flex align-items-center">
-            <div class="row">
-                <div class="col-1">   </div>
-                      <H2 class="text-center">PS / MS</H2>
-                    
-                      <?php
-                        $statement = $db->query('SELECT parents_delegues.id, parents_delegues.nom, parents_delegues.prenom, parents_delegues.fonction AS fonction, parents_delegues.classe AS classe, parents_delegues.image   
-                                                FROM parents_delegues
-                                                LEFT JOIN `fonctions_parents_delegues`
-                                                ON parents_delegues.fonction = fonctions_parents_delegues.nom
-                                                LEFT JOIN `classes`
-                                                ON parents_delegues.classe = classes.nom');
+        <section class="parents container-fluid d-flex align-items-center justify-content-center">
+          <div class="row">
+            <div class="col-2 offset-1">
+                <h2>PS /MS</h2>
+                <div class="row">
+              <?php
+                  $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
 
-                        while($parent = $statement->fetch()) {
-                            // var_dump($parent);
-                            echo' 
-                            <div class="row">
-                            <div class="col-1">   </div>
-                            <div class=" classe col-2 ">
-                        
-                            <div class="row">';
-                           
-                                    if($parent['fonction']=='1') {
-                                        echo '    
-                                        <img class="img img-fluid" src="./images/'. $parent['image'].'" alt="">
-                                        <p class="text-center">Titulaire: </br>';
-                                        echo $parent['nom'];
-                                        echo '</br>';
-                                        echo $parent['prenom'];
-                                        echo '</br>';
-                                        echo $parent['fonction'];
-                                      
-                                    };
-                            echo'</div>
-                            <div class="row">';
-                                    if($parent['fonction']=='2') {
-                                        echo '    
-                                        <img class="img img-fluid " src="./images/'. $parent['image'].'" alt="">
-                                        <p class="text-center">Suppléant: </br>';
-                                        echo $parent['nom'];
-                                        echo '</br>';
-                                        echo $parent['prenom'];
-                                    };
-                                echo'</div>
-                            </div>';
-                        
-             
-
-                        }
-
-                   
-                     
-                  ?>
+              
+              while($data = $statement->fetch()) {
                 
-                <div class=" col-1">   </div>
+                if($data['classe'] == 'PS / MS') {
+                     
+                  echo ' 
+                      <div class="col-6">
+                        <div class="row"> 
+                          <img src ="./images/'. $data['image'] .'"/>
+                        </div>
+                        <div class="row"> '. $data['fonction'] .'</div>
+                        <div class="row"> '. $data['nom'] .' '. $data['prenom'] .'</div>
+                      </div>
+                      ';
+                    } 
+                  }
+                  ?>
+                  </div>
+                  </div>
+            <div class="col-2 offset-1">
+                <h2>GS / CP</h2>
+                <div class="row">
+              <?php
+                  $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
+
+              
+              while($data = $statement->fetch()) {
+                
+                if($data['classe'] == 'GS / CP') {
+                     
+                  echo ' 
+                      <div class="col-6">
+                        <div class="row"> 
+                          <img src ="./images/'. $data['image'] .'"/>
+                        </div>
+                        <div class="row"> '. $data['fonction'] .'</div>
+                        <div class="row"> '. $data['nom'] .' '. $data['prenom'] .'</div>
+                      </div>
+                      ';
+                    } 
+                  }
+                  ?>
+                  </div>
+                </div>
+<!-- 
+              <div class="col-2 offset-1">
+              
+                <div class="row">
+                  <h2>PS / MS</h2>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="row">
+                  <h2>PS / MS</h2>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="row">
+                  <h2>PS / MS</h2>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="row">
+                  <h2>PS / MS</h2>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="row">
+                  <h2>PS / MS</h2>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+                  <div class="col">
+                    <div class="row"> PHOTO</div>
+                    <div class="row"> TEXT</div>
+                  </div>
+   
+                </div>
+              </div>
+              
+               -->
             </div>
         </section>
 

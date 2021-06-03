@@ -81,7 +81,6 @@
                     <thead>
                         <tr>
                             <th>Nom</th>
-                            <th>Fichier de l'image</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -95,7 +94,6 @@
                             while($image = $statement->fetch()) {
                                 echo ' <tr>
                                     <td>'.$image['nom'].'</td>
-                                    <td>'.$image['image'].'</td>
                                     <th class ="action text-center">
                                         <a href="view_image_accueil.php?id=' . $image['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
                                         <a href="update_image_accueil.php?id=' . $image['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
@@ -122,8 +120,8 @@
                         <tr>
                             <th>Nom</th>
                             <th>Date</th>
-                            <th>Fichier</th>
-                            <th>Image</th>
+                            <!-- <th>Fichier</th>
+                            <th>Image</th> -->
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -137,15 +135,15 @@
                                 echo ' <tr>
                                     <td>'.$evenement['nom'].'</td>
                                     <td>'.$evenement['date'].'</td>
-                                    <td>'.$evenement['fichier'].'</td>
-                                    <td>'.$evenement['image'].'</td>
                                     <th class ="action text-center">
-                                        <a href="view_event.php?id=' . $evenement['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                        <a href="update_event.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                        <a href="delete_event.php?id=' . $evenement['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                    <a href="view_event.php?id=' . $evenement['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                    <a href="update_event.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                    <a href="delete_event.php?id=' . $evenement['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                     </th>
-                                </tr>';
-                            };
+                                    </tr>';
+                                };
+                                // <td>'.$evenement['fichier'].'</td>
+                                // <td>'.$evenement['image'].'</td>
                         
                     
                             Database::disconnect();
@@ -173,12 +171,8 @@
                     <tbody>
                         <?php 
                             // ON RECUPERE LES DONNEES
-                            $statement = $db->query('SELECT parents_delegues.id, parents_delegues.nom, parents_delegues.prenom, fonctions_parents_delegues.nom AS fonction, classes.nom AS classe                  FROM parents_delegues 
-                                                    LEFT JOIN classes
-                                                    ON parents_delegues.classe = classes.id
-                                                    LEFT JOIN fonctions_parents_delegues 
-                                                    ON parents_delegues.fonction = fonctions_parents_delegues.id
-                                                    ');
+                            $statement = $db->query('SELECT * FROM parents_delegues 
+                                              ');
                                 
                             //boucle sur toute les lignes de la BDD
                             while($parents_delegues = $statement->fetch()) {

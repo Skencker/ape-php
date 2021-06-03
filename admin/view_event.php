@@ -111,7 +111,7 @@
                             <h4>'. $event['date'] . '</h4>
                             <p>'. $event['description'] . '</p>
                         
-                            <a href="../doc/'. $event['fichier'] . '">'. $event['fichier'] . '</a>
+                            <a href="../doc/'. $event['fichier'] . '"> Document </a>
                         </div>';
                     
                 ?>

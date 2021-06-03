@@ -7,64 +7,71 @@
 
 
       //initilisation des variables
-  $image = $imageError = $nameError = $name = "";
+  $image = $imageError = $nameError = $name = $shaFileExt = "";
 
-  if (!empty ($_POST)) {
-    $name        = veryfInput($_POST['name']);
-    $image        = veryfInput($_FILES['image']['name']);
-    $imagePath    = '../images/' . basename($image);
-    $imageExtension =  pathinfo($imagePath, PATHINFO_EXTENSION);
-    $isSuccess = true;
-    $isUploadSuccess = false;
 
+
+    // Vérifier si le formulaire a été soumis
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $name = veryfInput($_POST['name']);
+    // $image = veryfInput($_FILES['image']['name']);
     if(empty($name)) 
-    {
-        $nameError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
-    if(empty($image)) 
-    {
-        $imageError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
-    else
-    {
-        $isUploadSuccess = true;
-        if($imageExtension != "jpg" && $imageExtension != "png" && $imageExtension != "jpeg" && $imageExtension != "gif" ) 
         {
-            $imageError = "Les fichiers autorises sont: .jpg, .jpeg, .png, .gif";
-            $isUploadSuccess = false;
+            $nameError = 'Ce champ ne peut pas être vide';
+            $isSuccess = false;
         }
-        if(file_exists($imagePath)) 
-        {
-            $imageError = "Le fichier existe deja";
-            $isUploadSuccess = false;
+    // if(empty($image)) 
+    //     {
+    //         $imageError = 'Ce champ ne peut pas être vide';
+    //         $isSuccess = false;
+    //     }
+    // Vérifie si le fichier a été uploadé sans erreur.
+    if(isset($_FILES["files"]) && $_FILES["files"]["error"] == 0){
+        $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+        $filename = $_FILES["files"]["name"];
+        $filetype = $_FILES["files"]["type"];
+        $filesize = $_FILES["files"]["size"];
+
+        // Vérifie l'extension du fichier
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if(!array_key_exists($ext, $allowed)) 
+            $imageError = 'Veuillez sélectionner un format de fichier valide.';
+
+        // Vérifie la taille du fichier - 5Mo maximum
+        $maxsize = 5 * 1024 * 1024;
+        if($filesize > $maxsize) 
+            $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
+
+        // Vérifie le type MIME du fichier
+        if(in_array($filetype, $allowed)){
+            // Vérifie si le fichier existe avant de le télécharger.
+                $shaFile = hash('sha256', $_FILES["files"]["name"]);
+
+                $shaFileExt = $shaFile . "." . $ext;
+           
+                move_uploaded_file($_FILES["files"]["tmp_name"], "../images/" . $shaFile . "." . array_search($filetype, $allowed));
+                echo "Votre fichier a été téléchargé avec succès.";
+                $isSuccess = true;
+                $isUploadSuccess = true;
+            
+        } else{
+            echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
         }
-        if($_FILES["image"]["size"] > 500000) 
-        {
-            $imageError = "Le fichier ne doit pas depasser les 500KB";
-            $isUploadSuccess = false;
-        }
-        if($isUploadSuccess) 
-        {
-            if(!move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) 
-            {
-                $imageError = "Il y a eu une erreur lors de l'upload";
-                $isUploadSuccess = false;
-            } 
-        } 
+    } else{
+        echo $nameError;
     }
+}
 
     //si tout va bien tu insert dans la BDD
     if($isSuccess && $isUploadSuccess) 
     {
         $db = Database::connect();
         $statement = $db->prepare("INSERT INTO image_accueil (nom, image) values(?, ?)");
-        $statement->execute(array($name,$image));
+        $statement->execute(array($name,$shaFileExt));
         Database::disconnect();
         header("Location: index.php");
     }
-  }
+  
 
 
   //fonction pour verifier l'input 
@@ -155,8 +162,8 @@
                 </div>
 
                 <div class="form-group m-5">
-                  <label for="image">Selectionner une image :</label>
-                  <input type="file" id="image" name="image">
+                  <label for="files">Selectionner une image :</label>
+                  <input type="file" id="files" name="files">
                   <span class='help-inline'><?php echo $imageError; ?></span>
                 </div>
 

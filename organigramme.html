@@ -192,3 +192,94 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="app.js"></script>
 </html>
+
+
+
+<?php
+$statement = $db->query('SELECT parents_delegues.id, parents_delegues.nom, parents_delegues.prenom, parents_delegues.fonction AS fonction, parents_delegues.classe AS classe, parents_delegues.image   
+                        FROM parents_delegues
+                        LEFT JOIN `fonctions_parents_delegues`
+                        ON parents_delegues.fonction = fonctions_parents_delegues.nom
+                        LEFT JOIN `classes`
+                        ON parents_delegues.classe = classes.nom');
+
+$data = $statement->fetch();
+
+echo '<h2 class="text-center"> PS / MS</h2>';
+if($data['classe'] == 1) {
+while($parent = $statement->fetch()) {
+      var_dump($data['classe']);
+          echo '
+              <div class="col-6"> 
+                  <img class="img img-fluid" src="./images/'. $parent['image'].'" alt="">'   
+                  . $parent['nom'] .
+                  '</br>'
+                  . $parent['prenom'].
+                  '</br>'
+                  . $parent['fonction'].
+              '</div>   
+              <div class="col-6"> 
+                  <img class="img img-fluid" src="./images/'. $parent['image'].'" alt="">'   
+                  . $parent['nom'] .
+                  '</br>'
+                  . $parent['prenom'].
+                  '</br>'
+                  . $parent['fonction'].
+              '</div>   ';
+    }
+  }
+echo '
+</div>
+</div>
+<div class="col-2">
+<H2 class="text-center"> GS / CP</H2>';
+if($data['classe'] == 2) {
+while($parent = $statement->fetch()) {
+      var_dump($data['classe']);
+          echo '
+              <div class="col-6"> 
+                  <img class="img img-fluid" src="./images/'. $parent['image'].'" alt="">'   
+                  . $parent['nom'] .
+                  '</br>'
+                  . $parent['prenom'].
+                  '</br>'
+                  . $parent['fonction'].
+              '</div>   ';
+    }
+  }
+
+  // var_dump($parent);
+  // echo' 
+  // <H2 class="text-center">'. $parent['classe'].' PS / MS</H2>
+  // <div class="row">
+  //     <div class="col-1">   </div>
+  //     <div class=" classe col-2 ">
+  
+  //         <div class="row">
+  //               <div class="col"';
+              
+  //                     if($parent['fonction
+  //                     ']=='1') {
+  //                         echo '    
+  //                         <img class="img img-fluid" src="./images/'. $parent['image'].'" alt="">
+  //                         <p class="text-center">Titulaire: </br>';
+  //                         echo $parent['nom'];
+  //                         echo '</br>';
+  //                         echo $parent['prenom'];
+  //                         echo '</br>';
+  //                         echo $parent['fonction'];
+                        
+  //                     };
+  //               echo'</div>
+  //         </div>
+  //         <div class="row">';
+  //                 if($parent['fonction']=='2') {
+  //                     echo '    
+  //                     <img class="img img-fluid " src="./images/'. $parent['image'].'" alt="">
+  //                     <p class="text-center">Suppléant: </br>';
+  //                     echo $parent['nom'];
+  //                     echo '</br>';
+  //                     echo $parent['prenom'];
+  //                 };
+  //             echo'</div>
+  //     </div>';

@@ -106,7 +106,7 @@
                                     <h4>'. $even['date'] . '</h4>
                                     <p>'. $even['description'] . '</p>
                                   
-                                    <a href="./doc/'. $even['fichier'] . '">'. $even['fichier'] . '</a>
+                                    <a href="./doc/'. $even['fichier'] . '"> Document </a>
                                 </div>';
                             }
                         ?>

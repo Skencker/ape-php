@@ -98,7 +98,7 @@
                               <div class="bouton mt-2 mb-5">
                                 <a href="actualites.html" class=" text-center p-3">
                                   <!-- <i class="bi bi-calendar3 "></i> -->
-                                  Actualité / évènements </a>
+                                  Actualités / évènements </a>
                               </div>
                               <!-- <i class="bi bi-arrow-down-circle"></i> -->
                             </h1>
