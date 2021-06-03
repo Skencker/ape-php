@@ -114,7 +114,7 @@
                                   foreach ($statement as $row) : ?>
                                       <div <?php if ($i <= 1) echo 'class="carousel-item active data-interval="1000"';
                                       else echo 'class="carousel-item data-interval="1000"' ?>>
-                                      <img alt="image-ape" src="./images/<?= $row['image'] ?>" class="d-block w-75 img " style="height: 400px width: 500px">
+                                      <img alt="image-ape" src="./images/<?= $row['image'] ?>" class="d-block w-75 img img-fluid ">
                                     </a>
                               </div>
                               <?php

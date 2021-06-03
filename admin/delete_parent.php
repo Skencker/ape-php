@@ -10,17 +10,23 @@
         $statement->execute(array($id));
         $data = $statement->fetch();
         $name = $data['nom'];
+        $image =$data['image'];
+        unlink("../images/$image");
         Database::disconnect();
     }
   
     if(!empty($_POST)) {
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
+
         $statementDelete = $db->prepare("DELETE FROM parents_delegues WHERE id = ?");
         $statementDelete->execute(array($id));
  
         Database::disconnect();
         header("Location: index.php"); 
+
+
+
     }
 
   //fonction pour verifier l'input 

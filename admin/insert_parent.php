@@ -189,7 +189,7 @@
                   <label for="classe">Classe :</label>
                   <select class="form-control" id = "classe" name="classe">
                       <option value='PS / MS'>PS / MS</option>
-                      <option value='GS / MS'>GS / CP</option>
+                      <option value='GS / CP'>GS / CP</option>
                       <option value='CP / CE1'>CP / CE1</option>
                       <option value='CE2 / CM1'>CE2 / CM1 </option>
                       <option value='CM1 / CM2'>CM1 / CM2</option>

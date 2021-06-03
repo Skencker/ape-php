@@ -10,6 +10,8 @@
         $statement->execute(array($id));
         $data = $statement->fetch();
         $image = $data['nom'];
+        $image =$data['image'];
+        unlink("../images/$image");
         Database::disconnect();
     }
   

@@ -37,7 +37,7 @@ nav .active {
 }
 
 .baniere {
-  height: 875px;
+  height: 700px;
 }
 
 .lien-info {
@@ -86,7 +86,7 @@ nav .active {
 
 .carroussel img {
   /* clip-path: circle(50% at 50% 50%); */
-  height: 400px;
+
   clip-path: polygon(
     20% 0%,
     0% 20%,
@@ -182,7 +182,7 @@ img {
 }
 
 .association {
-  height: 700px;
+  height: 670px;
 }
 
 .association h2 {
@@ -199,9 +199,7 @@ img {
 }
 
 .image-reunion {
-
-
-  animation: slide-in-right 4s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-right 2s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .image-reunion img {
@@ -361,10 +359,12 @@ hr {
 
 .baniere-parents {
   background-image: url("./images/parents.jpg");
-
+  padding: 50px;
+  
 }
 .baniere-doc {
   background-image: url("./images/books.jpg");
+  padding: 50px;
 
 }
 
@@ -372,6 +372,34 @@ hr {
 
 .parents  {
   height: 800px;
+}
+
+@media screen and (max-width: 1200px) {
+  .parents {
+    height: 1000px;
+  }
+}
+@media screen and (max-width: 770px) {
+  .parents {
+    height: 1000px;
+  }
+}
+@media screen and (max-width: 580px) {
+  .parents {
+    height: 2000px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .parents {
+    height: 1600px;
+  }
+}
+
+.parents h2 {
+  width: 70%;
+  margin: auto;
+  background-color: var(--bleu);
+  color: var(--jaune);
 }
 
 .classe {
@@ -409,6 +437,7 @@ hr {
 
 .baniere-contact {
   background-image: url("./images/ecole.JPG");
+  padding: 50px;
 }
 
 .content p {
