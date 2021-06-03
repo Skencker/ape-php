@@ -96,7 +96,7 @@
                                 Saint Pierre de Lages  
                               </div>
                               <div class="bouton mt-2 mb-5">
-                                <a href="actualites.html" class=" text-center p-3">
+                                <a href="actualites.html" class=" text-center p-2 ">
                                   <!-- <i class="bi bi-calendar3 "></i> -->
                                   Actualités / évènements </a>
                               </div>
@@ -129,7 +129,7 @@
                   <div class="row m-0 justify-content-center">
                     <h2 class="text-center pb-5">L'association</h2>
 
-                    <div class="col-lg-6 col-sm-10 d-flex flex-column align-items-center justify-content-center">
+                    <div class="col-lg-6 col-sm-10 d-flex flex-column align-items-center ">
                       <div class="accordion accordion-flush align-self-center align-items-md-end w-100 p-5" id="accordionFlushExample">
                         <div class="accordion-item ">
                           <h2 class="accordion-header " id="flush-headingOne">

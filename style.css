@@ -38,6 +38,7 @@ nav .active {
 
 .baniere {
   height: 700px;
+
 }
 
 .lien-info {
@@ -182,7 +183,9 @@ img {
 }
 
 .association {
-  height: 670px;
+  height: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .association h2 {
@@ -379,14 +382,27 @@ hr {
     height: 1000px;
   }
 }
+@media screen and (max-width:1000px) {
+
+  .baniere {
+    height: 1000px;
+  }
+  .association {
+    height: auto;
+  }
+}
 @media screen and (max-width: 770px) {
   .parents {
     height: 1000px;
   }
+
 }
 @media screen and (max-width: 580px) {
   .parents {
     height: 2000px;
+  }
+  .baniere {
+    height: 1000px;
   }
 }
 @media screen and (max-width: 450px) {
