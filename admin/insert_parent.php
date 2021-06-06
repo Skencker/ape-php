@@ -1,98 +1,100 @@
+<?php
+require 'database.php';
+//connection a la fonction statique (::) de la bdd 
+$db = Database::connect();
 
-<?php 
-    require 'database.php';
-    //connection a la fonction statique (::) de la bdd 
-    $db = Database::connect();
+//initilisation des variables. 
+// AJOUT DE VARIABLES $nbParentDelPerClass, $nbParentDelPerClassError
+$image = $imageError = $nameError = $name = $fonction = $fonctionError = $prenom = $prenomError = $classe = $classeError = $nbParentDelPerClass = $nbParentDelPerClassError = "";
 
+// Récupère le type de classe par défaut : "PS / MS"
+$typeClasse = $_POST['classe'];
 
+// Compte le nombre de délégués déjà présent dans $typeClass
+$reponse = $db->query("SELECT COUNT(*) AS nbParentDelPerClass FROM parents_delegues WHERE classe='$typeClasse'");
 
-      //initilisation des variables
-  $image = $imageError = $nameError = $name = $fonction = $fonctionError = $prenom = $prenomError = $classe = $classeError = "";
+// Incrémente $nbParentDelPerClass
+while ($donnees = $reponse->fetch()) {
+    $nbParentDelPerClass = $donnees['nbParentDelPerClass'];
+}
 
-  if (!empty ($_POST)) {
-    $name        = veryfInput($_POST['name']);
-    $prenom        = veryfInput($_POST['prenom']);
-    $classe        = veryfInput($_POST['classe']);
-    $fonction  = veryfInput($_POST['fonction']);
-    $image        = veryfInput($_FILES['image']['name']);
-    $imagePath    = '../images/' . basename($image);
-    $imageExtension =  pathinfo($imagePath, PATHINFO_EXTENSION);
-    $isSuccess = true;
-    $isUploadSuccess = false;
-
-    if(empty($name)) 
-    {
+if (!empty($_POST)) {
+    $name            = veryfInput($_POST['name']);
+    $prenom          = veryfInput($_POST['prenom']);
+    $classe          = veryfInput($_POST['classe']);
+    $fonction        = veryfInput($_POST['fonction']);
+    $image           = veryfInput($_FILES['image']['name']);
+    $imagePath       = '../images/' . basename($image);
+    $imageExtension  = pathinfo($imagePath, PATHINFO_EXTENSION);
+    $isSuccess       = true;
+    $isUploadSuccess = true;
+    
+    // Vérification de la condition du nombre de parents délégués
+    if ($nbParentDelPerClass > 1) {
+        $nbParentDelPerClassError = 'Il y a déjà 2 parents délégués pour cette classe';
+        $isSuccess = false;
+    }
+    if (empty($name)) {
         $nameError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     }
-    if(empty($prenom)) 
-    {
+    if (empty($prenom)) {
         $prenomError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     }
-    if(empty($fonction)) 
-    {
+    if (empty($fonction)) {
         $fonctionError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     }
-    if(empty($classe)) 
-    {
+    if (empty($classe)) {
         $classeError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     }
-    if(empty($image)) 
-    {
+    if (empty($image)) {
         $imageError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
-    }
-    else
-    {
-        $isUploadSuccess = true;
-        if($imageExtension != "jpg" && $imageExtension != "png" && $imageExtension != "jpeg" && $imageExtension != "gif" ) 
-        {
+    } else {
+        if ($imageExtension != "jpg" && $imageExtension != "png" && $imageExtension != "jpeg" && $imageExtension != "gif") {
             $imageError = "Les fichiers autorises sont: .jpg, .jpeg, .png, .gif";
             $isUploadSuccess = false;
         }
-        if(file_exists($imagePath)) 
-        {
+        if (file_exists($imagePath)) {
             $imageError = "Le fichier existe deja";
             $isUploadSuccess = false;
         }
-        if($_FILES["image"]["size"] > 500000) 
-        {
+        if ($_FILES["image"]["size"] > 500000) {
             $imageError = "Le fichier ne doit pas depasser les 500KB";
             $isUploadSuccess = false;
         }
-        if($isUploadSuccess) 
-        {
-            if(!move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) 
-            {
-                $imageError = "Il y a eu une erreur lors de l'upload";
-                $isUploadSuccess = false;
-            } 
-        } 
+        if ($isUploadSuccess == true && $isSuccess == true) {
+            move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath);
+        }
     }
-
+    
     //si tout va bien tu insert dans la BDD
-    if($isSuccess && $isUploadSuccess) 
-    {
+    if ($isSuccess && $isUploadSuccess) {
         $db = Database::connect();
         $statement = $db->prepare("INSERT INTO parents_delegues (nom, prenom, fonction, classe, image) values(?, ?, ?, ?, ?)");
-        $statement->execute(array($name,$prenom,$fonction,$classe,$image));
+        $statement->execute(array(
+            $name,
+            $prenom,
+            $fonction,
+            $classe,
+            $image
+        ));
         Database::disconnect();
         header("Location: index.php");
     }
-  }
+}
 
-
-  //fonction pour verifier l'input 
-  function veryfInput ($var) {
+//fonction pour verifier l'input 
+function veryfInput($var)
+{
     $var = trim($var); //enlever espace etc....
     $var = stripslashes($var); //enlever les \
     $var = htmlspecialchars($var); //enlever le code html etc
     return $var;
-  };
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -164,6 +166,7 @@
         </header>
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
             <h1>Ajouter un parent délégué</h1>
+            <span class='help-inline'><?php echo $nbParentDelPerClassError; ?></span>
 
             <form action="insert_parent.php" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">
