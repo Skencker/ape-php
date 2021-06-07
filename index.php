@@ -63,7 +63,7 @@
                                       <a class="nav-link active" aria-current="page" href="index.php"> Accueil</a>
                                     </li>
                                     <li class="nav-item me-5">
-                                      <a class="nav-link " aria-current="page" href="./admin/index.php"> Admin</a>
+                                      <a class="nav-link " aria-current="page" href="./admin/connect.php"> Admin</a>
                                     </li>
                                     <li class="nav-item me-5">
                                       <a class="nav-link" href="actualites.php">Actualités</a>
@@ -257,11 +257,11 @@
                   
                 
              
-          </main>
-          <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light">
-            <p>Copyright © APE Saint-Pierre-de-Lages</p>
-      
-        </footer>
+            </main>
+            <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light">
+              <p>Copyright © APE Saint-Pierre-de-Lages</p>
+            </footer>
+        </div>
     
 </body>
  <!--Bootstrap-->
