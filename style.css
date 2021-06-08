@@ -575,3 +575,10 @@ button {
 	display: block;
 	font-size: 0.9em;
 }
+
+.connexion {
+    height: 1000px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+

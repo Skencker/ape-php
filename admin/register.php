@@ -136,11 +136,8 @@
     </header>
 	<section>
 		<div id="login-body">
-			<h1>S'inscrire</h1>
-            <?php
-            var_dump($_SESSION);
+			<h1 class="text-dark">S'inscrire</h1>
 
-            ?>
 
 			<?php if(isset($_GET['error'])){
 				if(isset($_GET['message'])) {
@@ -166,7 +163,7 @@
 			<p class="grey">Déjà inscrit ? <a href="connect.php">Connectez-vous</a>.</p>
 		</div>
 	</section>
-    <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light">
+    <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
         <p>Copyright © APE Saint-Pierre-de-Lages</p>
     </footer>
     

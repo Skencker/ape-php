@@ -1,55 +1,55 @@
 
 <?php
 
-session_start();
+    session_start();
 
-require('database.php');
+    require('database.php');
 
-if(!empty($_POST['email']) && !empty($_POST['password'])) {
-    $email = htmlspecialchars($_POST['email']);
-    $password = htmlspecialchars($_POST['password']);
+    if(!empty($_POST['email']) && !empty($_POST['password'])) {
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
 
-    //ADRESS EMAIL SYNTAXE
+        //ADRESS EMAIL SYNTAXE
 
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header('location: connect.php?error=1&message=Votre adresse email est invalide');
-        exit();
-    }
-
-    // CHIFFRAGE DU MOT DE PASSE
-    $password = "aq1".sha1($password."123")."25";
-
-    // EMAIL DEJA UTILISE
-    $req = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = ?");
-    $req->execute(array($email));
-
-    while($email_verification = $req->fetch()){
-        if($email_verification['numberEmail'] != 1){
-            header('location: connect.php?error=1&message=Impossible de vous authentifier correctement.');
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header('location: connect.php?error=1&message=Votre adresse email est invalide');
             exit();
         }
-    }
 
-    // CONNEXION
-    $req = $db->prepare("SELECT * FROM user WHERE email = ?");
-    $req->execute(array($email));
+        // CHIFFRAGE DU MOT DE PASSE
+        $password = "aq1".sha1($password."123")."25";
 
-    while($user = $req->fetch()){
-        if($password == $user['password']){
-            $_SESSION['connect'] = 1;
-            $_SESSION['email']   = $user['email'];
-            if(isset($_POST['auto'])){
-                setcookie('auth', $user['secret'], time() + 364*24*3600, '/', null, false, true);
+        // EMAIL DEJA UTILISE
+        $req = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = ?");
+        $req->execute(array($email));
+
+        while($email_verification = $req->fetch()){
+            if($email_verification['numberEmail'] != 1){
+                header('location: connect.php?error=1&message=Impossible de vous authentifier correctement.');
+                exit();
             }
-            header('location: connect.php?success=1');
-            exit();
         }
-        else {
-            header('location: connect.php?error=1&Impossible de vous authentifier correctement.');
-            exit();
+
+        // CONNEXION
+        $req = $db->prepare("SELECT * FROM user WHERE email = ?");
+        $req->execute(array($email));
+
+        while($user = $req->fetch()){
+            if($password == $user['password']){
+                $_SESSION['connect'] = 1;
+                $_SESSION['email']   = $user['email'];
+                if(isset($_POST['auto'])){
+                    setcookie('auth', $user['secret'], time() + 364*24*3600, '/', null, false, true);
+                }
+                header('location: connect.php?success=1');
+                exit();
+            }
+            else {
+                header('location: connect.php?error=1&Impossible de vous authentifier correctement.');
+                exit();
+            }
         }
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -121,14 +121,13 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
                 </div>
                 </nav>
     </header>
-    <section>
+    <section class='connexion'>
         <?php 
-            var_dump($_SESSION);
+
             if(isset($_SESSION['connect'])) {
         ?>
             <div class="container bg-light p-5 mt-5 ">
                 <h1 class='text-center'>Gestion des images du diapo de la page d'accueil</h1>
-                        <?php     var_dump($_SESSION); ?>
                         <div class="row">
                             <h2 class="bold">
                                 <a href="insert_image_accueil.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
@@ -337,8 +336,8 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
         <?php
             } else  { 
         ?>
-            <div id="login-body">
-                <h1>S'identifier</h1>
+            <div id="login-body" class='connexion'>
+                <h1 class='text-dark'>S'identifier</h1>
 
                 <?php if(isset($_GET['error'])) {
 
@@ -347,14 +346,13 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
                     }
 
                 } ?>
-
+                 
                 <form method="post" action="connect.php">
                     <input type="email" name="email" placeholder="Votre adresse email" required />
                     <input type="password" name="password" placeholder="Mot de passe" required />
                     <button type="submit">S'identifier</button>
-                    <label id="option"><input type="checkbox" name="auto" checked />Se souvenir de moi</label>
                 </form>
-            
+        
 
                 <p class="grey">Première visite ? <a href="register.php">Inscrivez-vous</a>.</p>
         <?php 
@@ -362,7 +360,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])) {
         ?>
     </section>
 
-    <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light">
+    <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
         <p>Copyright © APE Saint-Pierre-de-Lages</p>
     </footer>
     
