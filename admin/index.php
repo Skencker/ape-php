@@ -2,6 +2,7 @@
     require 'database.php';
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
+    
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +74,7 @@
         </header>
         <div class="container bg-light p-5 mt-5 ">
             <h1 class='text-center'>Gestion des images du diapo de la page d'accueil</h1>
+            <?php     var_dump($_SESSION); ?>
             <div class="row">
                 <h2 class="bold">
                     <a href="insert_image_accueil.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
