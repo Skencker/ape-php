@@ -38,11 +38,11 @@
         $dateError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     } 
-    if(empty($fichier)) 
-    {
-        $fichierError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    } 
+    // if(empty($fichier)) 
+    // {
+    //     $fichierError = 'Ce champ ne peut pas être vide';
+    //     $isSuccess = false;
+    // } 
 
 
     if(empty($image)) 
@@ -63,9 +63,9 @@
             $imageError = "Le fichier existe deja";
             $isUploadSuccess = false;
         }
-        if($_FILES["image"]["size"] > 500000) 
+        if($_FILES["image"]["size"] > 5000000) 
         {
-            $imageError = "Le fichier ne doit pas depasser les 500KB";
+            $imageError = "Le fichier ne doit pas depasser les 5000KB";
             $isUploadSuccess = false;
         }
         if($isUploadSuccess) 
@@ -82,16 +82,16 @@
       $db = Database::connect();
       if($isImageUpdated)
       {
-          $statement = $db->prepare("UPDATE evenement  set name = ?, image = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
+          $statement = $db->prepare("UPDATE evenement  set nom = ?, image = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
           $statement->execute(array($name,$image,$id,$description,$date,$fichier));
       }
       else
       {
-          $statement = $db->prepare("UPDATE image_accueil  set name = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
+          $statement = $db->prepare("UPDATE image_accueil  set nom = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
           $statement->execute(array($name,$id,$description,$date,$fichier));
       }
       Database::disconnect();
-      header("Location: index.php");
+      header("Location: connect.php");
     }
     else if($isImageUpdated && !$isUploadSuccess)
     {
@@ -187,7 +187,7 @@
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                    <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
                                 </li> 
                             </ul>
                         </div>
@@ -203,7 +203,7 @@
                 <div class="col-12">
                 <form action="<?php echo 'update_event.php?id='.$id;?>" method="post" class="form d-flex " role="form" enctype="multipart/form-data">
                         <div>
-                            <div class="form-group m-5 w-">
+                            <div class="form-group m-5">
                                 <label for="name">Nom :</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
                                 <span class='help-inline'><?php echo $nameError; ?></span>
@@ -215,35 +215,30 @@
                             </div>
                             <div class="form-group m-5 d-flex flex-column">
                                 <label for="description">Description :</label>
-                                <textarea name="description" id="decrition" cols="30" rows="4" value="<?php echo $description; ?>" placeholder = ""><?php echo $description; ?></textarea>
+                                <textarea name="description" id="decription" cols="30" rows="4" value="<?php echo $description; ?>" placeholder = ""><?php echo $description; ?></textarea>
                                 <!-- <input type="text" class="form-control" id="description" name="description" placeholder="Description" > -->
                                 <span class='help-inline'><?php echo $descriptionError; ?></span>
                             </div>                   
-                        </div>
-                        <div>
                             <div class="form-group m-5">
-                                <label for="">Nom de la pièce jointe : </label> 
-                                <p> <?php echo $fichier; ?> </p>
-                                <label for="image">Selectionner un fichier :</label>
+                                <label for="fichier">Selectionner un fichier :</label>
                                 <input type="file" id="fichier" name="fichier">
                                 <span class='help-inline'><?php echo $fichierError; ?></span>
                             </div>
                             <div class="form-group m-5">
-                                <label for="">Nom de l'image : </label> 
-                                <p> <?php echo $image; ?> </p>
                                 <label for="image">Selectionner une image :</label>
                                 <input type="file" id="image" name="image">
                                 <span class='help-inline'><?php echo $imageError; ?></span>
                             </div>
                             <div class='form-action mt-3 d-flex align-items-center justify-content-center pb-5'>
                                 <button type="submit" class="btn btn-success m-2" >Valider</button>
-                                <a href="index.php" class="btn btn-primary m-2" >Retour</a>
+                                <a href="connect.php" class="btn btn-primary m-2" >Retour</a>
                             </div>
                         </div>
+                
+                            <img src="../images/<?php echo $image;?>" alt="... " class="w-50">
+                    
+               
                     </form>
-                </div>
-                <div class="col-12 d-flex justify-content-center align-items-center">
-                    <img src="../images/<?php echo $image;?>" alt="... " class="w-25">
                 </div>
             </div>
            

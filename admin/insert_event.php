@@ -4,10 +4,8 @@
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
 
-
-
       //initilisation des variables
-  $image = $imageError = $nameError = $name = $description = $descriptionError = $date = $dateError = $fichier = $fichierError = "";
+  $image = $imageError = $nameError = $name = $description = $descriptionError = $date = $dateError = $fichier = $shaFileExtImage = $fichierError = "";
 
     // Vérifier si le formulaire a été soumis
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -37,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //     }
     // Vérifie si le fichier a été uploadé sans erreur.
     if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0){
-        $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+        $allowed = array("jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
         $filename = $_FILES["image"]["name"];
         $filetype = $_FILES["image"]["type"];
         $filesize = $_FILES["image"]["size"];
@@ -57,9 +55,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Vérifie si le fichier existe avant de le télécharger.
                 $shaFile = hash('sha256', $_FILES["image"]["name"]);
 
-                $shaFileExtImage = $shaFile . "." . $ext;
+                $shaFileExtImage = $shaFile . "." . array_search($filetype, $allowed);
            
-                move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $shaFile . "." . array_search($filetype, $allowed));
+                move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $shaFileExtImage);
                 echo "Votre fichier a été téléchargé avec succès.";
                 $isSuccess = true;
                 $isUploadSuccess = true;
@@ -68,9 +66,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
         }
     } else{
-        echo $nameError;
+        echo $imageError;
     }
-    if(isset($_FILES["fichier"]) && $_FILES["fichier"]["error"] == 0){
+    if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0){
         $allowed = array("pdf" => "application/pdf", "doc" => "application/doc", "docs" => "application/docs", "text" => "application/text");
         $filename = $_FILES["fichier"]["name"];
         $filetype = $_FILES["fichier"]["type"];
@@ -102,7 +100,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
         }
     } else{
-        echo $nameError;
+        echo $imageError;
     }
 }
 
@@ -197,6 +195,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </header>
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
             <h1>Ajouter un évèvement</h1>
+            <?php 
+var_dump($shaFileExtImage);
+
+?>
 
             <form action="insert_event.php" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">

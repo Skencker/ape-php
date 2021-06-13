@@ -319,7 +319,7 @@
                                                 <td>'.$document['date'].'</td>
                                                 <th class ="action text-center">
                                                     <a href="view_conseils_ecole.php?id=' . $document['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="delete_conseil_ecole.php?id=' . $document['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                                    <a href="delete_conseils_ecole.php?id=' . $document['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                                     </th>
                                                     </tr>';
                                                 };

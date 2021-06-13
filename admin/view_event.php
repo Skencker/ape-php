@@ -8,9 +8,9 @@
       //connection à la basse de donnée
       $db = Database::connect();
   
-      $statement = $db->prepare('SELECT evenement.id, evenement.nom, evenement.image, evenement.date, evenement.fichier, evenement.description
+      $statement = $db->prepare('SELECT id, nom, image, date,description, fichier
                                 FROM evenement
-                                WHERE evenement.id = ?');
+                                WHERE id = ?');
   
     $statement->execute(array($id));
   
@@ -100,7 +100,6 @@
         <div class="row d-flex justify-content-center align-items-center">
      
                 <?php
-         
                         echo '
                         <div class="col-lg-6 col-md-12 ">
                             <img class="img img-fluid" src="../images/'. $event['image'] .  '"alt="">
@@ -110,20 +109,10 @@
                             <hr>
                             <h4>'. $event['date'] . '</h4>
                             <p>'. $event['description'] . '</p>
-                        
                             <a href="../doc/'. $event['fichier'] . '"> Document </a>
                         </div>';
-                    
                 ?>
                 </div>
-               
-            <!-- <div class="col-lg-6 col-md-12">
-                <img src="../images/<?php echo $event['image'];?>" alt="... " class="w-50">
-                <div class=''>
-                    <a href="index.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
-                  </div>
-                  <?php var_dump($event['image']); ?>
-            </div> -->
         </div>
         </div>
 

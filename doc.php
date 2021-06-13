@@ -104,7 +104,7 @@
                     <?php
                         $statement = $db->query('SELECT * FROM conseils_ecole ORDER BY date DESC');                  
                         while($data = $statement->fetch()) {                 
-                            echo '<a href="./doc/'.$data['fichier'].'">'. $data['nom'] ."  " .$data['date'].'</a>';
+                            echo '<a href="./doc/'.$data['fichier'].'">'. $data['nom'] ."  " .$data['date'].'</a> </br>';
                         }
                   ?>
                     </div>

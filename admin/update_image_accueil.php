@@ -174,7 +174,7 @@
         </header>
 
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
-            <h1>Modification de l'images "<span class="color:red"> <?php echo $image; ?> </span>"</h1>
+            <h1>Modification de l'image </h1>
 
             <div class="row">
                 <div class="col-6">
@@ -186,15 +186,13 @@
                 </div>
 
                 <div class="form-group m-5">
-                <label for="">Nom de l'image : </label> 
-                <p> <?php echo $image; ?> </p>
                   <label for="image">Selectionner une image :</label>
                   <input type="file" id="image" name="image">
                   <span class='help-inline'><?php echo $imageError; ?></span>
                 </div>
               <div class='form-action mt-3 d-flex align-items-center justify-content-center'>
                 <button type="submit" class="btn btn-success m-2" >Valider</button>
-                <a href="index.php" class="btn btn-primary m-2" >Retour</a>
+                <a href="connect.php" class="btn btn-primary m-2" >Retour</a>
               </div>
               </form>
                 </div>

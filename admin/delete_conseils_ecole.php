@@ -6,7 +6,7 @@
 
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
-        $statement = $db->prepare("SELECT * FROM organigramme where id = ?");
+        $statement = $db->prepare("SELECT * FROM conseils_ecole where id = ?");
         $statement->execute(array($id));
         $data = $statement->fetch();
         $fichier =$data['fichier'];
@@ -16,7 +16,7 @@
     if(!empty($_POST)) {
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
-        $statement = $db->prepare("DELETE FROM organigramme WHERE id = ?");
+        $statement = $db->prepare("DELETE FROM conseils_ecole WHERE id = ?");
         $statement->execute(array($id));
         $data = $statement->fetch();
         $fichier =$data['fichier'];
@@ -103,12 +103,12 @@
                 </nav>
         </header>
         <div class="container bg-light d-flex flex-column justify-content-center" style="height: 800px">
-        <h1>Supprimer un organigramme</h1>
+        <h1>Supprimer un fichier </h1>
         <?php
-            // var_dump($suppr);
+            // var_dump($data);
         ?>
               <br>
-              <form action="delete_organigramme.php" method="post" class="form" role="form">
+              <form action="delete_conseils_ecole.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
                 <input type="hidden" name="id" value="<?php echo $id; ?>"/>
                 <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer le fichier ?</p>
