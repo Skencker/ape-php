@@ -42,7 +42,7 @@
             $imageError = "Le fichier existe deja";
             $isUploadSuccess = false;
         }
-        if($_FILES["image"]["size"] > 500000) 
+        if($_FILES["image"]["size"] > 5000000) 
         {
             $imageError = "Le fichier ne doit pas depasser les 500KB";
             $isUploadSuccess = false;
@@ -70,7 +70,7 @@
           $statement->execute(array($name,$id));
       }
       Database::disconnect();
-      header("Location: index.php");
+      header("Location: connect.php");
     }
     else if($isImageUpdated && !$isUploadSuccess)
     {

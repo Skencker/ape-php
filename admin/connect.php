@@ -151,12 +151,12 @@
                                             echo ' <tr>
                                                 <td>'.$image['nom'].'</td>
                                                 <th class ="action text-center">
-                                                    <a href="view_image_accueil.php?id=' . $image['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                                <a href="view_image_accueil.php?id=' . $image['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                                <a href="update_image_accueil.php?id=' . $image['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                                     <a href="delete_image_accueil.php?id=' . $image['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                                     </th>
                                                     </tr>';
                                                 };
-                                                // <a href="update_image_accueil.php?id=' . $image['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
 
                                         Database::disconnect();
                                     ?>
