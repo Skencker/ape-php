@@ -94,7 +94,7 @@
             <div class="container">
                 <div class="row event">
                   <?php
-                            $statement = $db->query('SELECT * FROM evenement');
+                            $statement = $db->query('SELECT * FROM evenement ORDER BY id DESC');
                             while ($even = $statement->fetch()) {
                               echo '
                               <div class="col-lg-6 col-md-12 p-5">
