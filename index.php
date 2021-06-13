@@ -176,7 +176,7 @@
                 <section class="lien-info d-flex justify-content-center align-items-center text-white">
                   <div class="row">
                       <div class="col-md-3 col-sm-12 ">
-                        <a href="actualites.html" class="d-flex flex-column m-5 lien  align-items-center">
+                        <a href="actualites.php" class="d-flex flex-column m-5 lien  align-items-center">
                           <div class="d-flex justify-content-center ">
                             <i class="bi bi-star-fill text-center p-3"></i>
                           </div>
@@ -185,7 +185,7 @@
                         </a>
                       </div>
                       <div class="col-md-3 col-sm-12 ">
-                    <a href="actualites.html" class="d-flex flex-column m-5 lien align-items-center">
+                    <a href="actualites.php" class="d-flex flex-column m-5 lien align-items-center">
                       <div class="d-flex justify-content-center ">
                         <i class="bi bi-file-plus text-center p-3"></i>
                       </div>
@@ -222,7 +222,7 @@
                         <div class="card-body">
                           <h5 class="card-title">Parents délégués</h5>
                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="parents.html" class="btn">En savoir plus</a>
+                          <a href="parents.php" class="btn">En savoir plus</a>
                         </div>
                       </div>
                     </div>
@@ -232,7 +232,7 @@
                     <div class="card-body">
                       <h5 class="card-title">Documents</h5>
                       <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="doc.html" class="btn">En savoir plus</a>
+                      <a href="doc.php" class="btn">En savoir plus</a>
                     </div>
                   </div>
                   </div>

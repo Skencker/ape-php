@@ -109,8 +109,9 @@
                             <hr>
                             <h4>'. $event['date'] . '</h4>
                             <p>'. $event['description'] . '</p>
-                            <a href="../doc/'. $event['fichier'] . '"> Document </a>
-                        </div>';
+                            <iframe id="iframe" width="500" height="300" src="../doc/'. $event['fichier'] . '"> </iframe>
+                        </div>
+                        ';
                 ?>
                 </div>
         </div>

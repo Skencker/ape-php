@@ -109,7 +109,7 @@
                             <h4>'. $document['date'] . '</h4>
                            
                         
-                            <a href="../doc/'. $document['fichier'] . '">'. $document['fichier'] . '</a>
+                            <iframe id="iframe" width="500" height="300" src="../doc/'. $document['fichier'] . '"> </iframe>
                         </div>';
                     
                 ?>
