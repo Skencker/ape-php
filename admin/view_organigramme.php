@@ -100,7 +100,7 @@
 echo '
         <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
 
-            <a href="../doc/'. $fichier['fichier'].'"> Fichier </a>
+            <a href="../doc/organigramme/'. $fichier['fichier'].'"> Fichier </a>
         
             <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
       

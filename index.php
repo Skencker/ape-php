@@ -1,9 +1,6 @@
 <?php 
-    require './admin/database.php';
-    //connection a la fonction statique (::) de la bdd 
-    $db = Database::connect();
+    require './admin/database.php';  
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -158,7 +155,15 @@
                             </button>
                           </h2>
                           <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body"> <a href="organigramme.html">Organigramme</a></div>
+                            <div class="accordion-body">
+                              <?php 
+                                        // ON RECUPERE LES DONNEES
+                                        $statement = $db->query('SELECT * FROM organigramme'); 
+                                        $fichier = $statement->fetch();                            
+                                          echo ' <a href="./doc/organigramme/'. $fichier['fichier'].'"> Organigramme </a>';              
+                                          Database::disconnect();
+                                    ?>
+                            </div>
                           </div>
                         </div>
                       </div>

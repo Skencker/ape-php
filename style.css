@@ -202,7 +202,7 @@ img {
 }
 
 .image-reunion {
-  animation: slide-in-right 2s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  /* animation: slide-in-right 1s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; */
 }
 
 .image-reunion img {
@@ -215,7 +215,7 @@ img {
   font-size: 20px;
   padding-right: 50px;
 
-  animation: slide-in-left 4s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  /* animation: slide-in-left 1s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; */
 }
 
 

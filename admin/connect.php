@@ -291,17 +291,16 @@
                         </div>
                     </div>
                     <div class="container bg-light p-5 mt-5 ">
-                        <h1 class='text-center'>Gestion des membres de l'APE</h1>
+                        <h1 class='text-center'>Gestion des conseils d'école</h1>
                         <div class="row">
                             <h2 class="bold">
-                                <a href="insert_membre_ape.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
+                                <a href="insert_conseils_ecole.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
                             </h2>
                             <table class="table table-striped table-hover table-primary">
                                 <thead>
                                     <tr>
                                         <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Fonction</th>
+                                        <th>Date</th>
                             
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -309,23 +308,22 @@
                                 <tbody>
                                     <?php 
                                         // ON RECUPERE LES DONNEES
-                                        $statement = $db->query('SELECT membres_ape.id, membres_ape.nom, membres_ape.prenom, membres_ape.fonction, membres_ape.image               
-                                                                FROM membres_ape
+                                        $statement = $db->query('SELECT id, nom, date, fichier            
+                                                                FROM conseils_ecole
                                                                 ');
                                             
                                         //boucle sur toute les lignes de la BDD
-                                        while($membre_ape = $statement->fetch()) {
+                                        while($document = $statement->fetch()) {
                                             echo ' <tr>
-                                                <td>'.$membre_ape['nom'].'</td>
-                                                <td>'.$membre_ape['prenom'].'</td>
-                                                <td>'.$membre_ape['fonction'].'</td>
+                                                <td>'.$document['nom'].'</td>
+                                                <td>'.$document['date'].'</td>
                                                 <th class ="action text-center">
-                                                    <a href="view_membre_ape.php?id=' . $membre_ape['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="delete_membre_ape.php?id=' . $membre_ape['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                                    <a href="view_conseils_ecole.php?id=' . $document['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                                    <a href="delete_conseil_ecole.php?id=' . $document['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                                     </th>
                                                     </tr>';
                                                 };
-                                                // <a href="update_membre_ape.php?id=' . $membre_ape['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                                // <a href="update_membre_ape.php?id=' . $document['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                         Database::disconnect();
                                     ?>
                                 </tbody>

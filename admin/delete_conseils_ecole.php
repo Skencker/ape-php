@@ -20,7 +20,7 @@
         $statement->execute(array($id));
         $data = $statement->fetch();
         $fichier =$data['fichier'];
-        unlink("../doc/organigramme/$fichier");
+        unlink("../doc/$fichier");
         Database::disconnect();
         header("Location: connect.php"); 
     }

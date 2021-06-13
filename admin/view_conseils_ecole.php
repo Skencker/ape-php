@@ -1,39 +1,31 @@
 
 <?php 
     require 'database.php';
-    //connection a la fonction statique (::) de la bdd 
-    $db = Database::connect();
-
+    //recupere l'id de l'image dans URL
     if(!empty($_GET['id'])) {
-        $id = veryfInput($_GET['id']);
-        $statement = $db->prepare("SELECT * FROM organigramme where id = ?");
-        $statement->execute(array($id));
-        $data = $statement->fetch();
-        $fichier =$data['fichier'];
-        Database::disconnect();
-    }
-    
-    if(!empty($_POST)) {
-        $id = veryfInput($_POST['id']);
-        $db = Database::connect();
-        $statement = $db->prepare("DELETE FROM organigramme WHERE id = ?");
-        $statement->execute(array($id));
-        $data = $statement->fetch();
-        $fichier =$data['fichier'];
-        unlink("../doc/organigramme/$fichier");
-        Database::disconnect();
-        header("Location: connect.php"); 
-    }
-
-  //fonction pour verifier l'input 
-  function veryfInput ($var) {
-    $var = trim($var); //enlever espace etc....
-    $var = stripslashes($var); //enlever les \
-    $var = htmlspecialchars($var); //enlever le code html etc
-    return $var;
-  };
-
-?>
+        $id = checkInput($_GET['id']);
+      }
+      //connection à la basse de donnée
+      $db = Database::connect();
+  
+      $statement = $db->prepare('SELECT id, nom, date, fichier
+                                FROM conseils_ecole
+                                WHERE id = ?');
+  
+    $statement->execute(array($id));
+  
+    $fichier = $statement->fetch();
+    Database::disconnect();
+  
+      //fonction pour sécurisé les données
+      function checkInput ($data) {
+        $data = trim($data);
+        $data = stripcslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
+  
+    ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -69,7 +61,7 @@
     </head>
     <body>
 
-        <header >
+        <header class="">
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -88,43 +80,38 @@
                     </button>
     
                     <div class="collapse navbar-collapse lg-d-flex bg-light justify-content-end " id="navbarSupportedContent">
-                        <div >
+                            <div >
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0  ">
                             <li class="nav-item me-5">
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
                                     <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
-                                </li>          
+                                </li>                               
                             </ul>
-                        </div>
+                            </div>
                     </div>
                 </div>
                 </nav>
         </header>
-        <div class="container bg-light d-flex flex-column justify-content-center" style="height: 800px">
-        <h1>Supprimer un organigramme</h1>
-        <?php
-            // var_dump($suppr);
-        ?>
-              <br>
-              <form action="delete_organigramme.php" method="post" class="form" role="form">
-              <!-- input invisible qui recupere l'id  -->
-                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-                <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer le fichier ?</p>
-                
-          
-              <div class='form-action'>
-                <button type="submit" class="btn btn-warning m-2" >Oui</button>
-                <a href="connect.php" class="btn btn-default m-2" >Non</a>
-              </div>
-              </form>
-        </div>
- 
+
+<?php  
+
+echo '
+        <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
+
+            <a href="../doc/'. $fichier['fichier'].'"> Fichier </a>
+        
+            <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
+      
+        </div>';
+
+?>
+
 
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
-            <p>Copyright © APE Saint-Pierre-de-Lages</p>
-        </footer>
+        <p>Copyright © APE Saint-Pierre-de-Lages</p>
+    </footer>
     
 </body>
  <!--Bootstrap-->

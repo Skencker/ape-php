@@ -55,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 $shaFileExtFichier = $shaFile . "." . array_search($filetype, $allowed);
            
-                move_uploaded_file($_FILES["fichier"]["tmp_name"], "../doc/organigramme/" . $shaFileExtFichier);
+                move_uploaded_file($_FILES["fichier"]["tmp_name"], "../doc/" . $shaFileExtFichier);
                 echo "Votre fichier a été téléchargé avec succès.";
                 $isSuccess = true;
                 $isUploadSuccess = true;
@@ -72,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($isSuccess && $isUploadSuccess) 
     {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO organigramme (nom, date, fichier) values(?, ?, ?)");
+        $statement = $db->prepare("INSERT INTO conseils_ecole (nom, date, fichier) values(?, ?, ?)");
         $statement->execute(array($name,$date,$shaFileExtFichier));
         Database::disconnect();
         header("Location: connect.php");
@@ -158,8 +158,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </nav>
         </header>
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
-            <h1>Ajouter un organigramme</h1>
-                   <form action="insert_organigramme.php" method="post" class="form" role="form" enctype="multipart/form-data">
+            <h1>Ajouter un conseil d'école</h1>
+
+            <form action="insert_conseils_ecole.php" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">
                   <label for="name">Nom :</label>
                   <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
