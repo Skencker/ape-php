@@ -7,13 +7,15 @@
 
 
       //initilisation des variables
-$nameError = $name = $date = $dateError = $fichier = $fichierError = "";
+  $fichier = $fichierError = $nameError = $name = $date = $dateError = "";
+
+
 
     // Vérifier si le formulaire a été soumis
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $name = veryfInput($_POST['name']);
     $date = veryfInput($_POST['date']);
-
+    // $image = veryfInput($_FILES['image']['name']);
     if(empty($name)) 
         {
             $nameError = 'Ce champ ne peut pas être vide';
@@ -24,7 +26,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $dateError = 'Ce champ ne peut pas être vide';
             $isSuccess = false;
         }
-
+    // if(empty($image)) 
+    //     {
+    //         $imageError = 'Ce champ ne peut pas être vide';
+    //         $isSuccess = false;
+    //     }
+    // Vérifie si le fichier a été uploadé sans erreur.
     if(isset($_FILES["fichier"]) && $_FILES["fichier"]["error"] == 0){
         $allowed = array("pdf" => "application/pdf", "doc" => "application/doc", "docs" => "application/docs", "text" => "application/text");
         $filename = $_FILES["fichier"]["name"];
@@ -46,9 +53,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Vérifie si le fichier existe avant de le télécharger.
                 $shaFile = hash('sha256', $_FILES["fichier"]["name"]);
 
-                $shaFileExtFichier = $shaFile . "." . $ext;
+                $shaFileExtFichier = $shaFile . "." . array_search($filetype, $allowed);
            
-                move_uploaded_file($_FILES["fichier"]["tmp_name"], "../doc/" . $shaFile . "." . array_search($filetype, $allowed));
+                move_uploaded_file($_FILES["fichier"]["tmp_name"], "../doc/" . $shaFileExtFichier);
                 echo "Votre fichier a été téléchargé avec succès.";
                 $isSuccess = true;
                 $isUploadSuccess = true;
@@ -57,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
         }
     } else{
-        echo $fichierError;
+        echo $nameError;
     }
 }
 
@@ -65,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($isSuccess && $isUploadSuccess) 
     {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO document (nom, date, fichier) values(?, ?, ?)");
+        $statement = $db->prepare("INSERT INTO organigramme (nom, date, fichier) values(?, ?, ?)");
         $statement->execute(array($name,$date,$shaFileExtFichier));
         Database::disconnect();
         header("Location: connect.php");
@@ -143,7 +150,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 </li>                               
                                 <li class="nav-item me-5">
                                     <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
-                                </li>              
+                                </li> 
                             </ul>
                         </div>
                     </div>
@@ -152,21 +159,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </header>
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
             <h1>Ajouter un organigramme</h1>
+            <?php 
+                var_dump($_FILES);
+            ?>
 
-            <form action="insert_document.php" method="post" class="form" role="form" enctype="multipart/form-data">
+            <form action="insert_organigramme.php" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">
-      
                   <label for="name">Nom :</label>
                   <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
                   <span class='help-inline'><?php echo $nameError; ?></span>
                 </div>
                 <div class="form-group m-5">
                   <label for="date">Date :</label>
-                  <input type="text" class="form-control" id="date" name="date" placeholder="date" value="<?php echo $date; ?>">
+                  <input type="text" class="form-control" id="date" name="date" placeholder="Date" value="<?php echo $date; ?>">
                   <span class='help-inline'><?php echo $dateError; ?></span>
                 </div>
+
                 <div class="form-group m-5">
-                  <label for="fichier">Selectionner une fichier :</label>
+                  <label for="fichier">Selectionner un fichier :</label>
+                  <br>
                   <input type="file" id="fichier" name="fichier">
                   <span class='help-inline'><?php echo $fichierError; ?></span>
                 </div>
@@ -174,10 +185,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
           
               <div class='form-action m-5'>
-                <a type="submit" class="btn btn-success m-2 w-25" >Valider</a>
+                <button type="submit" class="btn btn-success m-2" >Valider</button>
                 <a href="connect.php" class="btn btn-primary m-2" >Retour</a>
               </div>
-            </form>
+              </form>
         </div>
  
 

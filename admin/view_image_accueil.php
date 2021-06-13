@@ -86,7 +86,7 @@
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                    <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
                                 </li>                               
                             </ul>
                             </div>
@@ -95,12 +95,16 @@
                 </nav>
         </header>
 
+<?php  echo '
         <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
-            <img src="../images/<?php echo $image['image'];?>" alt="... " class="w-50">
-            <div class=''>
-                <a href="index.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
+            <img src="../images/'. $image['image'] .'" alt="... " class="w-50">
+            <div>
+                <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
               </div>
-        </div>
+        </div>';
+
+?>
+
 
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
         <p>Copyright © APE Saint-Pierre-de-Lages</p>

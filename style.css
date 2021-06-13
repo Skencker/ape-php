@@ -536,7 +536,7 @@ input[type="email"], input[type="password"] {
 	margin-bottom: 15px;
 }
 
-button {
+#btn-registre {
 	background-color: #E50914;
 	color: white;
 	padding: 15px;
@@ -556,7 +556,8 @@ button {
 .alert {
 	padding: 10px;
 	margin: 30px 0;
-	color: white;
+  color: black;
+
 	border-radius: 5px;
 }
 

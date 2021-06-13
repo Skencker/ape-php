@@ -96,7 +96,7 @@
         </header>
 
         <div class="container  bg-light p-5 mt-5" style="height: 800px" >
-            <a href="index.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
+            <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
         <div class="row d-flex justify-content-center align-items-center">
      
                 <?php
@@ -122,6 +122,7 @@
                 <div class=''>
                     <a href="index.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
                   </div>
+                  <?php var_dump($event['image']); ?>
             </div> -->
         </div>
         </div>

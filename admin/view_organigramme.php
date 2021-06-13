@@ -4,20 +4,17 @@
     //recupere l'id de l'image dans URL
     if(!empty($_GET['id'])) {
         $id = checkInput($_GET['id']);
-    }
+      }
       //connection à la basse de donnée
-    $db = Database::connect();
-
-    
-
+      $db = Database::connect();
   
-    $statement = $db->prepare('SELECT membres_ape.id, membres_ape.nom, membres_ape.prenom, membres_ape.fonction, membres_ape.image   
-                            FROM membres_ape
-                            WHERE membres_ape.id = ? ');
+      $statement = $db->prepare('SELECT id, nom, date, fichier
+                                FROM organigramme
+                                WHERE id = ?');
   
     $statement->execute(array($id));
   
-    $membre = $statement->fetch();
+    $fichier = $statement->fetch();
     Database::disconnect();
   
       //fonction pour sécurisé les données
@@ -83,39 +80,34 @@
                     </button>
     
                     <div class="collapse navbar-collapse lg-d-flex bg-light justify-content-end " id="navbarSupportedContent">
-                        <div >
+                            <div >
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0  ">
                             <li class="nav-item me-5">
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
                                     <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
-                                </li> 
+                                </li>                               
                             </ul>
-                        </div>
+                            </div>
                     </div>
                 </div>
                 </nav>
         </header>
 
-        <div class="container  bg-light p-5 mt-5" style="height: 800px" >
-            <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
-        <div class="row d-flex justify-content-center align-items-center">
-     
-                <?php
-              
-                        echo '
-                        <div class="col-lg-6 col-md-12 ">
-                            <img class="img img-fluid" src="../images/'. $membre['image'] .  '"alt="">
-                        </div>
-                        <div class="col p-5">
-                            <h2 > Nom : '. $membre['nom'].'</h2>
-                            <h2 > Prénom : '. $membre['prenom'].'</h2>
-                            <hr>
-                            <h4 > Fonction : '.$membre['fonction'] . '</h4>
-                        </div>';
-                ?>
-        </div>
+<?php  
+
+echo '
+        <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
+
+            <a href="../doc/'. $fichier['fichier'].'"> Fichier </a>
+        
+            <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
+      
+        </div>';
+
+?>
+
 
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
         <p>Copyright © APE Saint-Pierre-de-Lages</p>

@@ -1,5 +1,7 @@
 
 <?php 
+
+session_start();
     require 'database.php';
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
@@ -14,19 +16,16 @@
         unlink("../images/$image");
         Database::disconnect();
     }
-  
+    
     if(!empty($_POST)) {
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
-
+        
         $statementDelete = $db->prepare("DELETE FROM parents_delegues WHERE id = ?");
         $statementDelete->execute(array($id));
  
         Database::disconnect();
-        header("Location: index.php"); 
-
-
-
+        header("Location: connect.php");
     }
 
   //fonction pour verifier l'input 
@@ -98,7 +97,7 @@
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                    <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
                                 </li> 
                             </ul>
                         </div>
@@ -112,12 +111,12 @@
               <form action="delete_parent.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
                 <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-                <p class='alert alert-warning'>Etes vous de vouloir supprimer :"  <?php echo $name; ?>. " ?</p>
+                <p class='alert alert-warning text-dark'>Etes vous de vouloir supprimer :"  <?php echo $name; ?>. " ?</p>
                 
           
               <div class='form-action'>
                 <button type="submit" class="btn btn-warning m-2" >Oui</button>
-                <a href="index.php" class="btn btn-default m-2" >Non</a>
+                <a href="connect.php" class="btn btn-default m-2" >Non</a>
               </div>
               </form>
         </div>

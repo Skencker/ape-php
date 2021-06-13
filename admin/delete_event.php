@@ -22,7 +22,7 @@
         $statementDelete->execute(array($id));
  
         Database::disconnect();
-        header("Location: index.php"); 
+        header("Location: connect.php"); 
     }
 
   //fonction pour verifier l'input 
@@ -69,7 +69,7 @@
     </head>
     <body>
 
-        <header class="">
+        <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -108,12 +108,12 @@
               <form action="delete_event.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
                 <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-                <p class='alert alert-warning'>Etes vous sur de vouloir supprimer l'évènement :"  <?php echo $name; ?>. " ?</p>
+                <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer l'évènement :"  <?php echo $name; ?>. " ?</p>
                 
           
               <div class='form-action'>
                 <button type="submit" class="btn btn-warning m-2" >Oui</button>
-                <a href="index.php" class="btn btn-default m-2" >Non</a>
+                <a href="connect.php" class="btn btn-default m-2" >Non</a>
               </div>
               </form>
         </div>

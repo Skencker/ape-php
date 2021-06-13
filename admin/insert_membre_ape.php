@@ -75,7 +75,7 @@
         $statement = $db->prepare("INSERT INTO membres_ape (nom, prenom, fonction, image) values(?, ?, ?, ?)");
         $statement->execute(array($name,$prenom,$fonction,$image));
         Database::disconnect();
-        header("Location: index.php");
+        header("Location: connect.php");
     }
   }
 
@@ -149,7 +149,7 @@
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                    <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
                                 </li>              
                             </ul>
                         </div>
@@ -188,9 +188,9 @@
 
 
           
-              <div class='form-action mt-3'>
-                <button type="submit" class="btn btn-success m-2" >Valider</button>
-                <a href="index.php" class="btn btn-primary m-2" >Retour</a>
+              <div class='form-action m-5'>
+                <button type="submit" class="btn btn-success w-25 m-2" >Valider</button>
+                <a href="connect.php" class="btn btn-primary m-2" >Retour</a>
               </div>
               </form>
         </div>

@@ -1,34 +1,39 @@
 
 <?php 
     require 'database.php';
-    //recupere l'id de l'image dans URL
-    if(!empty($_GET['id'])) {
-        $id = checkInput($_GET['id']);
-    }
-      //connection à la basse de donnée
+    //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
 
+    if(!empty($_GET['id'])) {
+        $id = veryfInput($_GET['id']);
+        $statement = $db->prepare("SELECT * FROM organigramme where id = ?");
+        $statement->execute(array($id));
+        $data = $statement->fetch();
+        $fichier =$data['fichier'];
+        Database::disconnect();
+    }
     
+    if(!empty($_POST)) {
+        $id = veryfInput($_POST['id']);
+        $db = Database::connect();
+        $statement = $db->prepare("DELETE FROM organigramme WHERE id = ?");
+        $statement->execute(array($id));
+        $data = $statement->fetch();
+        $fichier =$data['fichier'];
+        unlink("../doc/$fichier");
+        Database::disconnect();
+        header("Location: connect.php"); 
+    }
 
-  
-    $statement = $db->prepare('SELECT membres_ape.id, membres_ape.nom, membres_ape.prenom, membres_ape.fonction, membres_ape.image   
-                            FROM membres_ape
-                            WHERE membres_ape.id = ? ');
-  
-    $statement->execute(array($id));
-  
-    $membre = $statement->fetch();
-    Database::disconnect();
-  
-      //fonction pour sécurisé les données
-      function checkInput ($data) {
-        $data = trim($data);
-        $data = stripcslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-      }
-  
-    ?>
+  //fonction pour verifier l'input 
+  function veryfInput ($var) {
+    $var = trim($var); //enlever espace etc....
+    $var = stripslashes($var); //enlever les \
+    $var = htmlspecialchars($var); //enlever le code html etc
+    return $var;
+  };
+
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -64,7 +69,7 @@
     </head>
     <body>
 
-        <header class="">
+        <header >
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -90,36 +95,33 @@
                                 </li>                               
                                 <li class="nav-item me-5">
                                     <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
-                                </li> 
+                                </li>          
                             </ul>
                         </div>
                     </div>
                 </div>
                 </nav>
         </header>
-
-        <div class="container  bg-light p-5 mt-5" style="height: 800px" >
-            <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
-        <div class="row d-flex justify-content-center align-items-center">
-     
-                <?php
-              
-                        echo '
-                        <div class="col-lg-6 col-md-12 ">
-                            <img class="img img-fluid" src="../images/'. $membre['image'] .  '"alt="">
-                        </div>
-                        <div class="col p-5">
-                            <h2 > Nom : '. $membre['nom'].'</h2>
-                            <h2 > Prénom : '. $membre['prenom'].'</h2>
-                            <hr>
-                            <h4 > Fonction : '.$membre['fonction'] . '</h4>
-                        </div>';
-                ?>
+        <div class="container bg-light d-flex flex-column justify-content-center" style="height: 800px">
+        <h1>Supprimer un organigramme</h1>
+              <br>
+              <form action="delete_organigramme.php" method="post" class="form" role="form">
+              <!-- input invisible qui recupere l'id  -->
+                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+                <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer le fichier ?</p>
+                
+          
+              <div class='form-action'>
+                <button type="submit" class="btn btn-warning m-2" >Oui</button>
+                <a href="connect.php" class="btn btn-default m-2" >Non</a>
+              </div>
+              </form>
         </div>
+ 
 
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
-        <p>Copyright © APE Saint-Pierre-de-Lages</p>
-    </footer>
+            <p>Copyright © APE Saint-Pierre-de-Lages</p>
+        </footer>
     
 </body>
  <!--Bootstrap-->

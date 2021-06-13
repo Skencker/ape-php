@@ -21,7 +21,7 @@
         $statement = $db->prepare("DELETE FROM image_accueil WHERE id = ?");
         $statement->execute(array($id));
         Database::disconnect();
-        header("Location: index.php"); 
+        header("Location: connect.php"); 
     }
 
   //fonction pour verifier l'input 
@@ -68,7 +68,7 @@
     </head>
     <body>
 
-        <header class="">
+        <header >
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -93,7 +93,7 @@
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                    <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
                                 </li>          
                             </ul>
                         </div>
@@ -107,12 +107,12 @@
               <form action="delete_image_accueil.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
                 <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-                <p class='alert alert-warning'>Etes vous sur de vouloir supprimer l'image :"  <?php echo $image; ?> "?</p>
+                <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer l'image :"  <?php echo $image; ?> "?</p>
                 
           
               <div class='form-action'>
                 <button type="submit" class="btn btn-warning m-2" >Oui</button>
-                <a href="index.php" class="btn btn-default m-2" >Non</a>
+                <a href="connect.php" class="btn btn-default m-2" >Non</a>
               </div>
               </form>
         </div>

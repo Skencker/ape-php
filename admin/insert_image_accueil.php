@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //     }
     // Vérifie si le fichier a été uploadé sans erreur.
     if(isset($_FILES["files"]) && $_FILES["files"]["error"] == 0){
-        $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+        $allowed = array("jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
         $filename = $_FILES["files"]["name"];
         $filetype = $_FILES["files"]["type"];
         $filesize = $_FILES["files"]["size"];
@@ -47,9 +47,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Vérifie si le fichier existe avant de le télécharger.
                 $shaFile = hash('sha256', $_FILES["files"]["name"]);
 
-                $shaFileExt = $shaFile . "." . $ext;
+                $shaFileExt = $shaFile . "." . array_search($filetype, $allowed);
            
-                move_uploaded_file($_FILES["files"]["tmp_name"], "../images/" . $shaFile . "." . array_search($filetype, $allowed));
+                move_uploaded_file($_FILES["files"]["tmp_name"], "../images/" . $shaFileExt);
                 echo "Votre fichier a été téléchargé avec succès.";
                 $isSuccess = true;
                 $isUploadSuccess = true;
@@ -69,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $statement = $db->prepare("INSERT INTO image_accueil (nom, image) values(?, ?)");
         $statement->execute(array($name,$shaFileExt));
         Database::disconnect();
-        header("Location: index.php");
+        header("Location: connect.php");
     }
   
 
@@ -143,7 +143,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                    <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
                                 </li> 
                             </ul>
                         </div>
@@ -162,16 +162,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
 
                 <div class="form-group m-5">
-                  <label for="files">Selectionner une image :</label>
+                  <label for="files">Selectionner une image : <br> (Photo en mode paysage).</label>
+                  <br>
                   <input type="file" id="files" name="files">
                   <span class='help-inline'><?php echo $imageError; ?></span>
                 </div>
 
 
           
-              <div class='form-action mt-3'>
-                <button type="submit" class="btn btn-success m-2" >Valider</button>
-                <a href="index.php" class="btn btn-primary m-2" >Retour</a>
+              <div class='form-action m-5'>
+                <button type="submit" class="btn btn-success w-25 m-2" >Valider</button>
+                <a href="connect.php" class="btn btn-primary m-2" >Retour</a>
               </div>
               </form>
         </div>

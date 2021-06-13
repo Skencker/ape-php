@@ -128,6 +128,7 @@
         ?>
             <div class="container bg-light p-5 mt-5 ">
                 <h1 class='text-center'>Gestion des images du diapo de la page d'accueil</h1>
+      
                         <div class="row">
                             <h2 class="bold">
                                 <a href="insert_image_accueil.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
@@ -151,11 +152,11 @@
                                                 <td>'.$image['nom'].'</td>
                                                 <th class ="action text-center">
                                                     <a href="view_image_accueil.php?id=' . $image['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="update_image_accueil.php?id=' . $image['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                                     <a href="delete_image_accueil.php?id=' . $image['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
-                                                </th>
-                                            </tr>';
-                                        };
+                                                    </th>
+                                                    </tr>';
+                                                };
+                                                // <a href="update_image_accueil.php?id=' . $image['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
 
                                         Database::disconnect();
                                     ?>
@@ -192,14 +193,14 @@
                                                 <td>'.$evenement['date'].'</td>
                                                 <th class ="action text-center">
                                                 <a href="view_event.php?id=' . $evenement['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                <a href="update_event.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                                 <a href="delete_event.php?id=' . $evenement['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                                 </th>
                                                 </tr>';
                                             };
                                             // <td>'.$evenement['fichier'].'</td>
                                             // <td>'.$evenement['image'].'</td>
-                                    
+                                            // <a href="update_event.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                            
                                 
                                         Database::disconnect();
                                     ?>
@@ -238,13 +239,51 @@
                                                 <td>'.$parents_delegues['classe'].'</td>
                                                 <th class ="action text-center">
                                                     <a href="view_parent.php?id=' . $parents_delegues['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="update_parent.php?id=' . $parents_delegues['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                                     <a href="delete_parent.php?id=' . $parents_delegues['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
-                                                </th>
-                                            </tr>';
-                                        };
+                                                    </th>
+                                                    </tr>';
+                                                };
+                                                // <a href="update_parent.php?id=' . $parents_delegues['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                     
                                 
+                                        Database::disconnect();
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+          
+                    <div class="container bg-light p-5 mt-5 ">
+                        <h1 class='text-center'>Gestion de l'organigramme</h1>
+                        <div class="row">
+                            <h2 class="bold">
+                                <a href="insert_organigramme.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
+                            </h2>
+                            <table class="table table-striped table-hover table-primary">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Date</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                        // ON RECUPERE LES DONNEES
+                                        $statement = $db->query('SELECT * FROM organigramme');
+                                            
+                                        //boucle sur toute les lignes de la BDD
+                                        while($organigramme = $statement->fetch()) {
+                                            echo ' <tr>
+                                                <td>'.$organigramme['nom'].'</td>
+                                                <td>'.$organigramme['date'].'</td>
+                                                <th class ="action text-center">
+                                                    <a href="view_organigramme.php?id=' . $organigramme['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                                    <a href="delete_organigramme.php?id=' . $organigramme['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                                    </th>
+                                                    </tr>';
+                                                };
+                                                // <a href="update_document.php?id=' . $organigramme['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                         Database::disconnect();
                                     ?>
                                 </tbody>
@@ -282,57 +321,17 @@
                                                 <td>'.$membre_ape['fonction'].'</td>
                                                 <th class ="action text-center">
                                                     <a href="view_membre_ape.php?id=' . $membre_ape['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="update_membre_ape.php?id=' . $membre_ape['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                                     <a href="delete_membre_ape.php?id=' . $membre_ape['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
-                                                </th>
-                                            </tr>';
-                                        };
+                                                    </th>
+                                                    </tr>';
+                                                };
+                                                // <a href="update_membre_ape.php?id=' . $membre_ape['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                         Database::disconnect();
                                     ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="container bg-light p-5 mt-5 ">
-                        <h1 class='text-center'>Gestion des documents</h1>
-                        <div class="row">
-                            <h2 class="bold">
-                                <a href="insert_document.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
-                            </h2>
-                            <table class="table table-striped table-hover table-primary">
-                                <thead>
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Date</th>
-                                        <th>Fichier</th>
-                            
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                        // ON RECUPERE LES DONNEES
-                                        $statement = $db->query('SELECT * FROM document');
-                                            
-                                        //boucle sur toute les lignes de la BDD
-                                        while($document = $statement->fetch()) {
-                                            echo ' <tr>
-                                                <td>'.$document['nom'].'</td>
-                                                <td>'.$document['date'].'</td>
-                                                <td>'.$document['fichier'].'</td>
-                                                <th class ="action text-center">
-                                                    <a href="view_document.php?id=' . $document['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="update_document.php?id=' . $document['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                                    <a href="delete_document.php?id=' . $document['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
-                                                </th>
-                                            </tr>';
-                                        };
-                                        Database::disconnect();
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-            </div>
         <?php
             } else  { 
         ?>
@@ -350,7 +349,7 @@
                 <form method="post" action="connect.php">
                     <input type="email" name="email" placeholder="Votre adresse email" required />
                     <input type="password" name="password" placeholder="Mot de passe" required />
-                    <button type="submit">S'identifier</button>
+                    <button id="btn-registre" type="submit">S'identifier</button>
                 </form>
         
 

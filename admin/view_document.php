@@ -86,7 +86,7 @@
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                    <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
                                 </li> 
                             </ul>
                         </div>
@@ -96,7 +96,7 @@
         </header>
 
         <div class="container  bg-light p-5 mt-5" style="height: 800px" >
-            <a href="index.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
+            <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
         <div class="row d-flex justify-content-center align-items-center">
      
                 <?php
