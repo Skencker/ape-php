@@ -97,22 +97,19 @@
 
         <div class="container  bg-light p-5 mt-5" style="height: 800px" >
             <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
-        <div class="row d-flex justify-content-center align-items-center">
-     
-                <?php
-                        echo '
+        <div class="row d-flex justify-content-center align-items-center">    
                         <div class="col-lg-6 col-md-12 ">
-                            <img class="img img-fluid" src="../images/'. $event['image'] .  '"alt="">
+
+                            <img class="img img-fluid" src="../images/<?php echo  $event['image'] ?>"alt="">
                         </div>
                         <div class="col p-5">
-                            <h2 >'. $event['nom'].'</h2>
+                            <h2 ><?php echo  $event['nom']?></h2>
                             <hr>
-                            <h4>'. $event['date'] . '</h4>
-                            <p>'. $event['description'] . '</p>
-                            <iframe id="iframe" width="500" height="300" src="../doc/'. $event['fichier'] . '"> </iframe>
+                            <h4><?php echo  $event['date'] ?></h4>
+                            <p><?php echo  $event['description'] ?></p>
+                            <iframe id="iframe" width="500" height="300" src="../doc/<?php echo $event['fichier'] ?>"> </iframe>
                         </div>
-                        ';
-                ?>
+                        
                 </div>
         </div>
         </div>

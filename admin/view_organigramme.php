@@ -95,18 +95,14 @@
                 </nav>
         </header>
 
-<?php  
 
-echo '
         <div class="container d-flex flex-column justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
 
-        <iframe class="m-5" id="iframe" width="350" height="600" src="../doc/organigramme/'. $fichier['fichier'] . '"> </iframe>
+        <iframe class="m-5" id="iframe" width="350" height="600" src="../doc/organigramme/<?php echo  $fichier['fichier'] ?>"> </iframe>
         
             <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
       
-        </div>';
-
-?>
+        </div>
 
 
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">

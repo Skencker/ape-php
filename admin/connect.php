@@ -128,7 +128,6 @@
         ?>
             <div class="container bg-light p-5 mt-5 ">
                 <h1 class='text-center'>Gestion des images du diapo de la page d'accueil</h1>
-      
                         <div class="row">
                             <h2 class="bold">
                                 <a href="insert_image_accueil.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
@@ -147,16 +146,16 @@
                                         $statement = $db->query('SELECT * FROM image_accueil');
                                             
                                         //boucle sur toute les lignes de la BDD
-                                        while($image = $statement->fetch()) {
-                                            echo ' <tr>
-                                                <td>'.$image['nom'].'</td>
+                                        while($image = $statement->fetch()) { ?>
+                                            <tr>
+                                                <td><?php echo $image['nom'] ?></td>
                                                 <th class ="action text-center">
-                                                <a href="view_image_accueil.php?id=' . $image['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                <a href="update_image_accueil.php?id=' . $image['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                                    <a href="delete_image_accueil.php?id=' . $image['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                                <a href="view_image_accueil.php?id=<?php echo $image['id'] ?> " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                                    <a href="delete_image_accueil.php?id= <?php echo $image['id'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                                     </th>
-                                                    </tr>';
-                                                };
+                                                    </tr>
+                                                    <!-- <a href="update_image_accueil.php?id=<?php echo  $image['id'] ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a> -->
+                                                    <?php };
 
                                         Database::disconnect();
                                     ?>
@@ -164,8 +163,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div class="container bg-light p-5 mt-5 ">
+            </div>
+            <div class="container bg-light p-5 mt-5 ">
                         <h1 class='text-center'>Gestion des événements de la page actualité</h1>
                         <div class="row">
                             <h2 class="bold">
@@ -176,8 +175,7 @@
                                     <tr>
                                         <th>Nom</th>
                                         <th>Date</th>
-                                        <!-- <th>Fichier</th>
-                                        <th>Image</th> -->
+                            
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -187,28 +185,30 @@
                                         $statement = $db->query('SELECT * FROM evenement');
                                             
                                         //boucle sur toute les lignes de la BDD
-                                        while($evenement = $statement->fetch()) {
-                                            echo ' <tr>
-                                                <td>'.$evenement['nom'].'</td>
-                                                <td>'.$evenement['date'].'</td>
+                                        while($evenement = $statement->fetch()) { ?>
+                                            <tr>
+                                                <td> <?php echo $evenement['nom']?></td>
+                                                <td><?php echo $evenement['date']?></td>
                                                 <th class ="action text-center">
-                                                <a href="view_event.php?id=' . $evenement['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                <a href="delete_event.php?id=' . $evenement['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                                <a href="view_event.php?id=<?php echo$evenement['id'] ?> " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                                <a href="delete_event.php?id=<?php echo $evenement['id'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                                 </th>
-                                                </tr>';
+                                                </tr>
+
+                                                <?php 
                                             };
-                                            // <a href="update_event.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                            // <td>'.$evenement['fichier'].'</td>
-                                            // <td>'.$evenement['image'].'</td>
-                                            
+                                            Database::disconnect();
+                                        ?>
+                                            <!-- <a href="update_event.php?id=<?php echo $evenement['id'] ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                            <td><?php echo$evenement['fichier']?></td>
+                                            <td><?php echo$evenement['image']?></td>
+                                             -->
                                 
-                                        Database::disconnect();
-                                    ?>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                    <div class="container bg-light p-5 mt-5 ">
+                     </div>
+            </div>
+            <div class="container bg-light p-5 mt-5 ">
                         <h1 class='text-center'>Gestion des parents délégués</h1>
                         <div class="row">
                             <h2 class="bold">
@@ -231,105 +231,104 @@
                                                         ');
                                             
                                         //boucle sur toute les lignes de la BDD
-                                        while($parents_delegues = $statement->fetch()) {
-                                            echo ' <tr>
-                                                <td>'.$parents_delegues['nom'].'</td>
-                                                <td>'.$parents_delegues['prenom'].'</td>
-                                                <td>'.$parents_delegues['fonction'].'</td>
-                                                <td>'.$parents_delegues['classe'].'</td>
+                                        while($parents_delegues = $statement->fetch()) { ?>
+                                            <tr>
+                                                <td><?php echo$parents_delegues['nom']?></td>
+                                                <td><?php echo$parents_delegues['prenom']?></td>
+                                                <td><?php echo$parents_delegues['fonction']?></td>
+                                                <td><?php echo$parents_delegues['classe']?></td>
                                                 <th class ="action text-center">
-                                                    <a href="view_parent.php?id=' . $parents_delegues['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="delete_parent.php?id=' . $parents_delegues['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                                    <a href="view_parent.php?id=<?php echo $parents_delegues['id'] ?> " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                                    <a href="delete_parent.php?id=<?php echo $parents_delegues['id'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                                     </th>
-                                                    </tr>';
-                                                };
-                                                // <a href="update_parent.php?id=' . $parents_delegues['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
+                                                    </tr>
+                                                <?php };
                                     
-                                
-                                        Database::disconnect();
+                                    
+                                    Database::disconnect();
                                     ?>
+                                <!-- <a href="update_parent.php?id=' .<?php echo $parents_delegues['id']?> " class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a> --> 
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-          
-                    <div class="container bg-light p-5 mt-5 ">
-                        <h1 class='text-center'>Gestion de l'organigramme</h1>
-                        <div class="row">
-                            <h2 class="bold">
-                                <a href="insert_organigramme.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
-                            </h2>
-                            <table class="table table-striped table-hover table-primary">
-                                <thead>
+            </div>
+            <div class="container bg-light p-5 mt-5 ">
+                <h1 class='text-center'>Gestion de l'organigramme</h1>
+                <div class="row">
+                    <h2 class="bold">
+                        <a href="insert_organigramme.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
+                    </h2>
+                    <table class="table table-striped table-hover table-primary">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Date</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                // ON RECUPERE LES DONNEES
+                                $statement = $db->query('SELECT * FROM organigramme');
+                                    
+                                //boucle sur toute les lignes de la BDD
+                                while($organigramme = $statement->fetch()) { ?>
                                     <tr>
-                                        <th>Nom</th>
-                                        <th>Date</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                        // ON RECUPERE LES DONNEES
-                                        $statement = $db->query('SELECT * FROM organigramme');
-                                            
-                                        //boucle sur toute les lignes de la BDD
-                                        while($organigramme = $statement->fetch()) {
-                                            echo ' <tr>
-                                                <td>'.$organigramme['nom'].'</td>
-                                                <td>'.$organigramme['date'].'</td>
-                                                <th class ="action text-center">
-                                                    <a href="view_organigramme.php?id=' . $organigramme['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="delete_organigramme.php?id=' . $organigramme['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
-                                                    </th>
-                                                    </tr>';
-                                                };
-                                                // <a href="update_document.php?id=' . $organigramme['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                        Database::disconnect();
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="container bg-light p-5 mt-5 ">
-                        <h1 class='text-center'>Gestion des conseils d'école</h1>
-                        <div class="row">
-                            <h2 class="bold">
-                                <a href="insert_conseils_ecole.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
-                            </h2>
-                            <table class="table table-striped table-hover table-primary">
-                                <thead>
+                                        <td><?php echo $organigramme['nom']?></td>
+                                        <td><?php echo $organigramme['date'] ?></td>
+                                        <th class ="action text-center">
+                                            <a href="view_organigramme.php?id=<?php echo  $organigramme['id'] ?> " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                            <a href="delete_organigramme.php?id=<?php echo  $organigramme['id'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                            </th>
+                                            </tr>
+                                            <?php  };
+                                Database::disconnect();
+                            ?>
+                                            <!-- <a href="update_document.php?id=<?php echo  $organigramme['id'] ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="container bg-light p-5 mt-5 ">
+                <h1 class='text-center'>Gestion des conseils d'école</h1>
+                <div class="row">
+                    <h2 class="bold">
+                        <a href="insert_conseils_ecole.php" class="btn btn-success btn-lg m-2"><i class="bi bi-plus-circle p-2"></i>Ajouter</a>
+                    </h2>
+                    <table class="table table-striped table-hover table-primary">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Date</th>
+                    
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                // ON RECUPERE LES DONNEES
+                                $statement = $db->query('SELECT id, nom, date, fichier            
+                                                        FROM conseils_ecole
+                                                        ');
+                                    
+                                //boucle sur toute les lignes de la BDD
+                                while($document = $statement->fetch()) { ?>
                                     <tr>
-                                        <th>Nom</th>
-                                        <th>Date</th>
-                            
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                        // ON RECUPERE LES DONNEES
-                                        $statement = $db->query('SELECT id, nom, date, fichier            
-                                                                FROM conseils_ecole
-                                                                ');
-                                            
-                                        //boucle sur toute les lignes de la BDD
-                                        while($document = $statement->fetch()) {
-                                            echo ' <tr>
-                                                <td>'.$document['nom'].'</td>
-                                                <td>'.$document['date'].'</td>
-                                                <th class ="action text-center">
-                                                    <a href="view_conseils_ecole.php?id=' . $document['id'] . ' " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="delete_conseils_ecole.php?id=' . $document['id'] . '" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
-                                                    </th>
-                                                    </tr>';
-                                                };
-                                                // <a href="update_membre_ape.php?id=' . $document['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
-                                        Database::disconnect();
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                        <td><?php echo $document['nom']?></td>
+                                        <td><?php echo $document['date']?></td>
+                                        <th class ="action text-center">
+                                            <a href="view_conseils_ecole.php?id=<?php echo  $document['id'] ?> " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
+                                            <a href="delete_conseils_ecole.php?id=<?php echo  $document['id'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                            </th>
+                                            </tr>
+                                            <?php   };
+                                Database::disconnect();
+                            ?>
+                                        <!-- <a href="update_membre_ape.php?id=<?php echo  $document['id'] ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         <?php
             } else  { 
         ?>

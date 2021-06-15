@@ -195,11 +195,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </header>
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
             <h1>Ajouter un évèvement</h1>
-            <?php 
-var_dump($shaFileExtImage);
-
-?>
-
             <form action="insert_event.php" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">
       

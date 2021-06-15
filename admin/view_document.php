@@ -99,20 +99,17 @@
             <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
         <div class="row d-flex justify-content-center align-items-center">
      
-                <?php
-         
-                        echo '
-           
+                 
                         <div class="col p-5">
-                            <h2 >'. $document['nom'].'</h2>
+                            <h2 ><?php echo  $document['nom']?></h2>
                             <hr>
-                            <h4>'. $document['date'] . '</h4>
+                            <h4><?php echo  $document['date'] ?></h4>
                            
                         
-                            <iframe id="iframe" width="500" height="300" src="../doc/'. $document['fichier'] . '"> </iframe>
-                        </div>';
+                            <iframe id="iframe" width="500" height="300" src="../doc/<?php echo $document['fichier'] ?>"> </iframe>
+                        </div>
                     
-                ?>
+                
                 </div>
         </div>
         </div>

@@ -7,7 +7,7 @@
 
       //initilisation des variables
   $image = $imageError = $nameError = $name = $shaFileExt = "";
-520
+
     // Vérifier si le formulaire a été soumis
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $name = veryfInput($_POST['name']);

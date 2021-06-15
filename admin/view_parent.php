@@ -11,11 +11,7 @@
     
 
   
-    $statement = $db->prepare('SELECT id, nom, prenom, fonctio_parents_delegues.nom AS fction, classe AS classe, image   
-                            FROM parents_delegues
-                            INNER JOIN fonctions_parents_delegues
-                            ON parents_delegues.fonction = fonctions_parents_delegues.id
-                            WHERE parents_delegues.id = ? ');
+    $statement = $db->prepare('SELECT * FROM parents_delegues WHERE id = ? ');
   
     $statement->execute(array($id));
   
@@ -103,21 +99,16 @@
         <div class="container  bg-light p-5 mt-5" style="height: 800px" >
             <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
         <div class="row d-flex justify-content-center align-items-center">
-     
-                <?php
-              
-                        echo '
-                        <div class="col-lg-6 col-md-12 ">
-                            <img class="img img-fluid" src="../images/'. $parent['image'] .  '"alt="">
+                          <div class="col-lg-6 col-md-12 ">
+                            <img class="img img-fluid" src="../images/<?php echo $parent['image'] ?> "alt="">
                         </div>
                         <div class="col p-5">
-                            <h2 > Nom : '. $parent['nom'].'</h2>
-                            <h2 > Prénom : '. $parent['prenom'].'</h2>
+                            <h2 > Nom : <?php echo $parent['nom'] ?></h2>
+                            <h2 > Prénom :  <?php echo $parent['prenom']?></h2>
                             <hr>
-                            <h4 > Fonction : '.$parent['fonction'] . '</h4>
-                            <p > Classe : '. $parent['classe'] . '</p>
-                        </div>';
-                ?>
+                            <h4 > Fonction :  <?php echo$parent['fonction'] ?></h4>
+                            <p > Classe :  <?php echo$parent['classe'] ?></p>
+                        </div>
         </div>
 
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">

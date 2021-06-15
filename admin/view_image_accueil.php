@@ -95,9 +95,9 @@
                 </nav>
         </header>
 
-<?php  echo '
+
         <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
-            <img src="../images/'. $image['image'] .'" alt="... " class="w-50">
+            <img src="../images/<?php echo  $image['image'] ?>" alt="... " class="w-50">
             <div>
                 <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
               </div>
