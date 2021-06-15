@@ -11,9 +11,9 @@
     
 
   
-    $statement = $db->prepare('SELECT parents_delegues.id, parents_delegues.nom, parents_delegues.prenom, parents_delegues.fonction AS fonction, parents_delegues.classe AS classe, parents_delegues.image   
+    $statement = $db->prepare('SELECT id, nom, prenom, fonctio_parents_delegues.nom AS fction, classe AS classe, image   
                             FROM parents_delegues
-                            LEFT JOIN fonctions_parents_delegues
+                            INNER JOIN fonctions_parents_delegues
                             ON parents_delegues.fonction = fonctions_parents_delegues.id
                             WHERE parents_delegues.id = ? ');
   

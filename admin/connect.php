@@ -197,9 +197,9 @@
                                                 </th>
                                                 </tr>';
                                             };
+                                            // <a href="update_event.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                             // <td>'.$evenement['fichier'].'</td>
                                             // <td>'.$evenement['image'].'</td>
-                                            // <a href="update_event.php?id=' . $evenement['id'] . '" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>
                                             
                                 
                                         Database::disconnect();

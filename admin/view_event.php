@@ -86,7 +86,7 @@
                                     <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
                                 </li>                               
                                 <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="index.php">Gestion admin</a>
+                                    <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
                                 </li> 
                             </ul>
                         </div>

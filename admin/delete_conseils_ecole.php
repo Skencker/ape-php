@@ -16,7 +16,7 @@
     if(!empty($_POST)) {
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
-        $statement = $db->prepare("DELETE FROM conseils_ecole WHERE id = ?");
+        $statement = $db->prepare("DELETE * FROM conseils_ecole WHERE id = ?");
         $statement->execute(array($id));
         $data = $statement->fetch();
         $fichier =$data['fichier'];

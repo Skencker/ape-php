@@ -48,7 +48,7 @@
                 <h2 class='text-center'>GS / CP</h2>
                 <div class="row">
                   <?php
-                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
+                    // $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
                     while($data = $statement->fetch()) {
                       if($data['classe'] == 'GS / CP') {
                         echo ' 
@@ -69,7 +69,7 @@
                 <h2 class='text-center'>CP / CE1</h2>
                 <div class="row">
                   <?php
-                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
+                    // $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
                     while($data = $statement->fetch()) {
                       if($data['classe'] == 'CP / CE1') {
                         echo ' 
@@ -90,7 +90,7 @@
                 <h2 class='text-center'>CE2 / CM1</h2>
                 <div class="row">
                   <?php
-                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
+                    // $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
                     while($data = $statement->fetch()) {
                       if($data['classe'] == 'CE2 / CM1') {
                         echo ' 
@@ -111,7 +111,7 @@
                 <h2 class='text-center'>CM1 / CM2</h2>
                 <div class="row">
                   <?php
-                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
+                    // $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
                     while($data = $statement->fetch()) {
                       if($data['classe'] == 'CM1 / CM2') {
                         echo ' 

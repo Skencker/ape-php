@@ -7,7 +7,6 @@
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
         $statement = $db->prepare("SELECT * FROM document where id = ?");
-        $statement->execute(array($id));
         $data = $statement->fetch();
         $name = $data['nom'];
         $image =$data['image'];
@@ -19,7 +18,6 @@
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
         $statement = $db->prepare("DELETE FROM document WHERE id = ?");
-        $statement->execute(array($id));
         Database::disconnect();
         header("Location: connect.php"); 
     }

@@ -5,29 +5,32 @@
   if(!empty($_GET['id'])) 
   {
     $id = veryfInput ($_GET['id']);
-  }
+}
 
 
-  //initilisation des variables
-  $name =  $image = $nameError = $imageError = $date = $dateError = $description = $descriptionError = $fichier = $fichierError = "";
+//initilisation des variables
+$name =  $image = $nameError = $imageError = $date = $dateError = $description = $descriptionError = $fichier = $fichierError = "";
+// $nameError = $imageError =$dateError = $descriptionError =$fichierError = "";
 
-  if (!empty ($_POST)) {
+if (!empty ($_POST)) {
     $name             = veryfInput($_POST['name']);
     $date            = veryfInput($_POST['date']);
     $description     = veryfInput($_POST['description']);
-    $fichier         = veryfInput($_POST['fichier']);
+    $fichier         = veryfInput($_FILES['fichier']['name']);
+    $fichierPath        = '../doc/' . basename($fichier);
+    $fichierExtension   =  pathinfo($fichierPath, PATHINFO_EXTENSION);
     $image            = veryfInput($_FILES['image']['name']);
     $imagePath        = '../images/' . basename($image);
     $imageExtension   =  pathinfo($imagePath, PATHINFO_EXTENSION);
     $isSuccess        = true;
-
-
+    
+    
     if(empty($name)) 
     {
         $nameError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     }
-
+    
     if(empty($description)) 
     {
         $descriptionError = 'Ce champ ne peut pas être vide';
@@ -38,16 +41,13 @@
         $dateError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     } 
-    // if(empty($fichier)) 
-    // {
-    //     $fichierError = 'Ce champ ne peut pas être vide';
-    //     $isSuccess = false;
-    // } 
-
-
+    
+    
+    
+    
     if(empty($image)) 
     {
-       $isImageUpdated = false;
+        $isImageUpdated = false;
     }
     else
     {
@@ -79,19 +79,19 @@
     }
     if (($isSuccess && $isImageUpdated && $isUploadSuccess) || ($isSuccess && !$isImageUpdated)) 
     {
-      $db = Database::connect();
-      if($isImageUpdated)
-      {
-          $statement = $db->prepare("UPDATE evenement  set nom = ?, image = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
-          $statement->execute(array($name,$image,$id,$description,$date,$fichier));
-      }
-      else
-      {
-          $statement = $db->prepare("UPDATE image_accueil  set nom = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
-          $statement->execute(array($name,$id,$description,$date,$fichier));
-      }
-      Database::disconnect();
-      header("Location: connect.php");
+        $db = Database::connect();
+        if($isImageUpdated)
+        {
+            $statement = $db->prepare("UPDATE evenement  set nom = ?, image = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
+            $statement->execute(array($name,$image,$description,$date,$fichier,$id));
+        }
+        else
+        {
+            $statement = $db->prepare("UPDATE image_accueil  set nom = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
+            $statement->execute(array($name,$description,$date,$fichier,$id));
+        }
+        Database::disconnect();
+        header("Location: connect.php");
     }
     else if($isImageUpdated && !$isUploadSuccess)
     {
@@ -101,11 +101,11 @@
         $data = $statement->fetch();
         $image = $data['image'];
         Database::disconnect();
-      
+        
     }
-  }
-  else 
-  {
+}
+else 
+{
     $db = Database::connect();
     $statement = $db->prepare("SELECT * FROM evenement where id = ?");
     $statement->execute(array($id));
@@ -116,16 +116,86 @@
     $fichier = $data['fichier'];
     $image = $data['image'];
     Database::disconnect();
-  }
+}
+
+if(empty($fichier)) 
+{
+    $isFichierUpdated = false;
+}
+else
+{
+    $isFichierUpdated = true;
+    $isUploadSuccess = true;
+    if($fichierExtension != "pdf") 
+    {
+        $fichierError = "Les fichiers autorises sont: .pdf";
+        $isUploadSuccess = false;
+    }
+    if(file_exists($fichierPath)) 
+    {
+        $fichierError = "Le fichier existe deja";
+        $isUploadSuccess = false;
+    }
+    if($_FILES["fichier"]["size"] > 5000000) 
+    {
+        $fichierError = "Le fichier ne doit pas depasser les 5000KB";
+        $isUploadSuccess = false;
+    }
+    if($isUploadSuccess) 
+    {
+        if(!move_uploaded_file($_FILES["fichier"]["tmp_name"], $fichierPath)) 
+        {
+            $fichierError = "Il y a eu une erreur lors de l'upload";
+            $isUploadSuccess = false;
+        } 
+    } 
+}
+if (($isSuccess && $isFichierUpdated && $isUploadSuccess) || ($isSuccess && !$isFichierUpdated)) 
+{
+    $db = Database::connect();
+    if($isFichierUpdated)
+    {
+        $statement = $db->prepare("UPDATE evenement  set nom = ?, image = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
+        $statement->execute(array($name,$image,$description,$date,$fichier,$id));
+    }
+    else
+    {
+        $statement = $db->prepare("UPDATE image_accueil  set nom = ?, description = ?, date = ?, image = ? WHERE id = ?");
+        $statement->execute(array($name,$description,$date,$image,$id));
+    }
+    Database::disconnect();
+    header("Location: connect.php");
+}
+else if($isFichierUpdated && !$isUploadSuccess)
+{
+    $db = Database::connect();
+    $statement = $db->prepare("SELECT * FROM evenement where id = ?");
+    $data = $statement->fetch();
+    $fichier = $data['fichier'];
+    Database::disconnect();
+    
+}
+else 
+{
+    $db = Database::connect();
+    $statement = $db->prepare("SELECT * FROM evenement where id = ?");
+    $data = $statement->fetch();
+    $name  = $data['nom'];
+    $date  = $data['date'];
+    $description  = $data['description'];
+    $fichier = $data['fichier'];
+    $image = $data['image'];
+    Database::disconnect();
+}
 
 
-  //fonction pour verifier l'input 
-  function veryfInput ($var) {
+//fonction pour verifier l'input 
+function veryfInput ($var) {
     $var = trim($var); //enlever espace etc....
     $var = stripslashes($var); //enlever les \
     $var = htmlspecialchars($var); //enlever le code html etc
     return $var;
-  }
+}
 
 ?>
 
@@ -162,7 +232,7 @@
         <title>APE SPDL ADMIN</title>
     </head>
     <body>
-        <header class="">
+        <!-- <header class="">
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -194,7 +264,7 @@
                     </div>
                 </div>
                 </nav>
-        </header>
+        </header> -->
 
         <div class="container bg-light d-flex flex-column mt-5 pt-5  align-items-center" style="height: 1000px">
             <h1>Modification de l'evenement "<span class="color:red"> <?php echo $name; ?> </span>"</h1>
@@ -205,8 +275,11 @@
                         <div>
                             <div class="form-group m-5">
                                 <label for="name">Nom :</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
-                                <span class='help-inline'><?php echo $nameError; ?></span>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; var_dump($fichier); ?>">
+                                <span class='help-inline'><?php echo $nameError;
+                                
+
+                                ?></span>
                             </div>
                             <div class="form-group m-5">
                                 <label for="date">Date :</label>
@@ -256,5 +329,5 @@
  crossorigin="anonymous"
 ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="app.js"></script>
+<!-- <script src="app.js"></script> -->
 </html>
