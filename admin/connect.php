@@ -348,10 +348,10 @@
                     <input type="email" name="email" placeholder="Votre adresse email" required />
                     <input type="password" name="password" placeholder="Mot de passe" required />
                     <button id="btn-registre" type="submit">S'identifier</button>
+                <p class="grey">Première visite ? <a href="register.php">Inscrivez-vous</a>.</p>
                 </form>
         
 
-                <!-- <p class="grey">Première visite ? <a href="register.php">Inscrivez-vous</a>.</p> -->
         <?php 
             } 
         ?>
