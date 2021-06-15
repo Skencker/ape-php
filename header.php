@@ -37,7 +37,7 @@
                                       <a id="contact"class="nav-link" href="contact.php">Contact</a>
                                     </li>
                                     <li class="nav-item me-5">
-                                      <a class="nav-link " aria-current="page" href="./admin/connect.php"> Admin</a>
+                                      <a class="nav-link " aria-current="page" href="./admin/connect.php"> <i class="bi bi-person"></i></a>
                                     </li>
                                  
                                 </ul>

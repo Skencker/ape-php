@@ -351,7 +351,7 @@
                 </form>
         
 
-                <p class="grey">Première visite ? <a href="register.php">Inscrivez-vous</a>.</p>
+                <!-- <p class="grey">Première visite ? <a href="register.php">Inscrivez-vous</a>.</p> -->
         <?php 
             } 
         ?>
