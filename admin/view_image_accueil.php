@@ -8,13 +8,8 @@
       //connection à la basse de donnée
       $db = Database::connect();
   
-      $statement = $db->prepare('SELECT image_accueil.id, image_accueil.nom, image_accueil.image 
-                                FROM image_accueil
-                                WHERE image_accueil.id = ?');
-  
-    $statement->execute(array($id));
-  
-    $image = $statement->fetch();
+    $statement = $db->prepare('SELECT * FROM image_accueil WHERE id=?');
+    $statement->bindValue(1, $id, PDO :: PARAM_INT);  
     Database::disconnect();
   
       //fonction pour sécurisé les données
@@ -95,15 +90,26 @@
                 </nav>
         </header>
 
+        <?php
+            if( $statement->execute()) {
+                //requete ok
+                $image = $statement->fetch(PDO::FETCH_ASSOC); ?>
 
-        <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
-            <img src="../images/<?php echo  $image['image'] ?>" alt="... " class="w-50">
-            <div>
-                <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
-              </div>
-        </div>';
+            <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
+                <img src="../images/<?php echo  $image['image'] ?>" alt="... " class="w-50">
+                <div>
+                    <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
+                </div>
+            </div>
+            <?php
+  
+            } else {
+                $statement->errorInfo();
+                echo 'Erreur';
+            }
+        ?>
 
-?>
+
 
 
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">

@@ -23,109 +23,126 @@
                 <h2 class='text-center'>PS /MS</h2>
                 <div class="row">
                   <?php
-                        $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
+                        $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
 
-                    
-                        while($data = $statement->fetch()) {
+                        foreach ($statement as $row) : 
+                       
                       
-                          if($data['classe'] == 'PS / MS') {
-                              
-                            echo ' 
+                          if($row['classe'] == 'PS / MS') {?>
+                   
                                 <div class="col-6">
                                   <div class="row"> 
-                                    <img src ="./images/'. $data['image'] .'"/>
+                                    <img src ="./images/<?php echo $row['image'] ?>"/>
                                   </div>
-                                  <div class="row d-flex justify-content-center fw-bolder"> '. $data['fonction'] .'</div>
-                                  <div class="row d-flex justify-content-center text-center"> '. $data['nom'] .' '. $data['prenom'] .'</div>
+                                  <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
                                 </div>
-                                ';
+                              
+                            <?php
                               } 
-                            }
-                  ?>
+                              endforeach;
+                            ?>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-10 m-2">
                 <h2 class='text-center'>GS / CP</h2>
                 <div class="row">
                   <?php
-                    // $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
-                    while($data = $statement->fetch()) {
-                      if($data['classe'] == 'GS / CP') {
-                        echo ' 
-                            <div class="col-6">
-                              <div class="row"> 
-                                <img src ="./images/'. $data['image'] .'"/>
-                              </div>
-                              <div class="row d-flex justify-content-center fw-bolder"> '. $data['fonction'] .'</div>
-                              <div class="row d-flex justify-content-center text-center"> '. $data['nom'] .' '. $data['prenom'] .'</div>
-                            </div>
-                            ';
-                          } 
-                        }
-                  ?>
+                
+                         $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+ 
+                         foreach ($statement as $row) : 
+                        
+                       
+                           if($row['classe'] == 'GS / CP') {?>
+                    
+                                 <div class="col-6">
+                                   <div class="row"> 
+                                     <img src ="./images/<?php echo $row['image'] ?>"/>
+                                   </div>
+                                   <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
+                                   <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
+                                 </div>
+                               
+                             <?php
+                               } 
+                               endforeach;
+                             ?>
                 </div>
             </div> 
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-10 m-2">
                 <h2 class='text-center'>CP / CE1</h2>
                 <div class="row">
-                  <?php
-                    // $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
-                    while($data = $statement->fetch()) {
-                      if($data['classe'] == 'CP / CE1') {
-                        echo ' 
-                            <div class="col-6">
-                              <div class="row"> 
-                                <img src ="./images/'. $data['image'] .'"/>
-                              </div>
-                              <div class="row d-flex justify-content-center fw-bolder"> '. $data['fonction'] .'</div>
-                              <div class="row d-flex justify-content-center text-center"> '. $data['nom'] .' '. $data['prenom'] .'</div>
-                            </div>
-                            ';
-                          } 
-                        }
-                  ?>
+                <?php
+                        $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+
+                        foreach ($statement as $row) : 
+                       
+                      
+                          if($row['classe'] == 'CP / CE1') {?>
+                   
+                                <div class="col-6">
+                                  <div class="row"> 
+                                    <img src ="./images/<?php echo $row['image'] ?>"/>
+                                  </div>
+                                  <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
+                                </div>
+                              
+                            <?php
+                              } 
+                              endforeach;
+                            ?>
                 </div>
             </div> 
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-10 m-2">
                 <h2 class='text-center'>CE2 / CM1</h2>
                 <div class="row">
-                  <?php
-                    // $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
-                    while($data = $statement->fetch()) {
-                      if($data['classe'] == 'CE2 / CM1') {
-                        echo ' 
-                            <div class="col-6">
-                              <div class="row"> 
-                                <img src ="./images/'. $data['image'] .'"/>
-                              </div>
-                              <div class="row d-flex justify-content-center fw-bolder"> '. $data['fonction'] .'</div>
-                              <div class="row d-flex justify-content-center text-center"> '. $data['nom'] .' '. $data['prenom'] .'</div>
-                            </div>
-                            ';
-                          } 
-                        }
-                  ?>
+                <?php
+                        $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+
+                        foreach ($statement as $row) : 
+                       
+                      
+                          if($row['classe'] == 'CE2 / CM1') {?>
+                   
+                                <div class="col-6">
+                                  <div class="row"> 
+                                    <img src ="./images/<?php echo $row['image'] ?>"/>
+                                  </div>
+                                  <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
+                                </div>
+                              
+                            <?php
+                              } 
+                              endforeach;
+                            ?>
                 </div>
             </div> 
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-10 m-2">
                 <h2 class='text-center'>CM1 / CM2</h2>
                 <div class="row">
-                  <?php
-                    // $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC');
-                    while($data = $statement->fetch()) {
-                      if($data['classe'] == 'CM1 / CM2') {
-                        echo ' 
-                            <div class="col-6 m-auto">
-                              <div class="row "> 
-                                <img src ="./images/'. $data['image'] .'"/>
-                              </div>
-                              <div class="row d-flex justify-content-center fw-bolder"> '. $data['fonction'] .'</div>
-                              <div class="row d-flex justify-content-center text-center"> '. $data['nom'] .' '. $data['prenom'] .'</div>
-                            </div>
-                            ';
-                          } 
-                        }
-                  ?>
+                <?php
+                        $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+
+                        foreach ($statement as $row) : 
+                       
+                      
+                          if($row['classe'] == 'CM1 / CM2') {?>
+                   
+                                <div class="col-6">
+                                  <div class="row"> 
+                                    <img src ="./images/<?php echo $row['image'] ?>"/>
+                                  </div>
+                                  <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
+                                </div>
+                              
+                            <?php
+                              } 
+                              endforeach;
+                            ?>
                 </div>
             </div> 
             </div>

@@ -29,12 +29,12 @@
                     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <?php
-                                $statement = $db->query('SELECT * FROM evenement ORDER BY id DESC');                  
-                                while($data = $statement->fetch()) {                 
-                                    echo '<a href="./doc/'.$data['fichier'].'">'. $data['nom'] .' '. $data['date'] . '</a> </br>';
-                                    echo '</br>';
-                                }
-                            ?>
+                                $statement = $db->query('SELECT * FROM evenement ORDER BY id DESC', PDO::FETCH_ASSOC);                  
+                                foreach ($statement as $row):  ?>              
+                                  <a href="./doc/<?php echo $row['fichier']?>"> <?php echo $row['nom'] ?> <?php $row['date'] ?> </a> </br> </br>
+                                  <?php
+                              endforeach;
+                              ?>
                         </div>
                     </div>
                   </div>

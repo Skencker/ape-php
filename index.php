@@ -35,7 +35,7 @@
                             <div id="carousel" class="carousel slide carousel-fade carroussel d-flex align-items-center justify-content-center" data-bs-ride="carousel">
                               <div class="carousel-inner">
                                   <?php
-                                  $statement = $db->query('SELECT * FROM image_accueil');
+                                  $statement = $db->query('SELECT * FROM image_accueil', PDO::FETCH_ASSOC);
                                   $i = 1;
                                   foreach ($statement as $row) : ?>
                                       <div <?php if ($i <= 1) echo 'class="carousel-item active data-interval="1000"';
@@ -87,7 +87,7 @@
                             <div class="accordion-body">
                               <?php 
                                         // ON RECUPERE LES DONNEES
-                                        $statement = $db->query('SELECT * FROM organigramme'); 
+                                        $statement = $db->query('SELECT * FROM organigramme', PDO::FETCH_ASSOC); 
                                         $fichier = $statement->fetch();                            
                                           echo ' <a href="./doc/organigramme/'. $fichier['fichier'].'"> Organigramme </a>';              
                                           Database::disconnect();
