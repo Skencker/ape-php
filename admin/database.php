@@ -1,4 +1,8 @@
 <?php 
+	session_start();
+
+  if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+          
 
 class Database  {
 
@@ -28,3 +32,10 @@ class Database  {
 Database::connect();
 
 $db = Database::connect();
+
+
+}else {
+    header('location: connect.php');
+}
+        
+?>

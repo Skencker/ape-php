@@ -3,8 +3,19 @@
 
 session_start();
     require 'database.php';
+
+    
+if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+        
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
+      //fonction pour verifier l'input 
+  function veryfInput ($var) {
+    $var = trim($var); //enlever espace etc....
+    $var = stripslashes($var); //enlever les \
+    $var = htmlspecialchars($var); //enlever le code html etc
+    return $var;
+  };
 
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
@@ -31,13 +42,7 @@ session_start();
         header("Location: connect.php");
     }
 
-  //fonction pour verifier l'input 
-  function veryfInput ($var) {
-    $var = trim($var); //enlever espace etc....
-    $var = stripslashes($var); //enlever les \
-    $var = htmlspecialchars($var); //enlever le code html etc
-    return $var;
-  };
+
 
 ?>
 
@@ -128,7 +133,12 @@ session_start();
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
             <p>Copyright © APE Saint-Pierre-de-Lages</p>
         </footer>
-    
+        <?php
+}else {
+    header('location: connect.php');
+}
+        
+?>
 </body>
  <!--Bootstrap-->
  <script

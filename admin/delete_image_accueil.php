@@ -1,6 +1,16 @@
 
 <?php 
     require 'database.php';
+
+    if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+        
+        //fonction pour sécurisé les données
+          function veryfInput ($data) {
+            $data = trim($data);
+            $data = stripcslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+          }
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
 
@@ -26,14 +36,6 @@
         Database::disconnect();
         header("Location: connect.php"); 
     }
-
-  //fonction pour verifier l'input 
-  function veryfInput ($var) {
-    $var = trim($var); //enlever espace etc....
-    $var = stripslashes($var); //enlever les \
-    $var = htmlspecialchars($var); //enlever le code html etc
-    return $var;
-  };
 
 ?>
 
@@ -124,6 +126,12 @@
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
             <p>Copyright © APE Saint-Pierre-de-Lages</p>
         </footer>
+                
+        <?php
+}else {
+    header('location: connect.php');
+}
+?>
     
 </body>
  <!--Bootstrap-->

@@ -1,30 +1,30 @@
 
 <?php 
     require 'database.php';
-    //recupere l'id de l'image dans URL
-    if(!empty($_GET['id'])) {
+    session_start();
+
+    if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+
+        //fonction pour sécurisé les données
+        function checkInput ($data) {
+            $data = trim($data);
+            $data = stripcslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+        //recupere l'id de l'image dans URL
+        if(!empty($_GET['id'])) {
         $id = checkInput($_GET['id']);
     }
       //connection à la basse de donnée
-    $db = Database::connect();
-
+        $db = Database::connect();
+        $statement = $db->prepare('SELECT * FROM parents_delegues WHERE id = :id ');
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
+        $statement-> execute(); 
+        $parent = $statement->fetch(PDO::FETCH_ASSOC);
+        Database::disconnect();
     
 
-  
-    $statement = $db->prepare('SELECT * FROM parents_delegues WHERE id = ? ');
-  
-    $statement->execute(array($id));
-  
-    $parent = $statement->fetch();
-    Database::disconnect();
-  
-      //fonction pour sécurisé les données
-      function checkInput ($data) {
-        $data = trim($data);
-        $data = stripcslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-      }
   
     ?>
 
@@ -106,15 +106,20 @@
                             <h2 > Nom : <?php echo $parent['nom'] ?></h2>
                             <h2 > Prénom :  <?php echo $parent['prenom']?></h2>
                             <hr>
-                            <h4 > Fonction :  <?php echo$parent['fonction'] ?></h4>
-                            <p > Classe :  <?php echo$parent['classe'] ?></p>
+                            <h4 > Fonction :  <?php echo $parent['fonction'] ?></h4>
+                            <p > Classe :  <?php echo $parent['classe'] ?></p>
                         </div>
         </div>
 
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
         <p>Copyright © APE Saint-Pierre-de-Lages</p>
     </footer>
-    
+    <?php
+}else {
+    header('location: connect.php');
+}
+        
+?>
 </body>
  <!--Bootstrap-->
  <script

@@ -1,6 +1,19 @@
 
 <?php 
     require 'database.php';
+    // require_once 'security.php';
+	session_start();
+
+if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+        
+    //fonction pour sécurisé les données
+      function checkInput ($data) {
+        $data = trim($data);
+        $data = stripcslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
+
     //recupere l'id de l'image dans URL
     if(!empty($_GET['id'])) {
         $id = checkInput($_GET['id']);
@@ -11,16 +24,9 @@
     $statement = $db->prepare('SELECT * FROM image_accueil WHERE id = :id');
     $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
     Database::disconnect();
+
   
-      //fonction pour sécurisé les données
-      function checkInput ($data) {
-        $data = trim($data);
-        $data = stripcslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-      }
-  
-    ?>
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -56,7 +62,7 @@
     </head>
     <body>
 
-        <!-- <header class="">
+        <header class="">
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -88,13 +94,13 @@
                     </div>
                 </div>
                 </nav>
-        </header> -->
+        </header>
 
         <?php
             if( $statement->execute()) {
                 $image = $statement->fetch(PDO::FETCH_ASSOC);
                 //requete ok
-                    ?>
+        ?>
                     <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
                         <img src="../images/<?php echo  $image['image'] ?>" alt="... " class="w-50">
                         <div>
@@ -103,20 +109,29 @@
                     </div>
 
 
-            <?php
+        <?php
   
-            } else {
+        } else {
                 $statement->errorInfo();
                 echo 'Erreur';
-            }
-        ?>
-
-
-
-
+        }
+        
+        
+         ?>
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
-        <p>Copyright © APE Saint-Pierre-de-Lages</p>
-    </footer>
+            <p>Copyright © APE Saint-Pierre-de-Lages</p>
+         </footer>
+        
+        <?php
+}else {
+    header('location: connect.php');
+}
+        
+?>
+
+
+
+
     
 </body>
  <!--Bootstrap-->
@@ -128,3 +143,4 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="app.js"></script>
 </html>
+

@@ -1,29 +1,31 @@
 
 <?php 
     require 'database.php';
+    session_start();
     //recupere l'id de l'image dans URL
+
+    if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+        
+        //fonction pour sécurisé les données
+          function checkInput ($data) {
+            $data = trim($data);
+            $data = stripcslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+          }
+
     if(!empty($_GET['id'])) {
         $id = checkInput($_GET['id']);
       }
       //connection à la basse de donnée
       $db = Database::connect();
   
-      $statement = $db->prepare('SELECT id, nom, image, date,description, fichier
-                                FROM evenement
-                                WHERE id = ?');
+    $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->execute();
   
-    $statement->execute(array($id));
-  
-    $event = $statement->fetch();
+    $event = $statement->fetch(PDO::FETCH_ASSOC);
     Database::disconnect();
-  
-      //fonction pour sécurisé les données
-      function checkInput ($data) {
-        $data = trim($data);
-        $data = stripcslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-      }
   
     ?>
 
@@ -117,7 +119,12 @@
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
         <p>Copyright © APE Saint-Pierre-de-Lages</p>
     </footer>
-    
+    <?php
+}else {
+    header('location: connect.php');
+}
+        
+?>
 </body>
  <!--Bootstrap-->
  <script

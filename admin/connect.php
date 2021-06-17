@@ -41,9 +41,7 @@
         $hash = $user['password'];
         
         while($user = $statement->fetch(PDO::FETCH_ASSOC)){
-            var_dump($user);
-            var_dump($password);
-            if( $password = $user['password']){
+                if( $password = $user['password']){
                 $_SESSION['connect'] = 1;
                 $_SESSION['email']   = $user['email'];
                 if(isset($_POST['auto'])){
@@ -132,7 +130,7 @@
     <section class='connexion'>
         <?php 
 
-            if(isset($_SESSION['connect'])) {
+            if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
                 
         ?>
             <div class="container bg-light p-5 mt-5 ">

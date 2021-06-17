@@ -1,6 +1,11 @@
 
 <?php 
     require 'database.php';
+
+    session_start();
+
+    if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+            
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
 
@@ -190,6 +195,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <p>Copyright © APE Saint-Pierre-de-Lages</p>
         </footer>
     
+        <?php
+}else {
+    header('location: connect.php');
+}
+        
+?>
 </body>
  <!--Bootstrap-->
  <script

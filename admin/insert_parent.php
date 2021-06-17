@@ -3,6 +3,11 @@ require 'database.php';
 //connection a la fonction statique (::) de la bdd 
 $db = Database::connect();
 
+session_start();
+
+if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+
+
 //initilisation des variables. 
 // AJOUT DE VARIABLES $nbParentDelPerClass, $nbParentDelPerClassError
 $image = $imageError = $nameError = $name = $fonction = $fonctionError = $prenom = $prenomError = $classe = $classeError = $nbParentDelPerClass = $nbParentDelPerClassError = "";
@@ -233,7 +238,12 @@ function veryfInput($var)
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
             <p>Copyright © APE Saint-Pierre-de-Lages</p>
         </footer>
-    
+        <?php
+    }else {
+    header('location: connect.php');
+}
+        
+?>
 </body>
  <!--Bootstrap-->
  <script
