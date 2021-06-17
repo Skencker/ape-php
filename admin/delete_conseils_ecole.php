@@ -1,10 +1,10 @@
 
 <?php 
     require 'database.php';
-
+    require_once 'security.php';
     session_start();
 
-    if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+    if(Securite::verifAccessSession()) {
             
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();

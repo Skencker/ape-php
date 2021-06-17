@@ -1,10 +1,11 @@
 
 <?php 
     require 'database.php';
-    // require_once 'security.php';
+    require_once 'security.php';
+    
 	session_start();
 
-if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+if(Securite::verifAccessSession()) {
         
     //fonction pour sécurisé les données
       function checkInput ($data) {

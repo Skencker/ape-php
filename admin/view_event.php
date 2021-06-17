@@ -1,10 +1,11 @@
 
 <?php 
     require 'database.php';
+    require_once 'security.php';
     session_start();
     //recupere l'id de l'image dans URL
 
-    if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+    if(Securite::verifAccessSession()) {
         
         //fonction pour sécurisé les données
           function checkInput ($data) {

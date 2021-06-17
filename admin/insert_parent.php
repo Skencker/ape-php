@@ -1,11 +1,12 @@
 <?php
 require 'database.php';
+require_once 'security.php';
 //connection a la fonction statique (::) de la bdd 
 $db = Database::connect();
 
 session_start();
 
-if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+if(Securite::verifAccessSession()) {
 
 
 //initilisation des variables. 

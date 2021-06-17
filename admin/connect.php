@@ -3,7 +3,8 @@
 
     session_start();
 
-    require('database.php');
+    require ('database.php');
+    require_once 'security.php';
 
     if(!empty($_POST['email']) && !empty($_POST['password'])) {
         $email = htmlspecialchars($_POST['email']);
@@ -130,7 +131,7 @@
     <section class='connexion'>
         <?php 
 
-            if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+if(Securite::verifAccessSession()) {
                 
         ?>
             <div class="container bg-light p-5 mt-5 ">

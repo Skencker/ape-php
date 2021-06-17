@@ -1,8 +1,8 @@
 
 <?php 
     require 'database.php';
-
-    if(!empty($_SESSION['connect']) && $_SESSION['connect'] === 1) {
+    require_once 'security.php';
+    if(Securite::verifAccessSession()) {
         
         //fonction pour sécurisé les données
           function veryfInput ($data) {
