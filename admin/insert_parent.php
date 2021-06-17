@@ -89,13 +89,13 @@ if (!empty($_POST)) {
     //si tout va bien tu insert dans la BDD
     if ($isSuccess && $isUploadSuccess) {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO parents_delegues (nom, prenom, fonction, classe, image) values(?, ?, ?, ?, ?)");
+        $statement = $db->prepare("INSERT INTO parents_delegues (nom, prenom, fonction, classe, image) values(:nom, :prenom, :fonction, :classe, :image)");
         $statement->execute(array(
-            $name,
-            $prenom,
-            $fonction,
-            $classe,
-            $shaFileExt
+            'nom'=>$name,
+            'prenom'=>$prenom,
+            'fonction'=>$fonction,
+            'classe'=>$classe,
+            'image'=>$shaFileExt
         ));
         Database::disconnect();
         header("Location: connect.php");

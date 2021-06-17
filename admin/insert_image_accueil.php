@@ -63,8 +63,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($isSuccess && $isUploadSuccess) 
     {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO image_accueil (nom, image) values(?, ?)");
-        $statement->execute(array($name,$shaFileExt));
+        $statement = $db->prepare("INSERT INTO image_accueil (nom, image) values(:nom, :image)");
+        $statement->execute(array('nom'=>$name, 'image'=>$shaFileExt));
         Database::disconnect();
         header("Location: connect.php");
     }

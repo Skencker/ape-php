@@ -6,9 +6,10 @@
 
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
-        $statement = $db->prepare("SELECT * FROM image_accueil where id = ?");
-        $statement->execute(array($id));
-        $data = $statement->fetch();
+        $statement = $db->prepare("SELECT * FROM image_accueil where id = :id");
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->execute();
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
         $image = $data['nom'];
         $image =$data['image'];
         unlink("../images/$image");
@@ -18,8 +19,10 @@
     if(!empty($_POST)) {
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
-        $statement = $db->prepare("DELETE FROM image_accueil WHERE id = ?");
-        $statement->execute(array($id));
+        $statement = $db->prepare("DELETE FROM image_accueil WHERE id = :id");
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
+        $statement->execute(); 
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
         Database::disconnect();
         header("Location: connect.php"); 
     }

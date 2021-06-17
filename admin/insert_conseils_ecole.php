@@ -9,13 +9,19 @@
       //initilisation des variables
   $fichier = $fichierError = $nameError = $name = $date = $dateError = "";
 
-
+  //fonction pour verifier l'input 
+  function veryfInput ($var) {
+    $var = trim($var); //enlever espace etc....
+    $var = stripslashes($var); //enlever les \
+    $var = htmlspecialchars($var); //enlever le code html etc
+    return $var;
+  };
 
     // Vérifier si le formulaire a été soumis
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $name = veryfInput($_POST['name']);
     $date = veryfInput($_POST['date']);
-    // $image = veryfInput($_FILES['image']['name']);
+
     if(empty($name)) 
         {
             $nameError = 'Ce champ ne peut pas être vide';
@@ -26,11 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $dateError = 'Ce champ ne peut pas être vide';
             $isSuccess = false;
         }
-    // if(empty($image)) 
-    //     {
-    //         $imageError = 'Ce champ ne peut pas être vide';
-    //         $isSuccess = false;
-    //     }
+
     // Vérifie si le fichier a été uploadé sans erreur.
     if(isset($_FILES["fichier"]) && $_FILES["fichier"]["error"] == 0){
         $allowed = array("pdf" => "application/pdf", "doc" => "application/doc", "docs" => "application/docs", "text" => "application/text",  "png" => "image/png");
@@ -72,21 +74,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($isSuccess && $isUploadSuccess) 
     {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO conseils_ecole (nom, date, fichier) values(?, ?, ?)");
-        $statement->execute(array($name,$date,$shaFileExtFichier));
+        $statement = $db->prepare("INSERT INTO conseils_ecole (nom, date, fichier) values(:nom, :date, :shaFileExtFichier)");
+        
+        $statement->execute(array('nom'=>$name, 'date'=>$date, 'shaFileExtFichier'=>$shaFileExtFichier));
         Database::disconnect();
         header("Location: connect.php");
     }
   
 
 
-  //fonction pour verifier l'input 
-  function veryfInput ($var) {
-    $var = trim($var); //enlever espace etc....
-    $var = stripslashes($var); //enlever les \
-    $var = htmlspecialchars($var); //enlever le code html etc
-    return $var;
-  };
+
 
 ?>
 

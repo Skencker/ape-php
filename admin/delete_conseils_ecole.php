@@ -6,9 +6,10 @@
 
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
-        $statement = $db->prepare("SELECT * FROM conseils_ecole where id = ?");
-        $statement->execute(array($id));
-        $data = $statement->fetch();
+        $statement = $db->prepare("SELECT * FROM conseils_ecole where id = :id");
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->execute();
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
         $fichier =$data['fichier'];
         Database::disconnect();
     }
@@ -16,9 +17,10 @@
     if(!empty($_POST)) {
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
-        $statement = $db->prepare("DELETE FROM conseils_ecole WHERE id = ?");
-        $statement->execute(array($id));
-        $data = $statement->fetch();
+        $statement = $db->prepare("DELETE FROM conseils_ecole WHERE id = :id");
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
+        $statement->execute(); 
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
         $fichier =$data['fichier'];
         unlink("../doc/$fichier");
         Database::disconnect();

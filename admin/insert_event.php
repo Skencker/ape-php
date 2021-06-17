@@ -108,8 +108,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($isSuccess && $isUploadSuccess) 
     {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO evenement (nom, date, description, image, fichier) values(?, ?, ?, ?, ?)");
-        $statement->execute(array($name,$date,$description,$shaFileExtImage,$shaFileExtFichier));
+        $statement = $db->prepare("INSERT INTO evenement (nom, date, description, image, fichier) values(:nom, :date, :description, :image, :fichier)");
+        $statement->execute(array('nom'=>$name, 'date'=>$date, 'description'=>$description,'image'=>$shaFileExtImage, 'fichier'=>$shaFileExtFichier));
         Database::disconnect();
         header("Location: connect.php");
     }

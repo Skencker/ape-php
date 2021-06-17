@@ -72,8 +72,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($isSuccess && $isUploadSuccess) 
     {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO organigramme (nom, date, fichier) values(?, ?, ?)");
-        $statement->execute(array($name,$date,$shaFileExtFichier));
+        $statement = $db->prepare("INSERT INTO organigramme (nom, date, fichier) values(:nom, :date, :fichier)");
+        $statement->execute(array('nom'=>$name, 'date'=>$date, 'fichier'=>$shaFileExtFichier));
         Database::disconnect();
         header("Location: connect.php");
     }

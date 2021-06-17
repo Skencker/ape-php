@@ -92,8 +92,8 @@
 
         <?php
             if( $statement->execute()) {
+                $image = $statement->fetch(PDO::FETCH_ASSOC);
                 //requete ok
-                $image = $statement->fetch(PDO::FETCH_ASSOC))
                     ?>
                     <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
                         <img src="../images/<?php echo  $image['image'] ?>" alt="... " class="w-50">
@@ -104,7 +104,6 @@
 
 
             <?php
-                }  
   
             } else {
                 $statement->errorInfo();
