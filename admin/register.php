@@ -53,7 +53,7 @@
 		$secret = sha1($secret).time();
 
 		// CHIFFRAGE DU MOT DE PASSE
-		$password = "aq1".sha1($password."123")."25";
+		$password = password_hash($password, PASSWORD_DEFAULT);
 
 		// ENVOI
 		$req = $db->prepare("INSERT INTO user(email, password, secret) VALUES(:email,:password,:secret)");

@@ -9,6 +9,8 @@
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
 
+     
+
         //ADRESS EMAIL SYNTAXE
 
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -17,7 +19,7 @@
         }
 
         // CHIFFRAGE DU MOT DE PASSE
-        $password = "aq1".sha1($password."123")."25";
+        $password = password_verify($password, $hash);
 
         // EMAIL DEJA UTILISE
         $statement = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = :email");
@@ -36,9 +38,12 @@
         $statement = $db->prepare("SELECT * FROM user WHERE email = :email");
         $statement->bindValue(':email', $email, PDO :: PARAM_STR); 
         $statement->execute();
-
+        $hash = $user['password'];
+        
         while($user = $statement->fetch(PDO::FETCH_ASSOC)){
-            if($password == $user['password']){
+            var_dump($user);
+            var_dump($password);
+            if( $password = $user['password']){
                 $_SESSION['connect'] = 1;
                 $_SESSION['email']   = $user['email'];
                 if(isset($_POST['auto'])){
@@ -128,6 +133,7 @@
         <?php 
 
             if(isset($_SESSION['connect'])) {
+                
         ?>
             <div class="container bg-light p-5 mt-5 ">
                 <h1 class='text-center'>Gestion des images du diapo de la page d'accueil</h1>
@@ -343,6 +349,7 @@
                     if(isset($_GET['message'])) {
                         echo'<div class="alert error">'.htmlspecialchars($_GET['message']).'</div>';
                     }
+               
 
                 } ?>
                  
