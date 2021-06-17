@@ -20,10 +20,12 @@
         $password = "aq1".sha1($password."123")."25";
 
         // EMAIL DEJA UTILISE
-        $req = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = ?");
-        $req->execute(array($email));
+        $statement = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = :email");
+        $statement->bindValue(':email', $email, PDO :: PARAM_STR); 
+        $statement->execute();
 
-        while($email_verification = $req->fetch()){
+
+        while($email_verification = $statement->fetch()){
             if($email_verification['numberEmail'] != 1){
                 header('location: connect.php?error=1&message=Impossible de vous authentifier correctement.');
                 exit();
@@ -31,10 +33,11 @@
         }
 
         // CONNEXION
-        $req = $db->prepare("SELECT * FROM user WHERE email = ?");
-        $req->execute(array($email));
+        $statement = $db->prepare("SELECT * FROM user WHERE email = :email");
+        $statement->bindValue(':email', $email, PDO :: PARAM_STR); 
+        $statement->execute();
 
-        while($user = $req->fetch()){
+        while($user = $statement->fetch(PDO::FETCH_ASSOC)){
             if($password == $user['password']){
                 $_SESSION['connect'] = 1;
                 $_SESSION['email']   = $user['email'];

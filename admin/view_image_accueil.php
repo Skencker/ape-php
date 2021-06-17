@@ -8,8 +8,8 @@
       //connection à la basse de donnée
       $db = Database::connect();
   
-    $statement = $db->prepare('SELECT * FROM image_accueil WHERE id=?');
-    $statement->bindValue(1, $id, PDO :: PARAM_INT);  
+    $statement = $db->prepare('SELECT * FROM image_accueil WHERE id = :id');
+    $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
     Database::disconnect();
   
       //fonction pour sécurisé les données
@@ -56,7 +56,7 @@
     </head>
     <body>
 
-        <header class="">
+        <!-- <header class="">
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -88,20 +88,23 @@
                     </div>
                 </div>
                 </nav>
-        </header>
+        </header> -->
 
         <?php
             if( $statement->execute()) {
                 //requete ok
-                $image = $statement->fetch(PDO::FETCH_ASSOC); ?>
+                $image = $statement->fetch(PDO::FETCH_ASSOC))
+                    ?>
+                    <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
+                        <img src="../images/<?php echo  $image['image'] ?>" alt="... " class="w-50">
+                        <div>
+                            <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
+                        </div>
+                    </div>
 
-            <div class="container d-flex justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
-                <img src="../images/<?php echo  $image['image'] ?>" alt="... " class="w-50">
-                <div>
-                    <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
-                </div>
-            </div>
+
             <?php
+                }  
   
             } else {
                 $statement->errorInfo();
