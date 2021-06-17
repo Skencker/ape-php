@@ -33,10 +33,11 @@
 		}
 
 		// EMAIL DEJA UTILISEE
-		$req = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = ?");
-		$req->execute(array($email));
+		$req = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = :email");
+        $req->bindValue(':email', $email, PDO :: PARAM_STR);  
+        $req->execute();
 
-		while($email_verification = $req->fetch()){
+		while($email_verification = $req->fetch(PDO::FETCH_ASSOC)){
 
 			if($email_verification['numberEmail'] != 0){
 
@@ -55,8 +56,8 @@
 		$password = "aq1".sha1($password."123")."25";
 
 		// ENVOI
-		$req = $db->prepare("INSERT INTO user(email, password, secret) VALUES(?,?,?)");
-		$req->execute(array($email, $password, $secret));
+		$req = $db->prepare("INSERT INTO user(email, password, secret) VALUES(:email,:password,:secret)");
+		$req->execute(array('email'=>$email, 'password'=>$password, 'secret'=>$secret));
 
 		header('location: connect.php?success=1');
 		exit();
