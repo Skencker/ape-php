@@ -17,7 +17,7 @@
         <section class="baniere-parents d-flex justify-content-center">
             <h1 class="align-self-center">Parents délégués</h1>
         </section>
-        <section class="parents container-fluid d-flex align-items-center justify-content-center">
+        <section class="parents container-fluid d-flex align-items-center justify-content-center mt-5">
           <div class="row d-flex justify-content-center align-items-start">
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-10 m-2 ">
                 <h2 class='text-center'>PS /MS</h2>
@@ -32,10 +32,11 @@
                    
                                 <div class="col-6">
                                   <div class="row"> 
-                                    <img src ="./images/<?php echo $row['image'] ?>"/>
+                                    <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                   </div>
                                   <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> </br> <?php echo $row['prenom'] ?></div>
+                                  <!-- <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> </br> <?php echo $row['prenom'] ?></div> -->
                                 </div>
                               
                             <?php
@@ -58,10 +59,10 @@
                     
                                  <div class="col-6">
                                    <div class="row"> 
-                                     <img src ="./images/<?php echo $row['image'] ?>"/>
+                                     <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                    </div>
                                    <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                   <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
+                                   <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> <br> <?php echo $row['prenom'] ?></div>
                                  </div>
                                
                              <?php
@@ -83,10 +84,10 @@
                    
                                 <div class="col-6">
                                   <div class="row"> 
-                                    <img src ="./images/<?php echo $row['image'] ?>"/>
+                                    <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                   </div>
                                   <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> <br> <?php echo $row['prenom'] ?></div>
                                 </div>
                               
                             <?php
@@ -107,11 +108,11 @@
                           if($row['classe'] == 'CE2 / CM1') {?>
                    
                                 <div class="col-6">
-                                  <div class="row"> 
-                                    <img src ="./images/<?php echo $row['image'] ?>"/>
+                                  <div class="row "> 
+                                    <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                   </div>
                                   <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> <br> <?php echo $row['prenom'] ?></div>
                                 </div>
                               
                             <?php
@@ -133,10 +134,10 @@
                    
                                 <div class="col-6">
                                   <div class="row"> 
-                                    <img src ="./images/<?php echo $row['image'] ?>"/>
+                                    <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                   </div>
                                   <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?><?php echo $row['prenom'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> <br> <?php echo $row['prenom'] ?></div>
                                 </div>
                               
                             <?php
