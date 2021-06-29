@@ -5,6 +5,14 @@
 
     session_start();
 
+      //fonction pour verifier l'input 
+  function veryfInput ($var) {
+    $var = trim($var); //enlever espace etc....
+    $var = stripslashes($var); //enlever les \
+    $var = htmlspecialchars($var); //enlever le code html etc
+    return $var;
+  };
+
     if(Securite::verifAccessSession()) {
             
     //connection a la fonction statique (::) de la bdd 
@@ -122,13 +130,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   
 
 
-  //fonction pour verifier l'input 
-  function veryfInput ($var) {
-    $var = trim($var); //enlever espace etc....
-    $var = stripslashes($var); //enlever les \
-    $var = htmlspecialchars($var); //enlever le code html etc
-    return $var;
-  };
+
 
 ?>
 

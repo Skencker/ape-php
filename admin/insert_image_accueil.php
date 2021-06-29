@@ -4,6 +4,14 @@
     require_once 'security.php';
 	session_start();
 
+      //fonction pour verifier l'input 
+  function veryfInput ($var) {
+    $var = trim($var); //enlever espace etc....
+    $var = stripslashes($var); //enlever les \
+    $var = htmlspecialchars($var); //enlever le code html etc
+    return $var;
+  };
+
     if(Securite::verifAccessSession()) {
         
 
@@ -13,6 +21,9 @@
 
       //initilisation des variables
   $image = $imageError = $nameError = $name = $shaFileExt = "";
+
+  
+
 
     // Vérifier si le formulaire a été soumis
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -77,13 +88,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   
 
 
-  //fonction pour verifier l'input 
-  function veryfInput ($var) {
-    $var = trim($var); //enlever espace etc....
-    $var = stripslashes($var); //enlever les \
-    $var = htmlspecialchars($var); //enlever le code html etc
-    return $var;
-  };
 
 ?>
 

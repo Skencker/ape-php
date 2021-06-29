@@ -232,7 +232,7 @@ function veryfInput ($var) {
         <title>APE SPDL ADMIN</title>
     </head>
     <body>
-        <!-- <header class="">
+        <header class="">
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -264,7 +264,7 @@ function veryfInput ($var) {
                     </div>
                 </div>
                 </nav>
-        </header> -->
+        </header>
 
         <div class="container bg-light d-flex flex-column mt-5 pt-5  align-items-center" style="height: 1000px">
             <h1>Modification de l'evenement "<span class="color:red"> <?php echo $name; ?> </span>"</h1>

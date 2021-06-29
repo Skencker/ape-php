@@ -48,10 +48,6 @@
 
 		}
 
-		// HASH
-		$secret = sha1($email).time();
-		$secret = sha1($secret).time();
-
 		// CHIFFRAGE DU MOT DE PASSE
 		$password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -138,22 +134,14 @@
 	<section>
 		<div id="login-body">
 			<h1 class="text-dark">S'inscrire</h1>
-
-
 			<?php if(isset($_GET['error'])){
 				if(isset($_GET['message'])) {
-
 					echo'<div class="alert error">'.htmlspecialchars($_GET['message']).'</div>';
-
 				}
-
 			} else if(isset($_GET['success'])) {
-
 				echo'<div class="alert success">Vous êtes désormais inscrit. <a href="connect.php">Connectez-vous</a>.</div>';
-
 			} 
             ?>
-
 			<form method="post" action="register.php">
 				<input type="email" name="email" placeholder="Votre adresse email" required />
 				<input type="password" name="password" placeholder="Mot de passe" required />

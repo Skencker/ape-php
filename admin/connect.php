@@ -1,10 +1,10 @@
 
 <?php
 
-    session_start();
 
-    require ('database.php');
-    require_once 'security.php';
+require ('database.php');
+require_once 'security.php';
+session_start();
 
     if(!empty($_POST['email']) && !empty($_POST['password'])) {
         $email = htmlspecialchars($_POST['email']);
@@ -158,8 +158,8 @@ if(Securite::verifAccessSession()) {
                                             <tr>
                                                 <td><?php echo $image['nom'] ?></td>
                                                 <th class ="action text-center">
-                                                <a href="view_image_accueil.php?id=<?php echo $image['id'] ?> " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                                    <a href="delete_image_accueil.php?id= <?php echo $image['id'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
+                                                <a href="view_image_accueil.php?id=<?php echo $image['id'] ?> " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>  
+                                                <a href="delete_image_accueil.php?id=<?php echo $image['id'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                                     </th>
                                                     </tr>
                                                     <!-- <a href="update_image_accueil.php?id=<?php echo  $image['id'] ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a> -->

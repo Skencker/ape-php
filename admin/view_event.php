@@ -110,8 +110,8 @@
                             <hr>
                             <h4><?php echo  $event['date'] ?></h4>
                             <p><?php echo  $event['description'] ?></p>
-                            <iframe id="iframe" width="500" height="300" src="../doc/<?php echo $event['fichier'] ?>"> </iframe>
                         </div>
+                            <iframe id="iframe" width="500" height="300" src="../doc/<?php echo $event['fichier'] ?>"> </iframe>
                         
                 </div>
         </div>

@@ -2,6 +2,8 @@
 <?php 
     require 'database.php';
     require_once 'security.php';
+    session_start();
+    
     if(Securite::verifAccessSession()) {
         
         //fonction pour sécurisé les données
