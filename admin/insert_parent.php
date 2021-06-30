@@ -214,11 +214,21 @@ if (!empty($_POST)) {
                 <div class="form-group m-5">
                   <label for="classe">Classe :</label>
                   <select class="form-control" id = "classe" name="classe">
+                      <option value='PS / MS'>PS</option>
                       <option value='PS / MS'>PS / MS</option>
+                      <option value='PS / MS'>MS</option>
+                      <option value='GS / CP'>MS / GS</option>
+                      <option value='GS / CP'>GS</option>
                       <option value='GS / CP'>GS / CP</option>
+                      <option value='GS / CP'>CP</option>
                       <option value='CP / CE1'>CP / CE1</option>
+                      <option value='CP / CE1'>CE1</option>
+                      <option value='CP / CE1'>CE1 / CE2</option>
+                      <option value='CP / CE1'>CE2</option>
                       <option value='CE2 / CM1'>CE2 / CM1 </option>
+                      <option value='CE2 / CM1'>CM1 </option>
                       <option value='CM1 / CM2'>CM1 / CM2</option>
+                      <option value='CM1 / CM2'>CM2</option>
                   </select>
                   <span class='help-inline'><?php echo $classeError; ?></span>
                 </div>
