@@ -24,8 +24,12 @@
     $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
         $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
         $statement->execute();
+
   
     $event = $statement->fetch(PDO::FETCH_ASSOC);
+    $date = date('d / m / Y', strtotime($event['date']));
+
+
     Database::disconnect();
   
     ?>
@@ -108,7 +112,7 @@
                         <div class="col p-5">
                             <h2 ><?php echo  $event['nom']?></h2>
                             <hr>
-                            <h4><?php echo  $event['date'] ?></h4>
+                            <h4><?php echo $date; ?></h4>
                             <p><?php echo  $event['description'] ?></p>
                         </div>
                             <iframe id="iframe" width="500" height="300" src="../doc/<?php echo $event['fichier'] ?>"> </iframe>

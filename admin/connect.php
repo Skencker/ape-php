@@ -191,12 +191,13 @@ if(Securite::verifAccessSession()) {
                                     <?php 
                                         // ON RECUPERE LES DONNEES
                                         $statement = $db->query('SELECT * FROM evenement');
-                                            
+                                    
                                         //boucle sur toute les lignes de la BDD
-                                        while($evenement = $statement->fetch()) { ?>
+                                        while($evenement = $statement->fetch()) { 
+                                            $date = date('d / m / Y', strtotime($evenement['date']));?>
                                             <tr>
                                                 <td> <?php echo $evenement['nom']?></td>
-                                                <td><?php echo $evenement['date']?></td>
+                                                <td><?php echo $date?></td>
                                                 <th class ="action text-center">
                                                     <a href="view_event.php?id=<?php echo$evenement['id'] ?> " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
                                                     <a href="update_event.php?id=<?php echo $evenement['id'] ?>" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a>

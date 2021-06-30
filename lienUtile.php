@@ -18,7 +18,7 @@
         <section class="baniere-doc d-flex justify-content-center">
             <h1 class="align-self-center">Liens Utiles</h1>
         </section>
-        <section class="lienUtile d-flex flex-column align-items-center mt-5" style="height: 600px" >
+        <section class="lienUtile d-flex flex-column align-items-center mt-5" style="height: 900px" >
             <div class="p-2">
             <?php
                 $statement = $db->query('SELECT * FROM lienUtile', PDO::FETCH_ASSOC);                  

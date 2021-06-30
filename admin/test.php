@@ -6,156 +6,224 @@
 
   if(Securite::verifAccessSession()) {
 
-    //fonction pour verifier l'input 
-    function veryfInput ($var) {
-        $var = trim($var); //enlever espace etc....
-        $var = stripslashes($var); //enlever les \
-        $var = htmlspecialchars($var); //enlever le code html etc
-        return $var;
-    };
+      //fonction pour verifier l'input 
+  function veryfInput ($var) {
+    $var = trim($var); //enlever espace etc....
+    $var = stripslashes($var); //enlever les \
+    $var = htmlspecialchars($var); //enlever le code html etc
+    return $var;
+  };
   
   if(!empty($_GET['id'])) 
     {
     $id = veryfInput ($_GET['id']);
     }
-    $isSuccess        = true;
-    $isUploadSuccessImage        = false;
-    $isUploadSuccessFichier        = false;
-    //initilisation des variables
-    $image = $imageError = $nameError = $name = $description = $descriptionError = $date = $dateError = $fichier = $shaFileExtImage = $fichierError = "";
 
-    //recupere les donnee de la BDD
+    $isSuccess        = true;
+    //initilisation des variables
+    $name =  $image = $nameError = $imageError = $date = $dateError = $description = $descriptionError = $fichier = $fichierError = $fichierExtension =  $fichierPath = "";
+    // $nameError = $imageError =$dateError = $descriptionError =$fichierError = "";
+
+
+    // je récupere les nouvelles données
+if (!empty ($_POST)) {
+    $name             = veryfInput($_POST['name']);
+    $date            = veryfInput($_POST['date']);
+    $description     = veryfInput($_POST['description']);
+    $fichier         = veryfInput($_FILES['fichier']['name']);
+    $fichierPath      = '../doc/'. basename($fichier);
+    $fichierExtension =  pathinfo($fichierPath, PATHINFO_EXTENSION);
+    $image            = veryfInput($_FILES['image']['name']);
+    $imagePath        = '../images/' . basename($image);
+    $imageExtension   =  pathinfo($imagePath, PATHINFO_EXTENSION);
+    $isSuccess        = true;
+    
+    
+    if(empty($name)) 
+    {
+        $nameError = 'Ce champ ne peut pas être vide';
+        $isSuccess = false;
+    }
+    
+    if(empty($description)) 
+    {
+        $descriptionError = 'Ce champ ne peut pas être vide';
+        $isSuccess = false;
+    } 
+    if(empty($date)) 
+    {
+        $dateError = 'Ce champ ne peut pas être vide';
+        $isSuccess = false;
+    } 
+    
+    if(empty($image)) 
+    {
+        $isImageUpdated = false;
+    }
+    else
+    {
+        $isImageUpdated = true;
+        $isUploadSuccess = true;
+        if($imageExtension != "jpg" && $imageExtension != "png" && $imageExtension != "jpeg" && $imageExtension != "gif" ) 
+        {
+            $imageError = "Les fichiers autorises sont: .jpg, .jpeg, .png, .gif";
+            $isUploadSuccess = false;
+        }
+        if(file_exists($imagePath)) 
+        {
+            $imageError = "Le fichier existe deja";
+            $isUploadSuccess = false;
+        }
+        if($_FILES["image"]["size"] > 5000000) 
+        {
+            $imageError = "Le fichier ne doit pas depasser les 5000KB";
+            $isUploadSuccess = false;
+        }
+        if($isUploadSuccess) 
+        {
+            if(!move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) 
+            {
+                $imageError = "Il y a eu une erreur lors de l'upload";
+                $isUploadSuccess = false;
+            } 
+        } 
+    }
+    if (($isSuccess && $isImageUpdated && $isUploadSuccess) || ($isSuccess && !$isImageUpdated)) 
+    {
+        $db = Database::connect();
+        if($isImageUpdated)
+        {
+            $statement = $db->prepare("UPDATE evenement  set nom = :nom, image = :image, description = :description, date = :date, fichier = :fichier WHERE id = :id");
+            $statement->execute(array('nom'=>$name, 'image'=>$image, 'description'=>$description, 'date'=>$date, 'fichier'=>$fichier, 'id'=>$id));
+            // $statement->bindValue(':id', $id, 'nom' PDO :: PARAM_INT);  
+            $statement->execute();
+        }
+        else
+        {
+            $statement = $db->prepare("UPDATE evenement  set nom = :nom, description = :description, date = :date, fichier = :fichier WHERE id = :id");
+            $statement->execute(array('nom'=>$name, 'description'=>$description, 'date'=>$date, 'fichier'=>$fichier, 'id'=>$id));
+            // $statement->bindValue(':id', $id, 'nom' PDO :: PARAM_INT);  
+            $statement->execute();
+        }
+        Database::disconnect();
+        header("Location: connect.php");
+    }
+    else if($isImageUpdated && !$isUploadSuccess)
+    {
+        $db = Database::connect();
+        $statement = $db->prepare("SELECT * FROM evenement where id = :id");
+        // $statement->execute(array($id));
+        // $data = $statement->fetch();
+        $image = $data['image'];
+        // Database::disconnect();
+
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->execute();
+      
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        Database::disconnect();
+        
+    }
+}
+else 
+{
+    $db = Database::connect();
+ 
+    $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
+    $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+    $statement->execute();
+    $data = $statement->fetch(PDO::FETCH_ASSOC);
+    $name  = $data['nom'];
+    $date  = $data['date'];
+    $description  = $data['description'];
+    $fichier = $data['fichier'];
+    $image = $data['image'];
+
+    Database::disconnect();
+}
+
+if(empty($fichier)) 
+{
+    $isFichierUpdated = false;
+}
+else
+{
+    $isFichierUpdated = true;
+    $isUploadSuccess = true;
+    if($fichierExtension != "pdf") 
+    {
+        $fichierError = "Les fichiers autorises sont: .pdf";
+        $isUploadSuccess = false;
+    }
+    if(file_exists($fichierPath)) 
+    {
+        $fichierError = "Le fichier existe deja";
+        $isUploadSuccess = false;
+    }
+    // if($_FILES["fichier"]["size"] > 5000000) 
+    // {
+    //     $fichierError = "Le fichier ne doit pas depasser les 5000KB";
+    //     $isUploadSuccess = false;
+    // }
+    if($isUploadSuccess) 
+    {
+        if(!move_uploaded_file($_FILES["fichier"]["tmp_name"], $fichierPath)) 
+        {
+            $fichierError = "Il y a eu une erreur lors de l'upload";
+            $isUploadSuccess = false;
+        } 
+    } 
+}
+if (($isSuccess && $isFichierUpdated && $isUploadSuccess) || ($isSuccess && !$isFichierUpdated)) 
+{
+    $db = Database::connect();
+    if($isFichierUpdated)
+    {
+        $statement = $db->prepare("UPDATE evenement  set nom = :nom, image = :image, description = :description, date = :date, fichier = :fichier WHERE id = :id");
+        $statement->execute(array('nom'=>$name, 'image'=>$image, 'description'=>$description, 'date'=>$date, 'fichier'=>$fichier, 'id'=>$id));
+        // $statement->bindValue(':id', $id, 'nom' PDO :: PARAM_INT);  
+        $statement->execute();
+    }
+    else
+    {
+        $statement = $db->prepare("UPDATE evenement  set nom = :nom, image = :image, description = :description, date = :date WHERE id = :id");
+        $statement->execute(array('nom'=>$name, 'image'=>$image, 'description'=>$description, 'date'=>$date,'id'=>$id));
+        // $statement->bindValue(':id', $id, 'nom' PDO :: PARAM_INT);  
+        $statement->execute();
+    }
+    Database::disconnect();
+    header("Location: connect.php");
+}
+else if($isFichierUpdated && !$isUploadSuccess)
+{
     $db = Database::connect();
     $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
     $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
     $statement->execute();
     $data = $statement->fetch(PDO::FETCH_ASSOC);
 
-    $name = $data['nom'];
-    $date = $data['date'];
-    $description = $data['description'];
     $fichier = $data['fichier'];
+    Database::disconnect();
+    
+}
+else 
+{
+    $db = Database::connect();
+    $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
+    $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+    $statement->execute();
+    $data = $statement->fetch(PDO::FETCH_ASSOC);
+    $name  = $data['nom'];
+    $date  = $data['date'];
+    $description  = $data['description'];
+    $fichier = $data['fichierdata'];
     $image = $data['image'];
+    Database::disconnect();
+}
 
-    // recuperer si changement 
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $name             = veryfInput($_POST['name']);
-        $date            = veryfInput($_POST['date']);
-        $description     = veryfInput($_POST['description']);
 
-        if(empty($name)) 
-        {
-            $nameError = 'Ce champ ne peut pas être vide';
-            $isSuccess = false;
-        }
-        if(empty($date)) 
-        {
-            $dateError = 'Ce champ ne peut pas être vide';
-            $isSuccess = false;
-        }
-        if(empty($description)) 
-        {
-            $descriptionError = 'Ce champ ne peut pas être vide';
-            $isSuccess = false;
-        }
 
-        if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0){
-            $allowed = array("jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-            $filename = $_FILES["image"]["name"];
-            $filetype = $_FILES["image"]["type"];
-            $filesize = $_FILES["image"]["size"];
-    
-            // Vérifie l'extension du fichier
-            $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            if(!array_key_exists($ext, $allowed)) 
-                $imageError = 'Veuillez sélectionner un format de fichier valide.';
-    
-            // Vérifie la taille du fichier - 5Mo maximum
-            $maxsize = 5 * 1024 * 1024;
-            if($filesize > $maxsize) 
-                $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
-    
-            // Vérifie le type MIME du fichier
-            if(in_array($filetype, $allowed)){
-                // Vérifie si le fichier existe avant de le télécharger.
-                    $shaFile = hash('sha256', $_FILES["image"]["name"]);
-    
-                    $shaFileExtImage = $shaFile . "." . array_search($filetype, $allowed);
-               
-                    move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $shaFileExtImage);
-                    echo "Votre fichier a été téléchargé avec succès.";
-                    $isSuccessImage = true;
-                    $isUploadSuccessImage = true;
-                
-            } else{
-                echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
-            }
-        } else{
-            echo $imageError;
-        }
-        if(isset($_FILES["fichier"]) && $_FILES["fichier"]["error"] == 0){
-            $allowed = array("pdf" => "application/pdf", "doc" => "application/doc", "docs" => "application/docs", "text" => "application/text");
-            $filename = $_FILES["fichier"]["name"];
-            $filetype = $_FILES["fichier"]["type"];
-            $filesize = $_FILES["fichier"]["size"];
-    
-            // Vérifie l'extension du fichier
-            $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            if(!array_key_exists($ext, $allowed)) 
-                $imageError = 'Veuillez sélectionner un format de fichier valide.';
-    
-            // Vérifie la taille du fichier - 5Mo maximum
-            $maxsize = 5 * 1024 * 1024;
-            if($filesize > $maxsize) 
-                $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
-    
-            // Vérifie le type MIME du fichier
-            if(in_array($filetype, $allowed)){
-                // Vérifie si le fichier existe avant de le télécharger.
-                    $shaFile = hash('sha256', $_FILES["fichier"]["name"]);
-    
-                    $shaFileExtFichier = $shaFile . "." . $ext;
-               
-                    move_uploaded_file($_FILES["fichier"]["tmp_name"], "../doc/" . $shaFile . "." . array_search($filetype, $allowed));
-                    echo "Votre fichier a été téléchargé avec succès.";
-                    $isSuccessFichier = true;
-                    $isUploadSuccessFichier = true;
-                
-            } else{
-                echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
-            }
-        } else{
-            echo $fichierError;
-        }
 
-        //si tout va bien tu insert dans la BDD
-        if($isSuccess && $isUploadSuccessImage && $isUploadSuccessFichier ) 
-        {
-            $db = Database::connect();
-            $statement = $db->prepare("UPDATE evenement  set nom = :nom, image = :image, description = :description, date = :date, fichier = :fichier WHERE id = :id");
-            $statement->execute(array('nom'=>$name, 'date'=>$date, 'description'=>$description,'image'=>$shaFileExtImage, 'fichier'=>$shaFileExtFichier, 'id'=>$id));
-            Database::disconnect();
-            header("Location: connect.php");
-        } else if (!$isUploadSuccessImage && $isUploadSuccessFichier) {
-            $db = Database::connect();
-            $statement = $db->prepare("UPDATE evenement  set nom = :nom, description = :description, date = :date, fichier = :fichier WHERE id = :id");
-            $statement->execute(array('nom'=>$name, 'date'=>$date, 'description'=>$description,'fichier'=>$shaFileExtFichier, 'id'=>$id));
-            Database::disconnect();
-            header("Location: connect.php");
-        } else if ($isUploadSuccessImage && !$isUploadSuccessFichier) {
-            $db = Database::connect();
-            $statement = $db->prepare("UPDATE evenement  set nom = :nom, description = :description, date = :date, image = :image WHERE id = :id");
-            $statement->execute(array('nom'=>$name, 'date'=>$date, 'description'=>$description,'image'=>$shaFileExtImage, 'id'=>$id));
-            Database::disconnect();
-            header("Location: connect.php");
-        } else if ($isSuccess && !$isUploadSuccessImage && !$isUploadSuccessFichier) {
-            $db = Database::connect();
-            $statement = $db->prepare("UPDATE evenement  set nom = :nom, description = :description, date = :date WHERE id = :id");
-            $statement->execute(array('nom'=>$name, 'date'=>$date, 'description'=>$description, 'id'=>$id));
-            Database::disconnect();
-            header("Location: connect.php");
-        }
-    }
 ?>
 
 <!DOCTYPE html>
@@ -191,7 +259,7 @@
         <title>APE SPDL ADMIN</title>
     </head>
     <body>
-        <!-- <header class="">
+        <header class="">
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -223,7 +291,7 @@
                     </div>
                 </div>
                 </nav>
-        </header> -->
+        </header>
 
         <div class="container bg-light d-flex flex-column mt-5 pt-5  align-items-center" style="height: 1000px">
             <h1>Modification de l'evenement "<span class="color:red"> <?php echo $name; ?> </span>"</h1>
@@ -232,6 +300,7 @@
                 <div class="col-12">
                 <form action="<?php echo 'update_event.php?id='.$id;?>" method="post" class="form d-flex " role="form" enctype="multipart/form-data">
                         <div>
+                          
                             <div class="form-group m-5">
                                 <label for="name">Nom :</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
@@ -242,7 +311,7 @@
                             </div>
                             <div class="form-group m-5">
                                 <label for="date">Date :</label>
-                                <input type="text" class="form-control" id="date" name="date" placeholder="Date" value="<?php echo $date; ?>">
+                                <input type="date" class="form-control" id="date" name="date" placeholder="Date" value="<?php echo $date; ?>">
                                 <span class='help-inline'><?php echo $dateError; ?></span>
                             </div>
                             <div class="form-group m-5 d-flex flex-column">

@@ -82,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         echo $imageError;
     }
-    if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0){
+    if(isset($_FILES["fichier"]) && $_FILES["fichier"]["error"] == 0){
         $allowed = array("pdf" => "application/pdf", "doc" => "application/doc", "docs" => "application/docs", "text" => "application/text");
         $filename = $_FILES["fichier"]["name"];
         $filetype = $_FILES["fichier"]["type"];
@@ -114,10 +114,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
         }
     } else{
-        echo $imageError;
+        echo $fichierError;
     }
-}
-
     //si tout va bien tu insert dans la BDD
     if($isSuccess && $isUploadSuccess) 
     {
@@ -127,6 +125,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         Database::disconnect();
         header("Location: connect.php");
     }
+}
+
   
 
 
@@ -201,7 +201,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
                 </nav>
         </header>
-        <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
+        <div class="container bg-light d-flex flex-column justify-content-center align-items-center mt-5" style="height: 800px">
             <h1>Ajouter un évèvement</h1>
             <form action="insert_event.php" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">
@@ -212,7 +212,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
                 <div class="form-group m-5">
                   <label for="date">Date :</label>
-                  <input type="text" class="form-control" id="date" name="date" placeholder="date" value="<?php echo $date; ?>">
+                  <input type="date" class="form-control" id="date" name="date" placeholder="date" value="<?php echo $date; ?>">
                   <span class='help-inline'><?php echo $dateError; ?></span>
                 </div>
                 <div class="form-group m-5">
