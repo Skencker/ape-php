@@ -98,7 +98,7 @@
                 </nav>
         </header>
 
-        <div class="container  bg-light p-5 mt-5" style="height: 800px" >
+        <div class="container  bg-light p-5 mt-5" >
             <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
         <div class="row d-flex justify-content-center align-items-center">    
                         <div class="col-lg-6 col-md-12 ">
@@ -134,5 +134,5 @@
  crossorigin="anonymous"
 ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="app.js"></script>
+<!-- <script src="app.js"></script> -->
 </html>

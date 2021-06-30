@@ -20,10 +20,12 @@
     }
 
     $isSuccess        = true;
-//initilisation des variables
-$name =  $image = $nameError = $imageError = $date = $dateError = $description = $descriptionError = $fichier = $fichierError = "";
-// $nameError = $imageError =$dateError = $descriptionError =$fichierError = "";
+    //initilisation des variables
+    $name =  $image = $nameError = $imageError = $date = $dateError = $description = $descriptionError = $fichier = $fichierError = $fichierExtension =  $fichierPath = "";
+    // $nameError = $imageError =$dateError = $descriptionError =$fichierError = "";
 
+
+    // je récupere les nouvelles données
 if (!empty ($_POST)) {
     $name             = veryfInput($_POST['name']);
     $date            = veryfInput($_POST['date']);
@@ -91,6 +93,21 @@ if (!empty ($_POST)) {
         $db = Database::connect();
         if($isImageUpdated)
         {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             $statement = $db->prepare("UPDATE evenement  set nom = :nom, image = :image, description = :description, date = :date, fichier = :fichier WHERE id = :id");
             $statement->execute(array('nom'=>$name, 'image'=>$image, 'description'=>$description, 'date'=>$date, 'fichier'=>$fichier, 'id'=>$id));
             // $statement->bindValue(':id', $id, 'nom' PDO :: PARAM_INT);  
@@ -158,11 +175,11 @@ else
         $fichierError = "Le fichier existe deja";
         $isUploadSuccess = false;
     }
-    if($_FILES["fichier"]["size"] > 5000000) 
-    {
-        $fichierError = "Le fichier ne doit pas depasser les 5000KB";
-        $isUploadSuccess = false;
-    }
+    // if($_FILES["fichier"]["size"] > 5000000) 
+    // {
+    //     $fichierError = "Le fichier ne doit pas depasser les 5000KB";
+    //     $isUploadSuccess = false;
+    // }
     if($isUploadSuccess) 
     {
         if(!move_uploaded_file($_FILES["fichier"]["tmp_name"], $fichierPath)) 
@@ -195,8 +212,11 @@ if (($isSuccess && $isFichierUpdated && $isUploadSuccess) || ($isSuccess && !$is
 else if($isFichierUpdated && !$isUploadSuccess)
 {
     $db = Database::connect();
-    $statement = $db->prepare("SELECT * FROM evenement where id = ?");
-    $data = $statement->fetch();
+    $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
+    $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+    $statement->execute();
+    $data = $statement->fetch(PDO::FETCH_ASSOC);
+
     $fichier = $data['fichier'];
     Database::disconnect();
     
@@ -204,12 +224,14 @@ else if($isFichierUpdated && !$isUploadSuccess)
 else 
 {
     $db = Database::connect();
-    $statement = $db->prepare("SELECT * FROM evenement where id = ?");
-    $data = $statement->fetch();
+    $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
+    $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+    $statement->execute();
+    $data = $statement->fetch(PDO::FETCH_ASSOC);
     $name  = $data['nom'];
     $date  = $data['date'];
     $description  = $data['description'];
-    $fichier = $data['fichier'];
+    $fichier = $data['fichierdata'];
     $image = $data['image'];
     Database::disconnect();
 }
@@ -221,7 +243,7 @@ else
 
 <!DOCTYPE html>
 <html lang="fr">
-    <<head>
+    <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -293,9 +315,10 @@ else
                 <div class="col-12">
                 <form action="<?php echo 'update_event.php?id='.$id;?>" method="post" class="form d-flex " role="form" enctype="multipart/form-data">
                         <div>
+                          
                             <div class="form-group m-5">
                                 <label for="name">Nom :</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; var_dump($data); ?>">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
                                 <span class='help-inline'><?php echo $nameError;
                                 
 
@@ -313,13 +336,12 @@ else
                                 <span class='help-inline'><?php echo $descriptionError; ?></span>
                             </div>                   
                             <div class="form-group m-5">
-                                <label for="fichier">Selectionner un fichier :</label>
-                                <input type="file" id="fichier" name="fichier"value="<?php echo $fichier; ?>">
-                                <span class='help-inline'><?php echo $fichier; ?></span>
+                                <label for="fichier">Modifier le fichier :</label>
+                                <input type="file" id="fichier" name="fichier" value="<?php echo $fichier; ?>">
                                 <span class='help-inline'><?php echo $fichierError; ?></span>
                             </div>
                             <div class="form-group m-5">
-                                <label for="image">Selectionner une image :</label>
+                                <label for="image">Modifier l'image :</label>
                                 <input type="file" id="image" name="image" value="<?php echo $image; ?>">
                                 <span class='help-inline'><?php echo $imageError; ?></span>
                             </div>
@@ -330,7 +352,7 @@ else
                         </div>
                 
                             <img src="../images/<?php echo $image;?>" alt="... " class="w-50">
-                    
+                            <iframe id="iframe" width="500" height="300" src="../doc/<?php echo $fichier ?>"> </iframe>
                
                     </form>
                 </div>
