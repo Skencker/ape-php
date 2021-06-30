@@ -28,11 +28,8 @@
                                       <a id="actu" class="nav-link" href="actualites.php">Actualités</a>
                                     </li>
                                     <li class="nav-item me-5">
-                                      <a id="parent" class="nav-link" href="parents.php">Parents Délégués</a>
+                                      <a id="ecole" class="nav-link" href="ecole-alae.php">Ecole / ALAE</a>
                                     </li>
-                                    <!-- <li class="nav-item me-5">
-                                      <a id="doc"class="nav-link" href="doc.php">Documents</a>
-                                    </li> -->
                                     <li class="nav-item dropdown me-5">
                                       <a id="doc" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Infos Utiles
@@ -41,6 +38,9 @@
                                         <li><a id="dochref"class="dropdown-item" href="doc.php">Documents</a></li>
                                         <li><a class="dropdown-item" id="lienUtile" href="lienUtile.php">Liens</a></li>
                                       </ul>
+                                    </li>
+                                    <li class="nav-item me-5">
+                                      <a id="parent" class="nav-link" href="parents.php">Parents Délégués</a>
                                     </li>
                                     <li class="nav-item me-5">
                                       <a id="contact"class="nav-link" href="contact.php">Contact</a>

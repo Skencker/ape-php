@@ -1,13 +1,25 @@
 
 <?php 
   require 'database.php';
+  require_once 'security.php';
+  session_start();
+
+  if(Securite::verifAccessSession()) {
+
+      //fonction pour verifier l'input 
+  function veryfInput ($var) {
+    $var = trim($var); //enlever espace etc....
+    $var = stripslashes($var); //enlever les \
+    $var = htmlspecialchars($var); //enlever le code html etc
+    return $var;
+  };
   
   if(!empty($_GET['id'])) 
-  {
+    {
     $id = veryfInput ($_GET['id']);
-}
+    }
 
-
+    $isSuccess        = true;
 //initilisation des variables
 $name =  $image = $nameError = $imageError = $date = $dateError = $description = $descriptionError = $fichier = $fichierError = "";
 // $nameError = $imageError =$dateError = $descriptionError =$fichierError = "";
@@ -17,8 +29,8 @@ if (!empty ($_POST)) {
     $date            = veryfInput($_POST['date']);
     $description     = veryfInput($_POST['description']);
     $fichier         = veryfInput($_FILES['fichier']['name']);
-    $fichierPath        = '../doc/' . basename($fichier);
-    $fichierExtension   =  pathinfo($fichierPath, PATHINFO_EXTENSION);
+    $fichierPath      = '../doc/'. basename($fichier);
+    $fichierExtension =  pathinfo($fichierPath, PATHINFO_EXTENSION);
     $image            = veryfInput($_FILES['image']['name']);
     $imagePath        = '../images/' . basename($image);
     $imageExtension   =  pathinfo($imagePath, PATHINFO_EXTENSION);
@@ -41,9 +53,6 @@ if (!empty ($_POST)) {
         $dateError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     } 
-    
-    
-    
     
     if(empty($image)) 
     {
@@ -82,13 +91,17 @@ if (!empty ($_POST)) {
         $db = Database::connect();
         if($isImageUpdated)
         {
-            $statement = $db->prepare("UPDATE evenement  set nom = ?, image = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
-            $statement->execute(array($name,$image,$description,$date,$fichier,$id));
+            $statement = $db->prepare("UPDATE evenement  set nom = :nom, image = :image, description = :description, date = :date, fichier = :fichier WHERE id = :id");
+            $statement->execute(array('nom'=>$name, 'image'=>$image, 'description'=>$description, 'date'=>$date, 'fichier'=>$fichier, 'id'=>$id));
+            // $statement->bindValue(':id', $id, 'nom' PDO :: PARAM_INT);  
+            $statement->execute();
         }
         else
         {
-            $statement = $db->prepare("UPDATE image_accueil  set nom = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
-            $statement->execute(array($name,$description,$date,$fichier,$id));
+            $statement = $db->prepare("UPDATE evenement  set nom = :nom, description = :description, date = :date, fichier = :fichier WHERE id = :id");
+            $statement->execute(array('nom'=>$name, 'description'=>$description, 'date'=>$date, 'fichier'=>$fichier, 'id'=>$id));
+            // $statement->bindValue(':id', $id, 'nom' PDO :: PARAM_INT);  
+            $statement->execute();
         }
         Database::disconnect();
         header("Location: connect.php");
@@ -96,10 +109,16 @@ if (!empty ($_POST)) {
     else if($isImageUpdated && !$isUploadSuccess)
     {
         $db = Database::connect();
-        $statement = $db->prepare("SELECT * FROM evenement where id = ?");
-        $statement->execute(array($id));
-        $data = $statement->fetch();
+        $statement = $db->prepare("SELECT * FROM evenement where id = :id");
+        // $statement->execute(array($id));
+        // $data = $statement->fetch();
         $image = $data['image'];
+        // Database::disconnect();
+
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->execute();
+      
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
         Database::disconnect();
         
     }
@@ -107,14 +126,17 @@ if (!empty ($_POST)) {
 else 
 {
     $db = Database::connect();
-    $statement = $db->prepare("SELECT * FROM evenement where id = ?");
-    $statement->execute(array($id));
-    $data = $statement->fetch();
+ 
+    $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
+    $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+    $statement->execute();
+    $data = $statement->fetch(PDO::FETCH_ASSOC);
     $name  = $data['nom'];
     $date  = $data['date'];
     $description  = $data['description'];
     $fichier = $data['fichier'];
     $image = $data['image'];
+
     Database::disconnect();
 }
 
@@ -155,13 +177,17 @@ if (($isSuccess && $isFichierUpdated && $isUploadSuccess) || ($isSuccess && !$is
     $db = Database::connect();
     if($isFichierUpdated)
     {
-        $statement = $db->prepare("UPDATE evenement  set nom = ?, image = ?, description = ?, date = ?, fichier = ? WHERE id = ?");
-        $statement->execute(array($name,$image,$description,$date,$fichier,$id));
+        $statement = $db->prepare("UPDATE evenement  set nom = :nom, image = :image, description = :description, date = :date, fichier = :fichier WHERE id = :id");
+        $statement->execute(array('nom'=>$name, 'image'=>$image, 'description'=>$description, 'date'=>$date, 'fichier'=>$fichier, 'id'=>$id));
+        // $statement->bindValue(':id', $id, 'nom' PDO :: PARAM_INT);  
+        $statement->execute();
     }
     else
     {
-        $statement = $db->prepare("UPDATE image_accueil  set nom = ?, description = ?, date = ?, image = ? WHERE id = ?");
-        $statement->execute(array($name,$description,$date,$image,$id));
+        $statement = $db->prepare("UPDATE evenement  set nom = :nom, image = :image, description = :description, date = :date WHERE id = :id");
+        $statement->execute(array('nom'=>$name, 'image'=>$image, 'description'=>$description, 'date'=>$date,'id'=>$id));
+        // $statement->bindValue(':id', $id, 'nom' PDO :: PARAM_INT);  
+        $statement->execute();
     }
     Database::disconnect();
     header("Location: connect.php");
@@ -189,19 +215,13 @@ else
 }
 
 
-//fonction pour verifier l'input 
-function veryfInput ($var) {
-    $var = trim($var); //enlever espace etc....
-    $var = stripslashes($var); //enlever les \
-    $var = htmlspecialchars($var); //enlever le code html etc
-    return $var;
-}
+
 
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
+    <<head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -232,7 +252,7 @@ function veryfInput ($var) {
         <title>APE SPDL ADMIN</title>
     </head>
     <body>
-        <header class="">
+        <!-- <header class="">
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -264,7 +284,7 @@ function veryfInput ($var) {
                     </div>
                 </div>
                 </nav>
-        </header>
+        </header> -->
 
         <div class="container bg-light d-flex flex-column mt-5 pt-5  align-items-center" style="height: 1000px">
             <h1>Modification de l'evenement "<span class="color:red"> <?php echo $name; ?> </span>"</h1>
@@ -275,7 +295,7 @@ function veryfInput ($var) {
                         <div>
                             <div class="form-group m-5">
                                 <label for="name">Nom :</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; var_dump($fichier); ?>">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; var_dump($data); ?>">
                                 <span class='help-inline'><?php echo $nameError;
                                 
 
@@ -294,12 +314,13 @@ function veryfInput ($var) {
                             </div>                   
                             <div class="form-group m-5">
                                 <label for="fichier">Selectionner un fichier :</label>
-                                <input type="file" id="fichier" name="fichier">
+                                <input type="file" id="fichier" name="fichier"value="<?php echo $fichier; ?>">
+                                <span class='help-inline'><?php echo $fichier; ?></span>
                                 <span class='help-inline'><?php echo $fichierError; ?></span>
                             </div>
                             <div class="form-group m-5">
                                 <label for="image">Selectionner une image :</label>
-                                <input type="file" id="image" name="image">
+                                <input type="file" id="image" name="image" value="<?php echo $image; ?>">
                                 <span class='help-inline'><?php echo $imageError; ?></span>
                             </div>
                             <div class='form-action mt-3 d-flex align-items-center justify-content-center pb-5'>
@@ -320,7 +341,11 @@ function veryfInput ($var) {
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
         <p>Copyright © APE Saint-Pierre-de-Lages</p>
     </footer>
-    
+    <?php
+}else {
+    header('location: connect.php');
+}
+?>
 </body>
  <!--Bootstrap-->
  <script

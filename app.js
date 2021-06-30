@@ -20,12 +20,16 @@ let lien = document.querySelector("#lienUtile").getAttribute('href');
 let classContact = document.querySelector("#contact");
 let contact = document.querySelector("#contact").getAttribute('href');
 
+let classEcole = document.querySelector("#ecole");
+let ecole = document.querySelector("#ecole").getAttribute('href');
+
 //coupe l'url en tableau et recupere le dernier element
 let pathArray = window.location.pathname.split( "/" );
 let length = pathArray.length-1;
 let urlPage = pathArray[length];
 
-
+console.log(ecole)
+    console.log(classEcole)
 //condition d'activation suivant l'url active
 if(urlPage == index) {
     classIndex.classList.add("class","active");
@@ -45,6 +49,9 @@ if(urlPage == index) {
 } else if(urlPage == lien) {
     classDoc.classList.add("class","active");
 
+} else if(urlPage == ecole) {
+    classEcole.classList.add("class","active");
+    
 }
 
 

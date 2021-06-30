@@ -38,7 +38,6 @@ nav .active {
 
 .baniere {
   height: 700px;
-
 }
 
 .lien-info {
@@ -201,9 +200,6 @@ img {
   border: none;
 }
 
-.image-reunion {
-  /* animation: slide-in-right 1s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; */
-}
 
 .image-reunion img {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -294,11 +290,12 @@ hr {
   text-align: center;
 }
 
-/* page actualités  */
+/* pages  */
 
 .baniere-actualites,
 .baniere-parents,
 .baniere-doc,
+.baniere-ecole, 
 .baniere-contact {
   background-repeat: no-repeat;
   background-size: cover;
@@ -316,6 +313,7 @@ hr {
 .baniere-actualites h1,
 .baniere-parents h1,
 .baniere-doc h1,
+.baniere-ecole h1,
 .baniere-contact h1 {
   font-size: 50px;
   color: white;
@@ -368,7 +366,10 @@ hr {
 .baniere-doc {
   background-image: url("./images/books.jpg");
   padding: 50px;
-
+}
+.baniere-ecole {
+  background-image: url("./images/books.JPG");
+  padding: 50px;
 }
 
 /* page parents délégués  */
