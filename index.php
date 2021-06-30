@@ -103,9 +103,9 @@
                   </div>
                 </section>
                 <section class="lien-info d-flex justify-content-center align-items-center text-white">
-                  <div class="row">
-                      <div class="col-md-3 col-sm-12 ">
-                        <a href="actualites.php" class="d-flex flex-column m-5 lien  align-items-center">
+                  <div class="row w-75 mx-5">
+                      <div class="col-md-4 col-sm-12 ">
+                        <a href="actualites.php" class="d-flex flex-column my-5 lien  align-items-center">
                           <div class="d-flex justify-content-center ">
                             <i class="bi bi-star-fill text-center p-3"></i>
                           </div>
@@ -113,35 +113,25 @@
                           <h3 class="text-center">Actu</h3>
                         </a>
                       </div>
-                      <div class="col-md-3 col-sm-12 ">
-                    <a href="actualites.php" class="d-flex flex-column m-5 lien align-items-center">
-                      <div class="d-flex justify-content-center ">
-                        <i class="bi bi-file-plus text-center p-3"></i>
+                      <div class="col-md-4 col-sm-12  ">
+                        <a href="actualites.php" class="d-flex flex-column my-5 lien align-items-center">
+                          <div class="d-flex justify-content-center ">
+                            <i class="bi bi-file-plus text-center p-3"></i>
+                          </div>
+                          <hr class="hr">
+                          <h3 class="text-center">Liens</h3>
+                        </a>
                       </div>
-                      <hr class="hr">
-                      <h3 class="text-center">Liens</h3>
-                    </a>
+                      <div class="col-md-4 col-sm-12 ">
+                        <a href="http://www.stpierredelages.fr/SITE/index.php?option=com_content&view=category&id=53&Itemid=88" target="_blank" class="d-flex flex-column my-5 lien align-items-center">
+                          <div class="d-flex justify-content-center ">
+                            <i class="bi bi-calendar3 text-center p-3"></i>
+                          </div>
+                          <hr >
+                          <h3 class="text-center">Ecole / ALAE</h3>
+                        </a>
                       </div>
-                      <div class="col-md-3 col-sm-12 ">
-                      <a href="http://www.stpierredelages.fr/SITE/index.php?option=com_content&view=category&id=53&Itemid=88" target="_blank" class="d-flex flex-column m-5 lien align-items-center">
-                        <div class="d-flex justify-content-center ">
-                          <i class="bi bi-calendar3 text-center p-3"></i>
-                        </div>
-                        <hr >
-                        <h3 class="text-center">Cantine</h3>
-                      </a>
-                      </div>
-                    <div class="col-md-3 col-sm-12">
-                        <a href="http://www.stpierredelages.fr/SITE/" target="_blank" class="d-flex flex-column m-5 lien align-items-center">
-                      <div class="d-flex justify-content-center ">
-                        <i class="bi bi-house text-center p-3"></i>
-                      </div>
-                      <hr>
-                      <h3 class="text-center">Mairie</h3>
-                    </a>
-                  </div>
-                  </div>
-                  
+                    </div>
                 </section>
                 <section class="cards d-flex justify-content-center">
                   <div class="row d-flex justify-content-center m-0">
@@ -149,9 +139,8 @@
                       <div class="card m-5 w-auto" style="width: 18rem;" >
                         <img src="./images/parents.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                          <h5 class="card-title">Parents délégués</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="parents.php" class="btn">En savoir plus</a>
+                          <h5 class="card-title h4 pb-4">Parents délégués</h5>
+                          <a href="parents.php" class="p-2" >En savoir plus</a>
                         </div>
                       </div>
                     </div>
@@ -159,9 +148,8 @@
                   <div class="card m-5 w-auto" style="width: 18rem;">
                     <img src="./images/livres.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">Documents</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="doc.php" class="btn">En savoir plus</a>
+                      <h5 class="card-title  h4 pb-4">Documents</h5>
+                      <a href="doc.php" class="p-2" >En savoir plus</a>
                     </div>
                   </div>
                   </div>
@@ -169,9 +157,8 @@
                         <div class="card m-5  w-auto" style="width: 18rem;">
                           <img src="./images/enfants.jpg" class="card-img-top" alt="...">
                           <div class="card-body">
-                            <h5 class="card-title">Divers</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn">En savoir plus</a>
+                            <h5 class="card-title h4 pb-4">Informations écoles / ALAE</h5>
+                            <a href="#" class="p-2">En savoir plus</a>
                           </div>
                         </div>
                       </div>      

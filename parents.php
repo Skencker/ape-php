@@ -35,8 +35,7 @@
                                     <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                   </div>
                                   <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> </br> <?php echo $row['prenom'] ?></div>
-                                  <!-- <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> </br> <?php echo $row['prenom'] ?></div> -->
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['prenom'] ?> </br> <?php echo $row['nom'] ?></div>
                                 </div>
                               
                             <?php
@@ -62,7 +61,7 @@
                                      <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                    </div>
                                    <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                   <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> <br> <?php echo $row['prenom'] ?></div>
+                                   <div class="row d-flex justify-content-center text-center"> <?php echo $row['prenom'] ?> <br> <?php echo $row['nom'] ?></div>
                                  </div>
                                
                              <?php
@@ -87,7 +86,7 @@
                                     <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                   </div>
                                   <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> <br> <?php echo $row['prenom'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['prenom'] ?> <br> <?php echo $row['nom'] ?></div>
                                 </div>
                               
                             <?php
@@ -112,7 +111,7 @@
                                     <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                   </div>
                                   <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> <br> <?php echo $row['prenom'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['prenom'] ?> <br> <?php echo $row['nom'] ?></div>
                                 </div>
                               
                             <?php
@@ -137,7 +136,7 @@
                                     <img class='img-fluid' height="560px" width="420px" src ="./images/<?php echo $row['image'] ?>"/>
                                   </div>
                                   <div class="row d-flex justify-content-center fw-bolder"> <?php echo $row['fonction'] ?></div>
-                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['nom'] ?> <br> <?php echo $row['prenom'] ?></div>
+                                  <div class="row d-flex justify-content-center text-center"> <?php echo $row['prenom'] ?> <br> <?php echo $row['nom'] ?></div>
                                 </div>
                               
                             <?php

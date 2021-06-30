@@ -30,16 +30,24 @@
                                     <li class="nav-item me-5">
                                       <a id="parent" class="nav-link" href="parents.php">Parents Délégués</a>
                                     </li>
-                                    <li class="nav-item me-5">
+                                    <!-- <li class="nav-item me-5">
                                       <a id="doc"class="nav-link" href="doc.php">Documents</a>
+                                    </li> -->
+                                    <li class="nav-item dropdown me-5">
+                                      <a id="doc" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Infos Utiles
+                                      </a>
+                                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a id="dochref"class="dropdown-item" href="doc.php">Documents</a></li>
+                                        <li><a class="dropdown-item" id="lienUtile" href="lienUtile.php">Liens</a></li>
+                                      </ul>
                                     </li>
                                     <li class="nav-item me-5">
                                       <a id="contact"class="nav-link" href="contact.php">Contact</a>
                                     </li>
                                     <li class="nav-item me-5">
-                                      <a class="nav-link " aria-current="page" href="./admin/connect.php"> <i class="bi bi-person"></i></a>
+                                      <a class="nav-link " aria-current="page" href="./admin/connect.php"> <i class="bi bi-lock"></i></a>
                                     </li>
-                                 
                                 </ul>
                               </div>
                         </div>

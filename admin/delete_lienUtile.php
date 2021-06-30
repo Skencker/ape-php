@@ -2,7 +2,12 @@
 <?php 
     require 'database.php';
     require_once 'security.php';
-	session_start();
+    session_start();
+
+    if(Securite::verifAccessSession()) {
+            
+    //connection a la fonction statique (::) de la bdd 
+    $db = Database::connect();
 
       //fonction pour verifier l'input 
   function veryfInput ($var) {
@@ -12,75 +17,26 @@
     return $var;
   };
 
-    if(Securite::verifAccessSession()) {
-        
+    if(!empty($_GET['id'])) {
+        $id = veryfInput($_GET['id']);
+        $statement = $db->prepare("SELECT * FROM lienUtile where id = :id");
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->execute();
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
 
-    //connection a la fonction statique (::) de la bdd 
-    $db = Database::connect();
-
-
-      //initilisation des variables
-  $image = $imageError = $nameError = $name = $shaFileExt = "";
-
-  
-
-
-    // Vérifier si le formulaire a été soumis
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $name = veryfInput($_POST['name']);
-    // $image = veryfInput($_FILES['image']['name']);
-    if(empty($name)) 
-        {
-            $nameError = 'Ce champ ne peut pas être vide';
-            $isSuccess = false;
-        }
-    // Vérifie si le fichier a été uploadé sans erreur.
-    if(isset($_FILES["files"]) && $_FILES["files"]["error"] == 0){
-        $allowed = array("jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-        $filename = $_FILES["files"]["name"];
-        $filetype = $_FILES["files"]["type"];
-        $filesize = $_FILES["files"]["size"];
-
-        // Vérifie l'extension du fichier
-        $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        if(!array_key_exists($ext, $allowed)) 
-            $imageError = 'Veuillez sélectionner un format de fichier valide.';
-
-        // Vérifie la taille du fichier - 5Mo maximum
-        $maxsize = 5 * 1024 * 1024;
-        if($filesize > $maxsize) 
-            $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
-
-        // Vérifie le type MIME du fichier
-        if(in_array($filetype, $allowed)){
-            // Vérifie si le fichier existe avant de le télécharger.
-                $shaFile = hash('sha256', $_FILES["files"]["name"]);
-
-                $shaFileExt = $shaFile . "." . array_search($filetype, $allowed);
-           
-                move_uploaded_file($_FILES["files"]["tmp_name"], "../images/" . $shaFileExt);
-                echo "Votre fichier a été téléchargé avec succès.";
-                $isSuccess = true;
-                $isUploadSuccess = true;
-            
-        } else{
-            echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
-        }
-    } else{
-        echo $imageError;
-    }
-}
-
-    //si tout va bien tu insert dans la BDD
-    if($isSuccess && $isUploadSuccess) 
-    {
-        $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO image_accueil (nom, image) values(:nom, :image)");
-        $statement->execute(array('nom'=>$name, 'image'=>$shaFileExt));
         Database::disconnect();
-        header("Location: connect.php");
     }
-  
+    
+    if(!empty($_POST)) {
+        $id = veryfInput($_POST['id']);
+        $db = Database::connect();
+        $statement = $db->prepare("DELETE FROM lienUtile WHERE id = :id");
+        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
+        $statement->execute(); 
+        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        Database::disconnect();
+        header("Location: connect.php"); 
+    }
 
 
 
@@ -120,7 +76,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </head>
     <body>
 
-        <header class="">
+        <header >
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
                 <div class="container-fluid">
                     <a href="#"> 
@@ -146,35 +102,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 </li>                               
                                 <li class="nav-item me-5">
                                     <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
-                                </li> 
+                                </li>          
                             </ul>
                         </div>
                     </div>
                 </div>
                 </nav>
         </header>
-        <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
-            <h1>Ajouter des images au diapo de la page d'accueil</h1>
-
-            <form action="insert_image_accueil.php" method="post" class="form" role="form" enctype="multipart/form-data">
-                <div class="form-group m-5">
-                  <label for="name">Nom :</label>
-                  <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
-                  <span class='help-inline'><?php echo $nameError; ?></span>
-                </div>
-
-                <div class="form-group m-5">
-                  <label for="files">Selectionner une image : <br> (Photo en mode paysage).</label>
-                  <br>
-                  <input type="file" id="files" name="files">
-                  <span class='help-inline'><?php echo $imageError; ?></span>
-                </div>
-
-
+        <div class="container bg-light d-flex flex-column justify-content-center" style="height: 800px">
+        <h1>Supprimer un fichier </h1>
+        <?php
+            // var_dump($data);
+        ?>
+              <br>
+              <form action="delete_lienUtile.php" method="post" class="form" role="form">
+              <!-- input invisible qui recupere l'id  -->
+                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+                <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer le fichier ?</p>
+                
           
-              <div class='form-action m-5'>
-                <button type="submit" class="btn btn-success w-25 m-2" >Valider</button>
-                <a href="connect.php" class="btn btn-primary m-2" >Retour</a>
+              <div class='form-action'>
+                <button type="submit" class="btn btn-warning m-2" >Oui</button>
+                <a href="connect.php" class="btn btn-default m-2" >Non</a>
               </div>
               </form>
         </div>
@@ -183,6 +132,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
             <p>Copyright © APE Saint-Pierre-de-Lages</p>
         </footer>
+            
         <?php
 }else {
     header('location: connect.php');

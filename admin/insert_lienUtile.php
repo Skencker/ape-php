@@ -20,97 +20,29 @@ if(Securite::verifAccessSession()) {
 
 //initilisation des variables. 
 // AJOUT DE VARIABLES $nbParentDelPerClass, $nbParentDelPerClassError
-$image = $imageError = $nameError = $name = $fonction = $fonctionError = $prenom = $prenomError = $classe = $classeError = $nbParentDelPerClass = $nbParentDelPerClassError = "";
-
-// Récupère le type de classe par défaut : "PS / MS"
-$typeClasse = $_POST['classe'];
-
-// Compte le nombre de délégués déjà présent dans $typeClass
-$reponse = $db->query("SELECT COUNT(*) AS nbParentDelPerClass FROM parents_delegues WHERE classe='$typeClasse'");
-
-// Incrémente $nbParentDelPerClass
-while ($donnees = $reponse->fetch()) {
-    $nbParentDelPerClass = $donnees['nbParentDelPerClass'];
-}
+$name  = $href = $hrefError = $nameError = "";
 
 if (!empty($_POST)) {
     $name            = veryfInput($_POST['name']);
-    $prenom          = veryfInput($_POST['prenom']);
-    $classe          = veryfInput($_POST['classe']);
-    $fonction        = veryfInput($_POST['fonction']);
-    $image           = veryfInput($_FILES['image']['name']);
-    $imagePath       = '../images/' . basename($image);
-    $imageExtension  = pathinfo($imagePath, PATHINFO_EXTENSION);
+    $href         = veryfInput($_POST['href']);
     $isSuccess       = true;
-    $isUploadSuccess = true;
-    
-    // Vérification de la condition du nombre de parents délégués
-    if ($nbParentDelPerClass > 1) {
-        $nbParentDelPerClassError = 'Il y a déjà 2 parents délégués pour cette classe';
-        $isSuccess = false;
-    }
+
     if (empty($name)) {
         $nameError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     }
-    if (empty($prenom)) {
-        $prenomError = 'Ce champ ne peut pas être vide';
+    if (empty($href)) {
+        $hrefError = 'Ce champ ne peut pas être vide';
         $isSuccess = false;
     }
-    if (empty($fonction)) {
-        $fonctionError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
-    if (empty($classe)) {
-        $classeError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
-
-    if(isset($_FILES["files"]) && $_FILES["files"]["error"] == 0){
-        $allowed = array("jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-        $filename = $_FILES["files"]["name"];
-        $filetype = $_FILES["files"]["type"];
-        $filesize = $_FILES["files"]["size"];
-
-        // Vérifie l'extension du fichier
-        $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        if(!array_key_exists($ext, $allowed)) 
-            $imageError = 'Veuillez sélectionner un format de fichier valide.';
-
-        // Vérifie la taille du fichier - 5Mo maximum
-        $maxsize = 5 * 1024 * 1024;
-        if($filesize > $maxsize) 
-            $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
-
-        // Vérifie le type MIME du fichier
-        if(in_array($filetype, $allowed)){
-            // Vérifie si le fichier existe avant de le télécharger.
-                $shaFile = hash('sha256', $_FILES["files"]["name"]);
-
-                $shaFileExt = $shaFile . "." . array_search($filetype, $allowed);
-           
-                move_uploaded_file($_FILES["files"]["tmp_name"], "../images/" . $shaFileExt);
-                echo "Votre fichier a été téléchargé avec succès.";
-                $isSuccess = true;
-                $isUploadSuccess = true;
-            
-        } else{
-            echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
-        }
-    } else{
-        echo $imageError;
-    }
-    
+  
     //si tout va bien tu insert dans la BDD
-    if ($isSuccess && $isUploadSuccess) {
+    if ($isSuccess) {
         $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO parents_delegues (nom, prenom, fonction, classe, image) values(:nom, :prenom, :fonction, :classe, :image)");
+        $statement = $db->prepare("INSERT INTO lienUtile (nom, href) values(:nom, :href)");
         $statement->execute(array(
             'nom'=>$name,
-            'prenom'=>$prenom,
-            'fonction'=>$fonction,
-            'classe'=>$classe,
-            'image'=>$shaFileExt
+            'href'=>$href
         ));
         Database::disconnect();
         header("Location: connect.php");
@@ -188,49 +120,21 @@ if (!empty($_POST)) {
                 </nav>
         </header>
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
-            <h1>Ajouter un parent délégué</h1>
-            <span class='help-inline'><?php echo $nbParentDelPerClassError; ?></span>
+            <h1>Ajouter un lien</h1>
 
-            <form action="insert_parent.php" method="post" class="form" role="form" enctype="multipart/form-data">
+            <form action="insert_lienUtile.php" method="post" class="form" role="form">
                 <div class="form-group m-5">
                   <label for="name">Nom :</label>
                   <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
                   <span class='help-inline'><?php echo $nameError; ?></span>
                 </div>
                 <div class="form-group m-5">
-                  <label for="prenom">Prénom :</label>
-                  <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" value="<?php echo $prenom; ?>">
-                  <span class='help-inline'><?php echo $prenomError; ?></span>
+                  <label for="href">Href :</label>
+                  <input type="text" class="form-control" id="href" name="href" placeholder="href" value="<?php echo $href; ?>">
+                  <span class='help-inline'><?php echo $hrefError; ?></span>
                 </div>
       
-                <div class="form-group m-5">
-                  <label for="fonction">Fonction : </label>
-                  <select class="form-control" id = "fonction" name="fonction">
-                      <option value='Titulaire'>Titulaire</option>
-                      <option value='Suppléant'>Suppléant</option>
-                  </select>
-                  <span class='help-inline'><?php echo $fonctionError; ?></span>
-                </div>
-                <div class="form-group m-5">
-                  <label for="classe">Classe :</label>
-                  <select class="form-control" id = "classe" name="classe">
-                      <option value='PS / MS'>PS / MS</option>
-                      <option value='GS / CP'>GS / CP</option>
-                      <option value='CP / CE1'>CP / CE1</option>
-                      <option value='CE2 / CM1'>CE2 / CM1 </option>
-                      <option value='CM1 / CM2'>CM1 / CM2</option>
-                  </select>
-                  <span class='help-inline'><?php echo $classeError; ?></span>
-                </div>
-         
-
-                <div class="form-group m-5">
-                  <label for="files">Selectionner une image :</label>
-                  <input type="file" id="files" name="files">
-                  <span class='help-inline'><?php echo $imageError; ?></span>
-                </div>
-
-
+                
           
               <div class='form-action m-5'>
                 <button type="submit" class="btn btn-success w-25 m-2" >Valider</button>
