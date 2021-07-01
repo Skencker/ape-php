@@ -22,8 +22,6 @@
           <?php
                       $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
-
-                     
                       if($parents['classe'] == 'PS') {
               ?>
                           <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-10 m-2 ">

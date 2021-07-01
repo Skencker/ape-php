@@ -245,7 +245,7 @@ if(Securite::verifAccessSession()) {
                                         <td><?php echo$parents_delegues['classe']?></td>
                                         <th class ="action text-center">
                                             <a href="view_parent.php?id=<?php echo $parents_delegues['id'] ?> " class="btn btn-default btn-sm"><i class="bi bi-eye"></i> Voir</a>
-                                            <a href="update_parent.php?id=' .<?php echo $parents_delegues['id']?> " class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a> 
+                                            <a href="update_parent.php?id=<?php echo $parents_delegues['id']?> " class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Modifier</a> 
                                             <a href="delete_parent.php?id=<?php echo $parents_delegues['id'] ?>" class="btn btn-danger btn-sm"><i class="bi bi-file-x"></i> Supprimer</a>      
                                             </th>
                                             </tr>
