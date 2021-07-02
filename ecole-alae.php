@@ -15,10 +15,10 @@
           require_once 'header.php';
         ?>
     <main>
-        <section class="baniere-ecole d-flex justify-content-center">
+        <section class="baniere-doc d-flex justify-content-center " >
             <h1 class="align-self-center">Informations école / ALAE</Em></h1>
         </section>
-        <section class="ecole d-flex justify-content-center align-items-center">
+        <section class="ecole d-flex justify-content-center align-items-center" style="height:500px">
             <div class="accordion accordion-flush w-50" id="accordionFlushExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="flush-headingOne">
