@@ -129,15 +129,15 @@ if (!empty($_POST)) {
                   <span class='help-inline'><?php echo $nameError; ?></span>
                 </div>
                 <div class="form-group m-5">
-                  <label for="href">Href :</label>
-                  <input type="text" class="form-control" id="href" name="href" placeholder="href" value="<?php echo $href; ?>">
+                  <label for="href">Lien du site : </label>
+                  <input type="text" class="form-control" id="href" name="href" placeholder="https://wwww.123456.fr " value="<?php echo $href; ?>">
                   <span class='help-inline'><?php echo $hrefError; ?></span>
                 </div>
       
                 
           
               <div class='form-action m-5'>
-                <button type="submit" class="btn btn-success w-25 m-2" >Valider</button>
+                <button type="submit" class="btn btn-success m-2" >Valider</button>
                 <a href="connect.php" class="btn btn-primary m-2" >Retour</a>
               </div>
               </form>

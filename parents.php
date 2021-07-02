@@ -20,7 +20,7 @@
         <section class="parents container-fluid d-flex align-items-center justify-content-center mt-5">
           <div class="row d-flex justify-content-center align-items-start">
           <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
                       if($parents['classe'] == 'PS') {
               ?>
@@ -28,7 +28,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'PS') {
                                         ?>
@@ -53,7 +53,7 @@
                       };
                 ?>
               <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -63,7 +63,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'PS / MS') {
                                         ?>
@@ -88,7 +88,7 @@
                       };
                 ?>
                  <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -98,7 +98,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'MS') {
                                         ?>
@@ -123,7 +123,7 @@
                       };
                 ?>
                  <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -133,7 +133,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'MS / GS') {
                                         ?>
@@ -158,7 +158,7 @@
                       };
                 ?>
                  <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -168,7 +168,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'GS') {
                                         ?>
@@ -193,7 +193,7 @@
                       };
                 ?>
               <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -203,7 +203,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'GS / CP') {
                                         ?>
@@ -238,7 +238,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'CP') {
                                         ?>
@@ -273,7 +273,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'CP / CE1') {
                                         ?>
@@ -308,7 +308,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'CE1') {
                                         ?>
@@ -333,7 +333,7 @@
                       };
                 ?>
                  <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -343,7 +343,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'CE2') {
                                         ?>
@@ -368,7 +368,7 @@
                       };
                 ?>
               <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -378,7 +378,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'CE2 / CM1') {
                                         ?>
@@ -403,7 +403,7 @@
                       };
                 ?>
                  <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -413,7 +413,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'CM1') {
                                         ?>
@@ -438,7 +438,7 @@
                       };
                 ?>
               <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -448,7 +448,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'CM1 / CM2') {
                                         ?>
@@ -473,7 +473,7 @@
                       };
                 ?>
                  <?php
-                      $statement = $db->query('SELECT * FROM parents_delegues', PDO::FETCH_ASSOC);
+                      $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
                       while($parents = $statement->fetch(PDO::FETCH_ASSOC)){
 
                      
@@ -483,7 +483,7 @@
                               <div class="row">
                               <h2 class='text-center'><?php echo $parents['classe'] ?></h2>
                                 <?php
-                                    $statement = $db->query('SELECT * FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
+                                    $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues ORDER BY fonction DESC', PDO::FETCH_ASSOC);
                                     foreach ($statement as $row) : 
                                       if($row['classe'] == 'CM2') {
                                         ?>

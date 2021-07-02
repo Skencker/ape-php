@@ -19,7 +19,7 @@
     }
       //connection à la basse de donnée
         $db = Database::connect();
-        $statement = $db->prepare('SELECT * FROM parents_delegues WHERE id = :id ');
+        $statement = $db->prepare('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues WHERE id = :id ');
         $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
         $statement-> execute(); 
         $parent = $statement->fetch(PDO::FETCH_ASSOC);

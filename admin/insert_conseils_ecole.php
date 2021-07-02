@@ -175,7 +175,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
 
                 <div class="form-group m-5">
-                  <label for="fichier">Selectionner un fichier :</label>
+                  <label for="fichier">Selectionner un fichier : format .pdf</label>
                   <br>
                   <input type="file" id="fichier" name="fichier">
                   <span class='help-inline'><?php echo $fichierError; ?></span>

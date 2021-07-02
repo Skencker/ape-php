@@ -201,11 +201,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
                 </nav>
         </header>
-        <div class="container bg-light d-flex flex-column justify-content-center align-items-center mt-5" style="height: 800px">
-            <h1>Ajouter un évèvement</h1>
+        <div class="container bg-light d-flex flex-column justify-content-center align-items-center mt-5 pt-5" style="height: 800px">
+            <h1 class="mt-5 pt-5">Ajouter un évèvement</h1>
             <form action="insert_event.php" method="post" class="form" role="form" enctype="multipart/form-data">
                 <div class="form-group m-5">
-      
                   <label for="name">Nom :</label>
                   <input type="text" class="form-control" id="name" name="name" placeholder="Nom" value="<?php echo $name; ?>">
                   <span class='help-inline'><?php echo $nameError; ?></span>
@@ -222,12 +221,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
 
                 <div class="form-group m-5">
-                  <label for="image">Selectionner une image :</label>
+                  <label for="image">Selectionner une image : format .jpg</label>
+                  <br>
+                  <br>
                   <input type="file" id="image" name="image">
                   <span class='help-inline'><?php echo $imageError; ?></span>
                 </div>
                 <div class="form-group m-5">
-                  <label for="fichier">Selectionner une fichier :</label>
+                  <label for="fichier">Selectionner une fichier : format .pdf</label>
+                  <br>
+                  <br>
                   <input type="file" id="fichier" name="fichier">
                   <span class='help-inline'><?php echo $fichierError; ?></span>
                 </div>

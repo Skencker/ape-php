@@ -180,7 +180,7 @@
         </header> -->
 
         <div class="container bg-light d-flex flex-column mt-5 pt-5  align-items-center" style="height: 1000px">
-            <h1>Modification du parent délégué "<span class="color:red"> <?php echo $prenom; ?>  -  <?php echo $name;?>  </span>"</h1>
+            <h1>Modification du parent délégué "<span class="color:red"> <?php echo $prenom; ?> -  <?php echo $name;?>  </span>"</h1>
 
             <div class="row">
                 <div class="col-12">
@@ -192,18 +192,18 @@
                                 <span class='help-inline'><?php echo $nameError; ?></span>
                             </div>
                             <div class="form-group m-5">
-                                <label for="date">Prénom :</label>
-                                <input type="text" class="form-control" id="date" name="date" placeholder="Date" value="<?php echo $prenom; ?>">
+                                <label for="prenom">Prénom :</label>
+                                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" value="<?php echo $prenom; ?>">
                                 <span class='help-inline'><?php echo $prenomError; ?></span>
                             </div>
                             <div class="form-group m-5 d-flex flex-column">
-                                <label for="classe">Classe :</label>
+                                <label for="classe">Classe : (Ex : PS / MS ou CP )</label>
                                 <input type="text" class="form-control" id="classe" name="classe" placeholder="Classe" value="<?php echo $classe; ?>">
                                 <span class='help-inline'><?php echo $classeError; ?></span>
                             </div>                   
                             <div class="form-group m-5 d-flex flex-column">
-                                <label for="fonction">Fonction :</label>
-                                <input type="text" class="form-control" id="fonction" name="classe" placeholder="Fonction" value="<?php echo $fonction; ?>">
+                                <label for="fonction">Fonction : Titulaire ou Suppléant (avec une majuscule) </label>
+                                <input type="text" class="form-control" id="fonction" name="fonction" placeholder="Fonction" value="<?php echo $fonction; ?>">
                                 <span class='help-inline'><?php echo $fonctionError; ?></span>
                             </div>                   
                  

@@ -164,7 +164,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
 
                 <div class="form-group m-5">
-                  <label for="files">Selectionner une image : <br> (Photo en mode paysage).</label>
+                  <label for="files">Selectionner une image : <br> (Photo en mode paysage et en jpg).</label>
                   <br>
                   <input type="file" id="files" name="files">
                   <span class='help-inline'><?php echo $imageError; ?></span>
