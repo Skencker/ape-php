@@ -20,7 +20,7 @@ session_start();
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
         $statement = $db->prepare("SELECT * FROM parents_delegues where id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->bindValue(':id', $id);  
         $statement->execute();
         $data = $statement->fetch(PDO::FETCH_ASSOC);
         $name = $data['nom'];
@@ -34,7 +34,7 @@ session_start();
         $db = Database::connect();
         
         $statement = $db->prepare("DELETE FROM parents_delegues WHERE id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
+        $statement->bindValue(':id', $id); 
         $statement->execute(); 
         $data = $statement->fetch(PDO::FETCH_ASSOC);
  

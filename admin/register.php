@@ -33,7 +33,8 @@
 		}
 
 		// EMAIL DEJA UTILISEE
-		$req = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = :email");
+		$req = $db->prepare("SELECT email FROM user WHERE email = :email");
+		// $req = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = :email");
         $req->bindValue(':email', $email, PDO :: PARAM_STR);  
         $req->execute();
 

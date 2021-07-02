@@ -19,7 +19,7 @@
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
         $statement = $db->prepare("SELECT * FROM organigramme where id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->bindValue(':id', $id);  
         $statement->execute();
         $data = $statement->fetch(PDO::FETCH_ASSOC);
         $fichier =$data['fichier'];
@@ -30,7 +30,7 @@
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
         $statement = $db->prepare("DELETE FROM organigramme WHERE id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
+        $statement->bindValue(':id', $id); 
         $statement->execute(); 
         $data = $statement->fetch(PDO::FETCH_ASSOC);
         $fichier =$data['fichier'];

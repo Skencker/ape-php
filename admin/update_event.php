@@ -4,6 +4,8 @@
   require_once 'security.php';
   session_start();
 
+  $db = Database::connect();
+
   if(Securite::verifAccessSession()) {
 
     //fonction pour verifier l'input 
@@ -131,31 +133,32 @@
         //si tout va bien tu insert dans la BDD
         if($isSuccess && $isUploadSuccessImage && $isUploadSuccessFichier ) 
         {
-            $db = Database::connect();
+            // $db = Database::connect();
             $statement = $db->prepare("UPDATE evenement  set nom = :nom, image = :image, description = :description, date = :date, fichier = :fichier WHERE id = :id");
             $statement->execute(array('nom'=>$name, 'date'=>$date, 'description'=>$description,'image'=>$shaFileExtImage, 'fichier'=>$shaFileExtFichier, 'id'=>$id));
-            Database::disconnect();
+            // Database::disconnect();
             header("Location: connect.php");
         } else if (!$isUploadSuccessImage && $isUploadSuccessFichier) {
-            $db = Database::connect();
+            // $db = Database::connect();
             $statement = $db->prepare("UPDATE evenement  set nom = :nom, description = :description, date = :date, fichier = :fichier WHERE id = :id");
             $statement->execute(array('nom'=>$name, 'date'=>$date, 'description'=>$description,'fichier'=>$shaFileExtFichier, 'id'=>$id));
-            Database::disconnect();
+            // Database::disconnect();
             header("Location: connect.php");
         } else if ($isUploadSuccessImage && !$isUploadSuccessFichier) {
-            $db = Database::connect();
+            // $db = Database::connect();
             $statement = $db->prepare("UPDATE evenement  set nom = :nom, description = :description, date = :date, image = :image WHERE id = :id");
             $statement->execute(array('nom'=>$name, 'date'=>$date, 'description'=>$description,'image'=>$shaFileExtImage, 'id'=>$id));
-            Database::disconnect();
+            // Database::disconnect();
             header("Location: connect.php");
         } else if ($isSuccess && !$isUploadSuccessImage && !$isUploadSuccessFichier) {
-            $db = Database::connect();
+            // $db = Database::connect();
             $statement = $db->prepare("UPDATE evenement  set nom = :nom, description = :description, date = :date WHERE id = :id");
             $statement->execute(array('nom'=>$name, 'date'=>$date, 'description'=>$description, 'id'=>$id));
-            Database::disconnect();
+            // Database::disconnect();
             header("Location: connect.php");
         }
     }
+    Database::disconnect();
 ?>
 
 <!DOCTYPE html>

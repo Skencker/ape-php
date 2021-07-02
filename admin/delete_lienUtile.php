@@ -1,6 +1,6 @@
 
 <?php 
-    require 'database.php';
+    require_once 'database.php';
     require_once 'security.php';
     session_start();
 
@@ -20,7 +20,7 @@
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
         $statement = $db->prepare("SELECT * FROM lienUtile where id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->bindValue(':id', $id);  
         $statement->execute();
         $data = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -31,7 +31,7 @@
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
         $statement = $db->prepare("DELETE FROM lienUtile WHERE id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
+        $statement->bindValue(':id', $id); 
         $statement->execute(); 
         $data = $statement->fetch(PDO::FETCH_ASSOC);
         Database::disconnect();

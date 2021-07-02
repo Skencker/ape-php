@@ -74,21 +74,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         echo $nameError;
     }
 }
-
     //si tout va bien tu insert dans la BDD
     if($isSuccess && $isUploadSuccess) 
     {
-        $db = Database::connect();
+        // $db = Database::connect();
         $statement = $db->prepare("INSERT INTO conseils_ecole (nom, date, fichier) values(:nom, :date, :shaFileExtFichier)");
         
         $statement->execute(array('nom'=>$name, 'date'=>$date, 'shaFileExtFichier'=>$shaFileExtFichier));
         Database::disconnect();
         header("Location: connect.php");
     }
-  
-
-
-
 
 ?>
 

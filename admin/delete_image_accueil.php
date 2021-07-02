@@ -1,6 +1,6 @@
 
 <?php 
-    require 'database.php';
+    require_once 'database.php';
     require_once 'security.php';
     session_start();
     
@@ -19,7 +19,7 @@
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
         $statement = $db->prepare("SELECT * FROM image_accueil where id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->bindValue(':id', $id);  
         $statement->execute();
         $data = $statement->fetch(PDO::FETCH_ASSOC);
         $image = $data['nom'];
@@ -32,7 +32,7 @@
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
         $statement = $db->prepare("DELETE FROM image_accueil WHERE id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
+        $statement->bindValue(':id', $id); 
         $statement->execute(); 
         $data = $statement->fetch(PDO::FETCH_ASSOC);
         Database::disconnect();

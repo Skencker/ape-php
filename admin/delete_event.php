@@ -1,6 +1,6 @@
 
 <?php 
-    require 'database.php';
+    require_once 'database.php';
     require_once 'security.php';
     session_start();
     if(Securite::verifAccessSession()) {
@@ -18,22 +18,22 @@
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
         $statement = $db->prepare("SELECT * FROM evenement where id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
+        $statement->bindValue(':id', $id);  
         $statement->execute();
         $data = $statement->fetch(PDO::FETCH_ASSOC);
         $name = $data['nom'];
         $image =$data['image'];
-        unlink("../images/$image");
         Database::disconnect();
     }
-  
+    
     if(!empty($_POST)) {
         $id = veryfInput($_POST['id']);
         $db = Database::connect();
         $statement = $db->prepare("DELETE FROM evenement WHERE id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
+        $statement->bindValue(':id', $id); 
         $statement->execute(); 
         $data = $statement->fetch(PDO::FETCH_ASSOC);
+        unlink("../images/$image");
  
         Database::disconnect();
         header("Location: connect.php"); 
