@@ -18,7 +18,7 @@
         <section class="baniere-doc d-flex justify-content-center">
             <h1 class="align-self-center">Documents</h1>
         </section>
-        <section class="doc d-flex justify-content-center align-items-center">
+        <section class="doc d-flex justify-content-center align-items-center" style="height:100vh">
             <div class="accordion accordion-flush w-50" id="accordionFlushExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="flush-headingOne">

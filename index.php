@@ -1,5 +1,5 @@
 <?php 
-    require './admin/database.php';  
+    require_once './admin/database.php';  
 ?>
 <!DOCTYPE html>
 <html lang="fr">

@@ -1,5 +1,5 @@
 <?php
-require 'database.php';
+require_once 'database.php';
 require_once 'security.php';
 //connection a la fonction statique (::) de la bdd 
 $db = Database::connect();

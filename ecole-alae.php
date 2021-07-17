@@ -18,7 +18,7 @@
         <section class="baniere-doc d-flex justify-content-center " >
             <h1 class="align-self-center">Informations école / ALAE</Em></h1>
         </section>
-        <section class="ecole d-flex justify-content-center align-items-center" style="height:500px">
+        <section class="ecole d-flex justify-content-center align-items-star" style="height:1200px">
             <div class="accordion accordion-flush w-50" id="accordionFlushExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="flush-headingOne">

@@ -17,7 +17,7 @@
         <section class="baniere-parents d-flex justify-content-center">
             <h1 class="align-self-center">Parents délégués</h1>
         </section>
-        <section class="parents container-fluid d-flex align-items-center justify-content-center mt-5">
+        <section class="parents container-fluid d-flex align-items-center justify-content-center mt-5" style="height:100vh">
           <div class="row d-flex justify-content-center align-items-start">
           <?php
                       $statement = $db->query('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues', PDO::FETCH_ASSOC);
