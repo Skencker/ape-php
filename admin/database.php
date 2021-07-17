@@ -1,6 +1,6 @@
 <?php 
       
-
+//connexion à la bdd
 class Database  {
 
   private static $dbHost = 'localhost';
@@ -30,5 +30,24 @@ Database::connect();
 
 $db = Database::connect();
 
-        
+
+// fonction de Selection de donnee dans la BDD
+function selectdata ($table,$id,$db) {
+  $data = $db->prepare("SELECT * FROM $table where id = :id");
+  $data->bindParam(':id', $id);  
+  $data->execute();
+  return $data->fetch(PDO::FETCH_ASSOC);
+}
+
+// fonction de suppression de donne de la BDD
+
+function deletdata ($table,$id,$db) {
+  $data = $db->prepare("DELETE FROM $table where id = :id");
+  $data->bindParam(':id', $id);  
+  $data->execute();
+  return $data->fetch(PDO::FETCH_ASSOC);
+}
+
+
+
 ?>

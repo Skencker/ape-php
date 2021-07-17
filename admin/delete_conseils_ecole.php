@@ -4,118 +4,35 @@
     require_once 'security.php';
     session_start();
 
-    if(Securite::verifAccessSession()) {
+    if(Security::verifAccessSession()) {
             
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
-
-      //fonction pour verifier l'input 
-  function veryfInput ($var) {
-    $var = trim($var); //enlever espace etc....
-    $var = stripslashes($var); //enlever les \
-    $var = htmlspecialchars($var); //enlever le code html etc
-    return $var;
-  };
+    $table = 'conseils_ecole';
 
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
-        $statement = $db->prepare("SELECT * FROM conseils_ecole where id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
-        $statement->execute();
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
-        $fichier =$data['fichier'];
-        Database::disconnect();
+        $data = selectdata($table, $id, $db);
+        $fichier =$data['fichier']; 
     }
     
     if(!empty($_POST)) {
         $id = veryfInput($_POST['id']);
-        $db = Database::connect();
-        $statement = $db->prepare("DELETE FROM conseils_ecole WHERE id = :id");
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
-        $statement->execute(); 
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        $data = deletdata($table, $id, $db);
         $fichier =$data['fichier'];
-        unlink("../doc/$fichier");
-        Database::disconnect();
+        // unlink("../doc/$fichier");
         header("Location: connect.php"); 
     }
-
-
-
+    Database::disconnect();
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- Font google-->
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"rel="stylesheet" />
-    
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap"rel="stylesheet"
-        />
-        <!--Jquery-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!--Bootstrap-->
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-          crossorigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-        />
-
-        <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
-       
-        <link rel="stylesheet" href="../style.css" />
-        <title>APE SPDL ADMIN</title>
-    </head>
-    <body>
-
-        <header >
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
-                <div class="container-fluid">
-                    <a href="#"> 
-                        <img class="img img-fluid w-75 ps-3" src="../images/logo.png" alt="logo">
-                    </a>
-                    <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-    
-                    <div class="collapse navbar-collapse lg-d-flex bg-light justify-content-end " id="navbarSupportedContent">
-                        <div >
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0  ">
-                            <li class="nav-item me-5">
-                                    <a class="nav-link border-3" aria-current="page" href="../index.php">Site</a>
-                                </li>                               
-                                <li class="nav-item me-5">
-                                    <a class="nav-link active" aria-current="page" href="connect.php">Gestion admin</a>
-                                </li>          
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                </nav>
-        </header>
+<?php
+    require_once 'headerAdmin.php';
+    ?> 
         <div class="container bg-light d-flex flex-column justify-content-center" style="height: 800px">
         <h1>Supprimer un fichier </h1>
-        <?php
-            // var_dump($data);
-        ?>
               <br>
               <form action="delete_conseils_ecole.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
