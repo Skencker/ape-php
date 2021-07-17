@@ -9,41 +9,27 @@ session_start();
         
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
-      //fonction pour verifier l'input 
-//   function veryfInput ($var) {
-//     $var = trim($var); //enlever espace etc....
-//     $var = stripslashes($var); //enlever les \
-//     $var = htmlspecialchars($var); //enlever le code html etc
-//     return $var;
-//   };
+    $table  = 'parents_delegues';
+    
 
     if(!empty($_GET['id'])) {
-        $id = veryfInput($_GET['id']);
-        $statement = $db->prepare("SELECT * FROM parents_delegues where id = :id");
-        $statement->bindValue(':id', $id);  
-        $statement->execute();
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        $idGet = veryfInput($_GET['id']);
+        $data = selectdata($table, $idGet, $db);
         $name = $data['nom'];
         $image =$data['image'];
-        unlink("../images/$image");
-        Database::disconnect();
     }
     
+    
     if(!empty($_POST)) {
-        $id = veryfInput($_POST['id']);
-        $db = Database::connect();
-        
-        $statement = $db->prepare("DELETE FROM parents_delegues WHERE id = :id");
-        $statement->bindValue(':id', $id); 
-        $statement->execute(); 
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
- 
-        Database::disconnect();
-        header("Location: connect.php");
+        $idPost = veryfInput($_POST['id']);
+        $databd = selectdata($table, $idPost, $db);
+        $imagePost =  "../images/{$databd['image']}";
+        unlink($imagePost);
+        $data = deletdata($table, $idPost, $db);
+       
+        header("Location: connect.php"); 
     }
-
-
-
+    Database::disconnect();
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +42,7 @@ session_start();
               <br>
               <form action="delete_parent.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
-                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+                <input type="hidden" name="id" value="<?php echo $idGet; ?>"/>
                 <p class='alert alert-warning text-dark'>Etes vous de vouloir supprimer :"  <?php echo $name; ?>. " ?</p>
                 
           

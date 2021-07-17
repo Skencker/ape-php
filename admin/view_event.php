@@ -6,24 +6,16 @@
     //recupere l'id de l'image dans URL
 
     if(Security::verifAccessSession()) {
+        //connection à la basse de donnee
+        $db = Database::connect();
+        $table  = 'evenement';
         
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
+        $event = selectdata($table, $id, $db);
       }
-      //connection à la basse de donnée
-      $db = Database::connect();
-  
-    $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
-        $statement->execute();
-
-  
-    $event = $statement->fetch(PDO::FETCH_ASSOC);
     $date = date('d / m / Y', strtotime($event['date']));
-
-
     Database::disconnect();
-  
     ?>
 
 <!DOCTYPE html>

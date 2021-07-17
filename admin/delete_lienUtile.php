@@ -8,36 +8,21 @@
             
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
-
-      //fonction pour verifier l'input 
-//   function veryfInput ($var) {
-//     $var = trim($var); //enlever espace etc....
-//     $var = stripslashes($var); //enlever les \
-//     $var = htmlspecialchars($var); //enlever le code html etc
-//     return $var;
-//   };
+    $table  = 'lienUtile';
 
     if(!empty($_GET['id'])) {
-        $id = veryfInput($_GET['id']);
-        $statement = $db->prepare("SELECT * FROM lienUtile where id = :id");
-        $statement->bindParam(':id', $id);  
-        $statement->execute();
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        $idGet = veryfInput($_GET['id']);
+        $data = selectdata($table, $idGet, $db);
 
-        Database::disconnect();
     }
     
     if(!empty($_POST)) {
-        $id = veryfInput($_POST['id']);
-        $db = Database::connect();
-        $statement = $db->prepare("DELETE FROM lienUtile WHERE id = :id");
-        $statement->bindParam(':id', $id); 
-        $statement->execute(); 
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
-        Database::disconnect();
+        $idPost = veryfInput($_POST['id']);
+        $data = deletdata($table, $idPost, $db);
         header("Location: connect.php"); 
     }
-
+    
+    Database::disconnect();
 
 
 ?>
@@ -55,7 +40,7 @@
               <br>
               <form action="delete_lienUtile.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
-                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+                <input type="hidden" name="id" value="<?php echo $idGet; ?>"/>
                 <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer le fichier ?</p>
                 
           

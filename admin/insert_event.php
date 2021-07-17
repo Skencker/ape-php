@@ -103,7 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Vérifie si le fichier existe avant de le télécharger.
                 $shaFile = hash('sha256', $_FILES["fichier"]["name"]);
 
-                $shaFileExtFichier = $shaFile . "." . $ext;
+                $shaFileExtFichier = $shaFile . "." .array_search($filetype, $allowed);
            
                 move_uploaded_file($_FILES["fichier"]["tmp_name"], "../doc/" . $shaFile . "." . array_search($filetype, $allowed));
                 echo "Votre fichier a été téléchargé avec succès.";

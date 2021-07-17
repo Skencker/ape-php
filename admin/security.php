@@ -18,6 +18,5 @@
         }
         else return false;
     };
+    // creer fonction pour le token class user {}
 ?>
-
-// creer fonction pour le token class user {}

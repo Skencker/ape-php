@@ -87,6 +87,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <!DOCTYPE html>
 <html lang="fr">
+<?php
+    require_once 'headerAdmin.php';
+    ?> 
 
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
             <h1>Ajouter un organigramme</h1>

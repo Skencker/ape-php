@@ -5,22 +5,18 @@
     session_start();
 
     if(Security::verifAccessSession()) {
+        //connection à la basse de donnée
+        $db = Database::connect();
+        $table  = 'conseils_ecole';
+
+        //recupere l'id de l'image dans URL
+        if(!empty($_GET['id'])) {
+            $id = veryfInput($_GET['id']);
+            $data = selectdata($table, $id, $db);
+        }
         
-    //recupere l'id de l'image dans URL
-    if(!empty($_GET['id'])) {
-        $id = veryfInput($_GET['id']);
-      }
-      //connection à la basse de donnée
-      $db = Database::connect();
-  
-      $statement = $db->prepare('SELECT * FROM conseils_ecole WHERE id = :id');
-   $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
-    $statement->execute();
-  
-    $fichier = $statement->fetch(PDO::FETCH_ASSOC);
-    Database::disconnect();
-    
-    ?>
+        Database::disconnect();
+        ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,7 +28,7 @@
 
         <div class="container d-flex flex-column justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
 
-        <iframe class="m-5" id="iframe" width="700" height="600" src="../doc/<?php echo $fichier['fichier'] ?>"> </iframe>
+        <iframe class="m-5" id="iframe" width="700" height="600" src="../doc/<?php echo $data['fichier'] ?>"> </iframe>
         
             <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
       

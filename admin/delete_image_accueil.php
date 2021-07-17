@@ -6,52 +6,44 @@
     
     if(Security::verifAccessSession()) {
         
-        //fonction pour sécurisé les données
-        //   function veryfInput ($data) {
-        //     $data = trim($data);
-        //     $data = stripcslashes($data);
-        //     $data = htmlspecialchars($data);
-        //     return $data;
-        //   }
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
+    $table  = 'image_accueil';
+    // $image = '';
 
     if(!empty($_GET['id'])) {
-        $id = veryfInput($_GET['id']);
-        $statement = $db->prepare("SELECT * FROM image_accueil where id = :id");
-        $statement->bindValue(':id', $id);  
-        $statement->execute();
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
-        // $image = $data['nom'];
-        // $image =$data['image'];
-        // unlink("../images/$image");
-        Database::disconnect();
+        $idGet = veryfInput($_GET['id']);
+        $data = selectdata($table, $idGet, $db);
+        $image = $data['image'];
+        // $image =  "../images/{$data['image']}";
+        // unlink($image);
     }
-  
+    
     if(!empty($_POST)) {
-        $id = veryfInput($_POST['id']);
-        $db = Database::connect();
-        $statement = $db->prepare("DELETE FROM image_accueil WHERE id = :id");
-        $statement->bindValue(':id', $id); 
-        $statement->execute(); 
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
-        Database::disconnect();
+        $idPost = veryfInput($_POST['id']);
+        $databd = selectdata($table, $idPost, $db);
+        $imagePost =  "../images/{$databd['image']}";
+        unlink($imagePost);
+        $data = deletdata($table, $idPost, $db);
+       
         header("Location: connect.php"); 
     }
-
+    
+    Database::disconnect();
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <?php
-    require_once 'headerAdmin.php';
+    // require_once 'headerAdmin.php';
+    var_dump(($image));
     ?> 
         <div class="container bg-light d-flex flex-column justify-content-center" style="height: 800px">
         <h1>Supprimer une image</h1>
               <br>
               <form action="delete_image_accueil.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
-                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+                <input type="hidden" name="id" value="<?php echo $idGet; ?>"/>
                 <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer l'image ?</p>
                 
           

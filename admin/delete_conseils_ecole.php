@@ -11,16 +11,17 @@
     $table = 'conseils_ecole';
 
     if(!empty($_GET['id'])) {
-        $id = veryfInput($_GET['id']);
-        $data = selectdata($table, $id, $db);
+        $idGet = veryfInput($_GET['id']);
+        $data = selectdata($table, $idGet, $db);
         $fichier =$data['fichier']; 
     }
     
     if(!empty($_POST)) {
-        $id = veryfInput($_POST['id']);
-        $data = deletdata($table, $id, $db);
-        $fichier =$data['fichier'];
-        // unlink("../doc/$fichier");
+        $idPost = veryfInput($_POST['id']);        
+        $databd = selectdata($table, $idPost, $db);
+        $fichierPost =  "../doc/{$databd['fichier']}";
+        unlink($fichierPost);
+        $data = deletdata($table, $idPost, $db);
         header("Location: connect.php"); 
     }
     Database::disconnect();
@@ -36,7 +37,7 @@
               <br>
               <form action="delete_conseils_ecole.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
-                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+                <input type="hidden" name="id" value="<?php echo $idGet; ?>"/>
                 <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer le fichier ?</p>
                 
           

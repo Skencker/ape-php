@@ -5,21 +5,17 @@
     session_start();
 
     if(Security::verifAccessSession()) {
+        //connection à la basse de donnée
+          $db = Database::connect();
+          $table  = 'parents_delegues';
+
         //recupere l'id de l'image dans URL
         if(!empty($_GET['id'])) {
-        $id = veryfInput($_GET['id']);
-    }
-      //connection à la basse de donnée
-        $db = Database::connect();
-        $statement = $db->prepare('SELECT UPPER(nom) AS nom, prenom, classe, fonction, image FROM parents_delegues WHERE id = :id ');
-        $statement->bindValue(':id', $id, PDO :: PARAM_INT); 
-        $statement-> execute(); 
-        $parent = $statement->fetch(PDO::FETCH_ASSOC);
+            $id = veryfInput($_GET['id']);
+            $parent = selectdata($table, $id, $db);
+        }
         Database::disconnect();
-    
-
-  
-    ?>
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -34,8 +30,8 @@
                             <img class="img img-fluid" src="../images/<?php echo $parent['image'] ?> "alt="">
                         </div>
                         <div class="col p-5">
-                            <h2 > Nom : <?php echo $parent['nom'] ?></h2>
-                            <h2 > Prénom :  <?php echo $parent['prenom']?></h2>
+                            <h2 > Nom : <?php echo strtoupper($parent['nom']) ?></h2>
+                            <h2 > Prénom :  <?php echo ucfirst($parent['prenom'])?></h2>
                             <hr>
                             <h4 > Fonction :  <?php echo $parent['fonction'] ?></h4>
                             <p > Classe :  <?php echo $parent['classe'] ?></p>

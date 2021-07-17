@@ -5,40 +5,27 @@
     session_start();
 
     if(Security::verifAccessSession()) {
-            
-        //fonction pour sécurisé les données
-        //   function veryfInput ($data) {
-        //     $data = trim($data);
-        //     $data = stripcslashes($data);
-        //     $data = htmlspecialchars($data);
-        //     return $data;
-        //   }
+
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
+    $table  = 'organigramme';
 
     if(!empty($_GET['id'])) {
-        $id = veryfInput($_GET['id']);
-        $statement = $db->prepare("SELECT * FROM organigramme where id = :id");
-        $statement->bindParam(':id', $id);  
-        $statement->execute();
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
+        $idGet = veryfInput($_GET['id']);
+        $data = selectdata($table, $idGet, $db);
         $fichier =$data['fichier'];
-        Database::disconnect();
     }
     
     if(!empty($_POST)) {
-        $id = veryfInput($_POST['id']);
-        $db = Database::connect();
-        $statement = $db->prepare("DELETE FROM organigramme WHERE id = :id");
-        $statement->bindParam(':id', $id); 
-        $statement->execute(); 
-        $data = $statement->fetch(PDO::FETCH_ASSOC);
-        $fichier =$data['fichier'];
-        unlink("../doc/organigramme/$fichier");
-        Database::disconnect();
+        $idPost = veryfInput($_POST['id']);        
+        $databd = selectdata($table, $idPost, $db);
+        $fichierPost =  "../doc/organigramme/{$databd['fichier']}";
+        unlink($fichierPost);
+        $data = deletdata($table, $idPost, $db);
         header("Location: connect.php"); 
     }
-
+    
+    Database::disconnect();
 
 
 ?>
@@ -50,13 +37,10 @@
     ?> 
         <div class="container bg-light d-flex flex-column justify-content-center" style="height: 800px">
         <h1>Supprimer un organigramme</h1>
-        <?php
-            // var_dump($suppr);
-        ?>
-              <br>
+                      <br>
               <form action="delete_organigramme.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
-                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+                <input type="hidden" name="id" value="<?php echo $idGet; ?>"/>
                 <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer le fichier ?</p>
                 
           

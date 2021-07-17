@@ -8,19 +8,10 @@
             
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
-
-
+    $table  = 'conseils_ecole';
 
       //initilisation des variables
   $fichier = $fichierError = $nameError = $name = $date = $dateError = "";
-
-  //fonction pour verifier l'input 
-//   function veryfInput ($var) {
-//     $var = trim($var); //enlever espace etc....
-//     $var = stripslashes($var); //enlever les \
-//     $var = htmlspecialchars($var); //enlever le code html etc
-//     return $var;
-//   };
 
     // Vérifier si le formulaire a été soumis
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -79,12 +70,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     {
         // $db = Database::connect();
         $statement = $db->prepare("INSERT INTO conseils_ecole (nom, date, fichier) values(:nom, :date, :shaFileExtFichier)");
-        
         $statement->execute(array('nom'=>$name, 'date'=>$date, 'shaFileExtFichier'=>$shaFileExtFichier));
-        Database::disconnect();
         header("Location: connect.php");
     }
-
+    
+    Database::disconnect();
 ?>
 
 <!DOCTYPE html>

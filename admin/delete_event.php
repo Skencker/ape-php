@@ -9,17 +9,21 @@
     $table  = 'evenement';
 
     if(!empty($_GET['id'])) {
-        $id = veryfInput($_GET['id']);
-        $data = selectdata($table, $id, $db);
+        $idGet = veryfInput($_GET['id']);
+        $data = selectdata($table, $idGet, $db);
         $name = $data['nom'];
         $image =$data['image'];
-        Database::disconnect();
     }
     
     if(!empty($_POST)) {
-        $id = veryfInput($_POST['id']);
-        $data = deletdata($table, $id, $db);
-        // unlink("../images/$image");
+        $idPost = veryfInput($_POST['id']);
+        $databd = selectdata($table, $idPost, $db);
+        $imagePost =  "../images/{$databd['image']}";
+        $fichierPost =  "../doc/{$databd['fichier']}";
+        unlink($imagePost);
+        unlink($fichierPost);
+        $data = deletdata($table, $idPost, $db);
+       
         header("Location: connect.php"); 
     }
     
@@ -38,8 +42,8 @@
               <br>
               <form action="delete_event.php" method="post" class="form" role="form">
               <!-- input invisible qui recupere l'id  -->
-                <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-                <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer l'évènement :"  <?php echo $name; ?>. " ?</p>
+                <input type="hidden" name="id" value="<?php echo $idGet; ?>"/>
+                <p class='alert alert-warning text-dark'>Etes vous sur de vouloir supprimer l'évènement ?</p>
                 
           
               <div class='form-action'>
