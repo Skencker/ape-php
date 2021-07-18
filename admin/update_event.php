@@ -5,6 +5,7 @@
   session_start();
 
   $db = Database::connect();
+  $table  = 'evenement';
 
   if(Security::verifAccessSession()) {
       
@@ -20,10 +21,7 @@
 
     //recupere les donnee de la BDD
     $db = Database::connect();
-    $statement = $db->prepare('SELECT * FROM evenement WHERE id = :id');
-    $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
-    $statement->execute();
-    $data = $statement->fetch(PDO::FETCH_ASSOC);
+    $data = selectdata($table, $id, $db);
 
     $name = $data['nom'];
     $date = $data['date'];

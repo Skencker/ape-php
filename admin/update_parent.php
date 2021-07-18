@@ -14,13 +14,10 @@
     $isUploadSuccessImage        = false;
     //initilisation des variables
     $image = $imageError = $nameError = $name = $prenom = $prenomError = $fonction = $fonctionError = $classe  = $classeError  = $shaFileExtImage = "";
-
+    $table  = 'parents_delegues';
     //recupere les donnee de la BDD
     $db = Database::connect();
-    $statement = $db->prepare('SELECT * FROM parents_delegues WHERE id = :id');
-    $statement->bindValue(':id', $id, PDO :: PARAM_INT);  
-    $statement->execute();
-    $data = $statement->fetch(PDO::FETCH_ASSOC);
+    $data = selectdata($table, $id, $db);
 
     $name = $data['nom'];
     $prenom = $data['prenom'];
