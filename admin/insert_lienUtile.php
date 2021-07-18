@@ -6,49 +6,38 @@ $db = Database::connect();
 
 session_start();
 
-//fonction pour verifier l'input 
-// function veryfInput($var)
-// {
-//     $var = trim($var); //enlever espace etc....
-//     $var = stripslashes($var); //enlever les \
-//     $var = htmlspecialchars($var); //enlever le code html etc
-//     return $var;
-// }
-
 if(Security::verifAccessSession()) {
 
+    //initilisation des variables. 
+    // AJOUT DE VARIABLES $nbParentDelPerClass, $nbParentDelPerClassError
+    $name  = $href = $hrefError = $nameError = "";
 
-//initilisation des variables. 
-// AJOUT DE VARIABLES $nbParentDelPerClass, $nbParentDelPerClassError
-$name  = $href = $hrefError = $nameError = "";
+    if (!empty($_POST)) {
+        $name            = veryfInput($_POST['name']);
+        $href         = veryfInput($_POST['href']);
+        $isSuccess       = true;
 
-if (!empty($_POST)) {
-    $name            = veryfInput($_POST['name']);
-    $href         = veryfInput($_POST['href']);
-    $isSuccess       = true;
-
-    if (empty($name)) {
-        $nameError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
-    if (empty($href)) {
-        $hrefError = 'Ce champ ne peut pas être vide';
-        $isSuccess = false;
-    }
-  
-    //si tout va bien tu insert dans la BDD
-    if ($isSuccess) {
-        $db = Database::connect();
-        $statement = $db->prepare("INSERT INTO lienUtile (nom, href) values(:nom, :href)");
-        $statement->execute(array(
-            'nom'=>$name,
-            'href'=>$href
-        ));
-        Database::disconnect();
-        header("Location: connect.php");
-    }
+        if (empty($name)) {
+            $nameError = 'Ce champ ne peut pas être vide';
+            $isSuccess = false;
+        }
+        if (empty($href)) {
+            $hrefError = 'Ce champ ne peut pas être vide';
+            $isSuccess = false;
+        }
+    
+        //si tout va bien tu insert dans la BDD
+        if ($isSuccess) {
+            $db = Database::connect();
+            $statement = $db->prepare("INSERT INTO lienUtile (nom, href) values(:nom, :href)");
+            $statement->execute(array(
+                'nom'=>$name,
+                'href'=>$href
+            ));
+            Database::disconnect();
+            header("Location: connect.php");
+        }
 }
-
 
 ?>
 

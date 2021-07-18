@@ -14,8 +14,7 @@
         $idGet = veryfInput($_GET['id']);
         $data = selectdata($table, $idGet, $db);
         $fichier =$data['fichier'];
-    }
-    
+    } 
     if(!empty($_POST)) {
         $idPost = veryfInput($_POST['id']);        
         $databd = selectdata($table, $idPost, $db);
@@ -24,10 +23,7 @@
         $data = deletdata($table, $idPost, $db);
         header("Location: connect.php"); 
     }
-    
     Database::disconnect();
-
-
 ?>
 
 <!DOCTYPE html>

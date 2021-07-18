@@ -14,7 +14,7 @@
     $id = veryfInput ($_GET['id']);
     }
     $isSuccess        = true;
-    $isUploadSuccessImage        = false;
+    $isUploadSuccessImage   = false;
     $isUploadSuccessFichier        = false;
     //initilisation des variables
     $image = $imageError = $nameError = $name = $description = $descriptionError = $date = $dateError = $fichier = $shaFileExtImage = $fichierError = "";
@@ -52,70 +52,12 @@
         }
 
         if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0){
-            $allowed = array("jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-            $filename = $_FILES["image"]["name"];
-            $filetype = $_FILES["image"]["type"];
-            $filesize = $_FILES["image"]["size"];
-    
-            // Vérifie l'extension du fichier
-            $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            if(!array_key_exists($ext, $allowed)) 
-                $imageError = 'Veuillez sélectionner un format de fichier valide.';
-    
-            // Vérifie la taille du fichier - 5Mo maximum
-            $maxsize = 5 * 1024 * 1024;
-            if($filesize > $maxsize) 
-                $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
-    
-            // Vérifie le type MIME du fichier
-            if(in_array($filetype, $allowed)){
-                // Vérifie si le fichier existe avant de le télécharger.
-                    $shaFile = hash('sha256', $_FILES["image"]["name"]);
-    
-                    $shaFileExtImage = $shaFile . "." . array_search($filetype, $allowed);
-               
-                    move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $shaFileExtImage);
-                    echo "Votre fichier a été téléchargé avec succès.";
-                    $isSuccessImage = true;
-                    $isUploadSuccessImage = true;
-                
-            } else{
-                echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
-            }
+            verifImage($_FILES['image']);
         } else{
             echo $imageError;
         }
         if(isset($_FILES["fichier"]) && $_FILES["fichier"]["error"] == 0){
-            $allowed = array("pdf" => "application/pdf", "doc" => "application/doc", "docs" => "application/docs", "text" => "application/text");
-            $filename = $_FILES["fichier"]["name"];
-            $filetype = $_FILES["fichier"]["type"];
-            $filesize = $_FILES["fichier"]["size"];
-    
-            // Vérifie l'extension du fichier
-            $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            if(!array_key_exists($ext, $allowed)) 
-                $imageError = 'Veuillez sélectionner un format de fichier valide.';
-    
-            // Vérifie la taille du fichier - 5Mo maximum
-            $maxsize = 5 * 1024 * 1024;
-            if($filesize > $maxsize) 
-                $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
-    
-            // Vérifie le type MIME du fichier
-            if(in_array($filetype, $allowed)){
-                // Vérifie si le fichier existe avant de le télécharger.
-                    $shaFile = hash('sha256', $_FILES["fichier"]["name"]);
-    
-                    $shaFileExtFichier = $shaFile . "." . $ext;
-               
-                    move_uploaded_file($_FILES["fichier"]["tmp_name"], "../doc/" . $shaFile . "." . array_search($filetype, $allowed));
-                    echo "Votre fichier a été téléchargé avec succès.";
-                    $isSuccessFichier = true;
-                    $isUploadSuccessFichier = true;
-                
-            } else{
-                echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
-            }
+           verifFichier($_FILES['fichier']);
         } else{
             echo $fichierError;
         }
@@ -155,7 +97,7 @@
 <html lang="fr">
 <?php
     require_once 'headerAdmin.php';
-    ?> 
+?> 
 
         <div class="container bg-light d-flex flex-column mt-5 pt-5  align-items-center" style="height: 1000px">
             <h1>Modification de l'evenement "<span class="color:red"> <?php echo $name; ?> </span>"</h1>
@@ -212,7 +154,7 @@
         <p>Copyright © APE Saint-Pierre-de-Lages</p>
     </footer>
     <?php
-}else {
+} else {
     header('location: connect.php');
 }
 ?>

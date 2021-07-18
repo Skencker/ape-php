@@ -18,23 +18,17 @@
 
 		// PASSWORD = PASSWORD TWO
 		if($password != $password_two){
-
 			header('location: register.php?error=1&message=Vos mots de passe ne sont pas identiques.');
 			exit();
-
 		}
-
 		// ADRESSE EMAIL VALIDE
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 
 			header('location: register.php?error=1&message=Votre adresse email est invalide.');
 			exit();
-
 		}
-
 		// EMAIL DEJA UTILISEE
 		$req = $db->prepare("SELECT email FROM user WHERE email = :email");
-		// $req = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = :email");
         $req->bindValue(':email', $email, PDO :: PARAM_STR);  
         $req->execute();
 
@@ -58,10 +52,9 @@
 
 		header('location: connect.php?success=1');
 		exit();
-
 	}
 
-    ?>
+?>
 
 <!DOCTYPE html>
 <html lang="fr">

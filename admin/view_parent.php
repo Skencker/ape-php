@@ -21,21 +21,20 @@
 <html lang="fr">
 <?php
     require_once 'headerAdmin.php';
-    ?> 
-
+?> 
         <div class="container  bg-light p-5 mt-5" style="height: 800px" >
             <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>
         <div class="row d-flex justify-content-center align-items-center">
-                          <div class="col-lg-6 col-md-12 ">
-                            <img class="img img-fluid" src="../images/<?php echo $parent['image'] ?> "alt="">
-                        </div>
-                        <div class="col p-5">
-                            <h2 > Nom : <?php echo strtoupper($parent['nom']) ?></h2>
-                            <h2 > Prénom :  <?php echo ucfirst($parent['prenom'])?></h2>
-                            <hr>
-                            <h4 > Fonction :  <?php echo $parent['fonction'] ?></h4>
-                            <p > Classe :  <?php echo $parent['classe'] ?></p>
-                        </div>
+            <div class="col-lg-6 col-md-12 ">
+            <img class="img img-fluid" src="../images/<?php echo $parent['image'] ?> "alt="">
+        </div>
+        <div class="col p-5">
+            <h2 > Nom : <?php echo strtoupper($parent['nom']) ?></h2>
+            <h2 > Prénom :  <?php echo ucfirst($parent['prenom'])?></h2>
+            <hr>
+            <h4 > Fonction :  <?php echo $parent['fonction'] ?></h4>
+            <p > Classe :  <?php echo $parent['classe'] ?></p>
+        </div>
         </div>
 
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
@@ -44,8 +43,7 @@
     <?php
 }else {
     header('location: connect.php');
-}
-        
+}     
 ?>
 </body>
  <!--Bootstrap-->

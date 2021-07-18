@@ -49,36 +49,7 @@
         }
 
         if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0){
-            $allowed = array("jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-            $filename = $_FILES["image"]["name"];
-            $filetype = $_FILES["image"]["type"];
-            $filesize = $_FILES["image"]["size"];
-    
-            // Vérifie l'extension du fichier
-            $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            if(!array_key_exists($ext, $allowed)) 
-                $imageError = 'Veuillez sélectionner un format de fichier valide.';
-    
-            // Vérifie la taille du fichier - 5Mo maximum
-            $maxsize = 5 * 1024 * 1024;
-            if($filesize > $maxsize) 
-                $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
-    
-            // Vérifie le type MIME du fichier
-            if(in_array($filetype, $allowed)){
-                // Vérifie si le fichier existe avant de le télécharger.
-                    $shaFile = hash('sha256', $_FILES["image"]["name"]);
-    
-                    $shaFileExtImage = $shaFile . "." . array_search($filetype, $allowed);
-               
-                    move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $shaFileExtImage);
-                    echo "Votre fichier a été téléchargé avec succès.";
-                    $isSuccessImage = true;
-                    $isUploadSuccessImage = true;
-                
-            } else{
-                echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
-            }
+            verifImage($_FILES['image']);
         } else{
             echo $imageError;
         }
@@ -91,7 +62,8 @@
             $statement->execute(array('nom'=>$name, 'prenom'=>$prenom, 'classe'=>$classe,'image'=>$shaFileExtImage, 'fonction'=>$fonction, 'id'=>$id));
             Database::disconnect();
             header("Location: connect.php");
-        } else if (!$isUploadSuccessImage && $isSuccess) {
+        }
+        else if (!$isUploadSuccessImage && $isSuccess) {
             $db = Database::connect();
             $statement = $db->prepare("UPDATE parents_delegues  set nom = :nom, prenom = :prenom, classe = :classe, fonction = :fonction WHERE id = :id");
             $statement->execute(array('nom'=>$name, 'prenom'=>$prenom, 'classe'=>$classe, 'fonction'=>$fonction, 'id'=>$id));

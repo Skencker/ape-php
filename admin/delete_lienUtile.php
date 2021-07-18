@@ -13,18 +13,13 @@
     if(!empty($_GET['id'])) {
         $idGet = veryfInput($_GET['id']);
         $data = selectdata($table, $idGet, $db);
-
     }
-    
     if(!empty($_POST)) {
         $idPost = veryfInput($_POST['id']);
         $data = deletdata($table, $idPost, $db);
         header("Location: connect.php"); 
     }
-    
     Database::disconnect();
-
-
 ?>
 
 <!DOCTYPE html>

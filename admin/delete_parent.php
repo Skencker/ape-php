@@ -10,7 +10,6 @@ session_start();
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
     $table  = 'parents_delegues';
-    
 
     if(!empty($_GET['id'])) {
         $idGet = veryfInput($_GET['id']);
@@ -18,15 +17,12 @@ session_start();
         $name = $data['nom'];
         $image =$data['image'];
     }
-    
-    
     if(!empty($_POST)) {
         $idPost = veryfInput($_POST['id']);
         $databd = selectdata($table, $idPost, $db);
         $imagePost =  "../images/{$databd['image']}";
         unlink($imagePost);
         $data = deletdata($table, $idPost, $db);
-       
         header("Location: connect.php"); 
     }
     Database::disconnect();

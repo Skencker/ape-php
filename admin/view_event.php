@@ -22,7 +22,7 @@
 <html lang="fr">
 <?php
     require_once 'headerAdmin.php';
-    ?> 
+?> 
 
         <div class="container  bg-light p-5 mt-5" >
             <a href="connect.php" class="btn btn-primary mb-5 " > <i class="bi bi-arrow-return-left p-1"></i> Retour</a>

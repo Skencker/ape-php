@@ -9,7 +9,6 @@
     //connection a la fonction statique (::) de la bdd 
     $db = Database::connect();
     $table  = 'image_accueil';
-    // $image = '';
 
     if(!empty($_GET['id'])) {
         $idGet = veryfInput($_GET['id']);
@@ -18,7 +17,6 @@
         // $image =  "../images/{$data['image']}";
         // unlink($image);
     }
-    
     if(!empty($_POST)) {
         $idPost = veryfInput($_POST['id']);
         $databd = selectdata($table, $idPost, $db);
@@ -28,15 +26,14 @@
        
         header("Location: connect.php"); 
     }
-    
     Database::disconnect();
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <?php
-    // require_once 'headerAdmin.php';
-    var_dump(($image));
+    require_once 'headerAdmin.php';
+   
     ?> 
         <div class="container bg-light d-flex flex-column justify-content-center" style="height: 800px">
         <h1>Supprimer une image</h1>

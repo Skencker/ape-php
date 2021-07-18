@@ -11,7 +11,10 @@ if(Security::verifAccessSession()) {
 
 //initilisation des variables. 
 // AJOUT DE VARIABLES $nbParentDelPerClass, $nbParentDelPerClassError
-$image = $imageError = $nameError = $name = $fonction = $fonctionError = $prenom = $prenomError = $classe = $classeError = $nbParentDelPerClass = $nbParentDelPerClassError = "";
+$image = $imageError = $nameError = $name = $fonction = $fonctionError = $prenom = $prenomError = $classe = $classeError = $nbParentDelPerClass = $shaFileExt = $nbParentDelPerClassError = "";
+
+$isSuccess = true;
+$isUploadSuccessImage = false;
 
 // Récupère le type de classe par défaut : "PS / MS"
 $typeClasse = $_POST['classe'];
@@ -58,42 +61,13 @@ if (!empty($_POST)) {
     }
 
     if(isset($_FILES["files"]) && $_FILES["files"]["error"] == 0){
-        $allowed = array("jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-        $filename = $_FILES["files"]["name"];
-        $filetype = $_FILES["files"]["type"];
-        $filesize = $_FILES["files"]["size"];
-
-        // Vérifie l'extension du fichier
-        $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        if(!array_key_exists($ext, $allowed)) 
-            $imageError = 'Veuillez sélectionner un format de fichier valide.';
-
-        // Vérifie la taille du fichier - 5Mo maximum
-        $maxsize = 5 * 1024 * 1024;
-        if($filesize > $maxsize) 
-            $imageError = 'La taille du fichier est supérieure à la limite autorisée.';
-
-        // Vérifie le type MIME du fichier
-        if(in_array($filetype, $allowed)){
-            // Vérifie si le fichier existe avant de le télécharger.
-                $shaFile = hash('sha256', $_FILES["files"]["name"]);
-
-                $shaFileExt = $shaFile . "." . array_search($filetype, $allowed);
-           
-                move_uploaded_file($_FILES["files"]["tmp_name"], "../images/" . $shaFileExt);
-                echo "Votre fichier a été téléchargé avec succès.";
-                $isSuccess = true;
-                $isUploadSuccess = true;
-            
-        } else{
-            echo "Error: Il y a eu un problème de téléchargement de votre fichier. Veuillez réessayer."; 
-        }
+        verifImage($_FILES['files']);
     } else{
         echo $imageError;
     }
     
     //si tout va bien tu insert dans la BDD
-    if ($isSuccess && $isUploadSuccess) {
+    if ($isSuccess && $isUploadSuccessImage) {
         $db = Database::connect();
         $statement = $db->prepare("INSERT INTO parents_delegues (nom, prenom, fonction, classe, image) values(:nom, :prenom, :fonction, :classe, :image)");
         $statement->execute(array(
@@ -101,14 +75,12 @@ if (!empty($_POST)) {
             'prenom'=>$prenom,
             'fonction'=>$fonction,
             'classe'=>$classe,
-            'image'=>$shaFileExt
+            'image'=>$shaFileExtImage
         ));
         Database::disconnect();
         header("Location: connect.php");
     }
 }
-
-
 ?>
 
 <!DOCTYPE html>

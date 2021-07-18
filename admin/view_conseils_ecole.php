@@ -14,7 +14,6 @@
             $id = veryfInput($_GET['id']);
             $data = selectdata($table, $id, $db);
         }
-        
         Database::disconnect();
         ?>
 
@@ -22,19 +21,11 @@
 <html lang="fr">
 <?php
     require_once 'headerAdmin.php';
-    ?> 
-
-  
-
+?> 
         <div class="container d-flex flex-column justify-content-center align-items-center bg-light p-5 mt-5" style="height: 800px" >
-
         <iframe class="m-5" id="iframe" width="700" height="600" src="../doc/<?php echo $data['fichier'] ?>"> </iframe>
-        
             <a href="connect.php" class="btn btn-primary m-2" > <i class="bi bi-arrow-return-left p-1"></i> Retour </a>
-      
         </div>
-
-
         <footer class="container-fluid d-flex justify-content-evenly pt-3 bg-light fixed-bottom">
         <p>Copyright © APE Saint-Pierre-de-Lages</p>
     </footer>

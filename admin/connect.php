@@ -9,24 +9,17 @@ session_start();
     if(!empty($_POST['email']) && !empty($_POST['password'])) {
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
-
-     
-
         //ADRESS EMAIL SYNTAXE
-
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             header('location: connect.php?error=1&message=Votre adresse email est invalide');
             exit();
         }
-
         // CHIFFRAGE DU MOT DE PASSE
         $password = password_verify($password, $hash);
-
         // EMAIL DEJA UTILISE
         $statement = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = :email");
         $statement->bindParam(':email', $email); 
         $statement->execute();
-
 
         while($email_verification = $statement->fetch()){
             if($email_verification['numberEmail'] != 1){

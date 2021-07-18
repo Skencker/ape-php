@@ -2,24 +2,18 @@
 <?php 
     require_once 'database.php';
     require_once 'security.php';
-    
 	session_start();
 
 if(Security::verifAccessSession()) {
     //connection à la basse de donnée
     $db = Database::connect();
     $table  = 'image_accueil';
-
-
     //recupere l'id de l'image dans URL
     if(!empty($_GET['id'])) {
         $id = veryfInput($_GET['id']);
         $data = selectdata($table, $id, $db);
       }
-
-    Database::disconnect();
-
-  
+    Database::disconnect(); 
 ?>
 
 <!DOCTYPE html>
@@ -40,14 +34,9 @@ if(Security::verifAccessSession()) {
         <?php
 }else {
     header('location: connect.php');
-}
-        
+}       
 ?>
-
-
-
-
-    
+  
 </body>
  <!--Bootstrap-->
  <script

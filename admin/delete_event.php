@@ -23,13 +23,9 @@
         unlink($imagePost);
         unlink($fichierPost);
         $data = deletdata($table, $idPost, $db);
-       
         header("Location: connect.php"); 
-    }
-    
+    }   
     Database::disconnect();
-
-
 ?>
 
 <!DOCTYPE html>
