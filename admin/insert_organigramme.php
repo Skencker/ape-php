@@ -36,13 +36,7 @@
 
         //si tout va bien tu insert dans la BDD
         if($isSuccess && $isUploadSuccessFichier) 
-        {
-            $db = Database::connect();
-            $statement = $db->prepare("INSERT INTO organigramme (nom, date, fichier) values(:nom, :date, :fichier)");
-            $statement->execute(array('nom'=>$name, 'date'=>$date, 'fichier'=>$shaFileExtFichier));
-            Database::disconnect();
-            header("Location: connect.php");
-        }
+        { insertOrganigramme ($table, $db, $paramTable, $value); }       
 
 ?>
 

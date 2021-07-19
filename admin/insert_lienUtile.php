@@ -28,15 +28,9 @@ if(Security::verifAccessSession()) {
     
         //si tout va bien tu insert dans la BDD
         if ($isSuccess) {
-            $db = Database::connect();
-            $statement = $db->prepare("INSERT INTO lienUtile (nom, href) values(:nom, :href)");
-            $statement->execute(array(
-                'nom'=>$name,
-                'href'=>$href
-            ));
-            Database::disconnect();
-            header("Location: connect.php");
-        }
+            insertLien ($table, $db, $paramTable, $value); 
+         }
+        Database::disconnect();
 }
 
 ?>

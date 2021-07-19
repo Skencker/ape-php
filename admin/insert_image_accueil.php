@@ -9,7 +9,7 @@
         //connection a la fonction statique (::) de la bdd 
         $db = Database::connect();
         //initilisation des variables
-        $image = $imageError = $nameError = $name = $shaFileExtImage = "";
+        $image = $imageError = $nameError = $name = $shaFileExtImage = $paramTable = $value ="";
 
         $isSuccess = true;
         $isUploadSuccessImage = false;
@@ -32,20 +32,17 @@
         }
             //si tout va bien tu insert dans la BDD
             if($isSuccess && $isUploadSuccessImage) 
-            {
-                $db = Database::connect();
-                $statement = $db->prepare("INSERT INTO image_accueil (nom, image) values(:nom, :image)");
-                $statement->execute(array('nom'=>$name, 'image'=>$shaFileExtImage));
-                Database::disconnect();
-                header("Location: connect.php");
-            }
-    
+            { insertImage($table, $db, $paramTable, $value);}
+            
+    Database::disconnect();
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <?php
     require_once 'headerAdmin.php';
+    // var_dump($paramTable);
+    // var_dump($value);
     ?> 
         <div class="container bg-light d-flex flex-column justify-content-center align-items-center" style="height: 800px">
             <h1>Ajouter des images au diapo de la page d'accueil</h1>

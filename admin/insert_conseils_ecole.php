@@ -11,7 +11,7 @@
     $table  = 'conseils_ecole';
 
       //initilisation des variables
-    $fichier = $fichierError = $nameError = $name = $date = $dateError = $shaFileExtFichier= "";
+    $fichier = $fichierError = $nameError = $name = $date = $dateError = $shaFileExtFichier=  $paramTable = $value ="";
     $isSuccess        = true;
     $isUploadSuccessFichier= false;
 
@@ -40,12 +40,12 @@
     }
         //si tout va bien tu insert dans la BDD
         if($isSuccess &&  $isUploadSuccessFichier) 
-        {
+         { insertConseil($table, $db, $paramTable, $value);}
             // $db = Database::connect();
-            $statement = $db->prepare("INSERT INTO conseils_ecole (nom, date, fichier) values(:nom, :date, :shaFileExtFichier)");
-            $statement->execute(array('nom'=>$name, 'date'=>$date, 'shaFileExtFichier'=>$shaFileExtFichier));
-            header("Location: connect.php");
-        }
+            // $statement = $db->prepare("INSERT INTO conseils_ecole (nom, date, fichier) values(:nom, :date, :shaFileExtFichier)");
+            // $statement->execute(array('nom'=>$name, 'date'=>$date, 'shaFileExtFichier'=>$shaFileExtFichier));
+            // header("Location: connect.php");
+        
         
         Database::disconnect();
     ?>
