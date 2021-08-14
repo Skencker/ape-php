@@ -27,6 +27,8 @@
        
         <link rel="stylesheet" href="../style.css" />
         <title>APE SPDL ADMIN</title>
+        <!---Balise meta robot pour pas être indexer sur google une securité mais ne suffit pas-->
+        <meta name="robots" content="noindex, nofollow">
     </head>
 <body>
     <header class="">

@@ -14,7 +14,7 @@ session_start();
             header('location: connect.php?error=1&message=Votre adresse email est invalide');
             exit();
         }
-        // CHIFFRAGE DU MOT DE PASSE
+        // Verif CHIFFRAGE DU MOT DE PASSE
         $password = password_verify($password, $hash);
         // EMAIL DEJA UTILISE
         $statement = $db->prepare("SELECT count(*) as numberEmail FROM user WHERE email = :email");
